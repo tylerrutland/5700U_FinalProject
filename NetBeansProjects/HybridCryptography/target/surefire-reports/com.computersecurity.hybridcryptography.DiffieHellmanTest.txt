@@ -1,16 +1,14 @@
 -------------------------------------------------------------------------------
 Test set: com.computersecurity.hybridcryptography.DiffieHellmanTest
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.614 sec <<< FAILURE!
-testSharedKey(com.computersecurity.hybridcryptography.DiffieHellmanTest)  Time elapsed: 0.574 sec  <<< ERROR!
+Tests run: 2, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 4.806 sec <<< FAILURE!
+testSharedKey(com.computersecurity.hybridcryptography.DiffieHellmanTest)  Time elapsed: 2.821 sec  <<< ERROR!
 java.lang.IllegalArgumentException: 'min' may not be greater than 'max'
 	at org.bouncycastle.util.BigIntegers.createRandomInRange(Unknown Source)
 	at org.bouncycastle.crypto.generators.DHKeyGeneratorHelper.calculatePrivate(Unknown Source)
 	at org.bouncycastle.crypto.generators.DHBasicKeyPairGenerator.generateKeyPair(Unknown Source)
 	at org.bouncycastle.jcajce.provider.asymmetric.dh.KeyPairGeneratorSpi.generateKeyPair(Unknown Source)
-	at com.computersecurity.hybridcryptography.domain.DiffieHellman.getKeyPair(DiffieHellman.java:68)
-	at com.computersecurity.hybridcryptography.domain.DiffieHellman.getKeyPairA(DiffieHellman.java:50)
-	at com.computersecurity.hybridcryptography.DiffieHellmanTest.testSharedKey(DiffieHellmanTest.java:42)
+	at com.computersecurity.hybridcryptography.DiffieHellmanTest.testSharedKey(DiffieHellmanTest.java:53)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)

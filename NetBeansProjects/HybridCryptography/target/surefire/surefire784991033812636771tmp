@@ -1,0 +1,8 @@
+#surefire
+#Wed Apr 13 16:55:24 EDT 2016
+maven.ext.class.path=C\:\\Program Files\\NetBeans 8.1\\java\\maven-nblib\\netbeans-eventspy.jar
+user.dir=C\:\\Users\\Steve\\Documents\\5700U_FinalProject\\NetBeansProjects\\HybridCryptography
+file.encoding=UTF-8
+localRepository=C\:\\Users\\Steve\\.m2\\repository
+basedir=C\:\\Users\\Steve\\Documents\\5700U_FinalProject\\NetBeansProjects\\HybridCryptography
+test=com.computersecurity.hybridcryptography.DiffieHellmanTest
