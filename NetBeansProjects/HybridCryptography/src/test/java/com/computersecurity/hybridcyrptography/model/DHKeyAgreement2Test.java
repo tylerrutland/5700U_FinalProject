@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.computersecurity.hybridcryptography;
+package com.computersecurity.hybridcyrptography.model;
 
 import com.computersecurity.hybridcryptography.model.DHKeyAgreement2;
 import static org.junit.Assert.assertEquals;
@@ -20,7 +20,7 @@ public class DHKeyAgreement2Test {
         DHKeyAgreement2 dh = new DHKeyAgreement2(512);
         boolean expected = true;
         boolean result = dh.getSecretKeyA().equals(dh.getSecretKeyB());
-        assertEquals("Same Key! ", expected, result);
+        assertEquals("Same key! ", expected, result);
     }
 
 }

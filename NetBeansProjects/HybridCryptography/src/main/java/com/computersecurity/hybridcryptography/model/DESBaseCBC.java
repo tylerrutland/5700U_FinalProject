@@ -5,13 +5,14 @@
  */
 package com.computersecurity.hybridcryptography.model;
 
+import java.io.IOException;
+import java.security.AlgorithmParameters;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.KeyAgreement;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 
@@ -19,42 +20,21 @@ import javax.crypto.SecretKey;
  *
  * @author sm6668
  */
-public class DESBaseDHKeyAgreement2 {
+public class DESBaseCBC extends DESBase {
 
-    private DHKeyAgreement2 dh;
+    private static final String CIPHER = "DES/CBC/PKCS5Padding";
     private Cipher cipher;
-    private SecretKey secretKeyA, secretKeyB;
 
-    public DESBaseDHKeyAgreement2(DHKeyAgreement2 dhk) {
+    public DESBaseCBC() {
         try {
-            dh = dhk;
-            dh.getSecretKeyA();//Sets public key info.
-            dh.getSecretKeyB();//Sets public key info.
-            KeyAgreement kab = dh.getKeyAgreementB();
-            kab.doPhase(dh.getPublicKeyA(), true);
-            secretKeyB = kab.generateSecret("DES");
-
-            KeyAgreement kaa = dh.getKeyAgreementA();
-            kaa.doPhase(dh.getPublicKeyB(), true);
-            secretKeyA = kaa.generateSecret("DES");
-            cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
-
-        } catch (InvalidKeyException |
-                IllegalStateException |
-                NoSuchAlgorithmException |
+            cipher = Cipher.getInstance(CIPHER);
+        } catch (NoSuchAlgorithmException |
                 NoSuchPaddingException ex) {
 
             System.out.println(ex);
 
         }
-    }
 
-    public SecretKey getSecretKeyA() {
-        return secretKeyA;
-    }
-
-    public SecretKey getSecretKeyB() {
-        return secretKeyB;
     }
 
     public byte[] getCipherText(byte[] plaintext, SecretKey key) {
@@ -75,10 +55,17 @@ public class DESBaseDHKeyAgreement2 {
     public byte[] getPlainText(byte[] ciphertext, SecretKey key) {
         try {
 
-            cipher.init(Cipher.DECRYPT_MODE, key);
+            byte[] encodedParams = cipher.getParameters().getEncoded();
+            AlgorithmParameters params = AlgorithmParameters.getInstance("DES");
+            params.init(encodedParams);
+            
+            cipher.init(Cipher.DECRYPT_MODE, key, params);
             return cipher.doFinal(ciphertext);
 
-        } catch (InvalidKeyException |
+        } catch (IOException 
+                | NoSuchAlgorithmException |
+                InvalidKeyException |
+                InvalidAlgorithmParameterException |
                 IllegalBlockSizeException |
                 BadPaddingException ex) {
 
@@ -87,5 +74,4 @@ public class DESBaseDHKeyAgreement2 {
 
         }
     }
-
 }
