@@ -16,7 +16,6 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
@@ -159,7 +158,7 @@
       </BorderPane>
    </left>
    <top>
-      <Label maxWidth="1.7976931348623157E308" prefHeight="50.0" text="Diffie-Helman Key Transmission Protocol" BorderPane.alignment="CENTER">
+      <Label maxWidth="1.7976931348623157E308" prefHeight="50.0" text="Diffie-Hellman Key Exchange Protocol" BorderPane.alignment="CENTER">
          <font>
             <Font size="25.0" />
          </font>

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.computersecurity.hybridcryptography.domain;
+package com.computersecurity.hybridcryptography.model;
 
 import java.security.AlgorithmParameterGenerator;
 import java.security.InvalidAlgorithmParameterException;
@@ -57,31 +57,28 @@ public class DHKeyAgreement2 {
         }
     }
 
+    public DHParameterSpec getDHParameterSpec() {
+        return dhParamSpec;
+    }
+
     public void setSize(int size) {
         paramGen.init(size);
     }
 
-    private byte[] publicKeyEncodedA() throws InvalidAlgorithmParameterException, InvalidKeyException, NoSuchAlgorithmException {
-        KeyPairGenerator kpg = KeyPairGenerator.getInstance("DH");
-        kpg.initialize(dhParamSpec);
-        KeyPair kp = kpg.generateKeyPair();
-        keyAgreeA.init(kp.getPrivate());
-        return kp.getPublic().getEncoded();
+    public PublicKey getPublicKeyA() {
+        return publicKeyA;
     }
 
-    private DHParameterSpec sendPublicKeyEncoded(byte[] pke) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        KeyFactory kf = KeyFactory.getInstance("DH");
-        x509KeySpec = new X509EncodedKeySpec(pke);
-        publicKeyA = kf.generatePublic(x509KeySpec);
-        return ((DHPublicKey) publicKeyA).getParams();
+    public PublicKey getPublicKeyB() {
+        return publicKeyB;
     }
 
-    private byte[] publicKeyEncodedB(DHParameterSpec dhps) throws InvalidAlgorithmParameterException, InvalidKeyException, NoSuchAlgorithmException {
-        KeyPairGenerator kpg = KeyPairGenerator.getInstance("DH");
-        kpg.initialize(dhps);
-        KeyPair kp = kpg.generateKeyPair();
-        keyAgreeB.init(kp.getPrivate());
-        return kp.getPublic().getEncoded();
+    public KeyAgreement getKeyAgreementA() throws InvalidKeyException {
+        return keyAgreeA;
+    }
+
+    public KeyAgreement getKeyAgreementB() throws InvalidKeyException {
+        return keyAgreeB;
     }
 
     public String getSecretKeyA() {
@@ -105,6 +102,29 @@ public class DHKeyAgreement2 {
         } catch (InvalidKeyException ex) {
             return null;
         }
+    }
+
+    private byte[] publicKeyEncodedA() throws InvalidAlgorithmParameterException, InvalidKeyException, NoSuchAlgorithmException {
+        KeyPairGenerator kpg = KeyPairGenerator.getInstance("DH");
+        kpg.initialize(dhParamSpec);
+        KeyPair kp = kpg.generateKeyPair();
+        keyAgreeA.init(kp.getPrivate());
+        return kp.getPublic().getEncoded();
+    }
+
+    private DHParameterSpec sendPublicKeyEncoded(byte[] pke) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        KeyFactory kf = KeyFactory.getInstance("DH");
+        x509KeySpec = new X509EncodedKeySpec(pke);
+        publicKeyA = kf.generatePublic(x509KeySpec);
+        return ((DHPublicKey) publicKeyA).getParams();
+    }
+
+    private byte[] publicKeyEncodedB(DHParameterSpec dhps) throws InvalidAlgorithmParameterException, InvalidKeyException, NoSuchAlgorithmException {
+        KeyPairGenerator kpg = KeyPairGenerator.getInstance("DH");
+        kpg.initialize(dhps);
+        KeyPair kp = kpg.generateKeyPair();
+        keyAgreeB.init(kp.getPrivate());
+        return kp.getPublic().getEncoded();
     }
 
 

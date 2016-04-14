@@ -5,7 +5,7 @@
  */
 package com.computersecurity.hybridcryptography;
 
-import com.computersecurity.hybridcryptography.domain.DHKeyAgreement2;
+import com.computersecurity.hybridcryptography.model.DHKeyAgreement2;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
@@ -19,7 +19,8 @@ public class DHKeyAgreement2Test {
     public void testKeyAgreement() {
         DHKeyAgreement2 dh = new DHKeyAgreement2(512);
         boolean expected = true;
-        boolean result = (dh.getSecretKeyA().equals(dh.getSecretKeyB()));
+        boolean result = dh.getSecretKeyA().equals(dh.getSecretKeyB());
         assertEquals("Same Key! ", expected, result);
     }
+
 }
