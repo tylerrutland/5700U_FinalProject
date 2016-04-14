@@ -15,12 +15,17 @@ import org.junit.Test;
  */
 public class DHKeyAgreement2Test {
 
+    private DHKeyAgreement2 dh = new DHKeyAgreement2(512);
+
     @Test
     public void testKeyAgreement() {
-        DHKeyAgreement2 dh = new DHKeyAgreement2(512);
         boolean expected = true;
         boolean result = dh.getSecretKeyA().equals(dh.getSecretKeyB());
         assertEquals("Same key! ", expected, result);
     }
 
+    @Test
+    public void testNullKeys(){
+        
+    }
 }

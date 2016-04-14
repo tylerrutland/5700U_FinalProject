@@ -12,6 +12,7 @@ import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.InvalidParameterSpecException;
@@ -32,6 +33,7 @@ public class DHKeyAgreement2 {
     private AlgorithmParameterGenerator paramGen;
     private KeyAgreement keyAgreeA, keyAgreeB;
     private PublicKey publicKeyA, publicKeyB;
+    private PrivateKey privateKeyA, privateKeyB;
     private X509EncodedKeySpec x509KeySpec;
 
     public DHKeyAgreement2() {
@@ -66,12 +68,21 @@ public class DHKeyAgreement2 {
         paramGen.init(size);
     }
 
-    protected PublicKey getPublicKeyA() {
+    public PublicKey getPublicKeyA() {
         return publicKeyA;
+
     }
 
-    protected PublicKey getPublicKeyB() {
+    public PublicKey getPublicKeyB() {
         return publicKeyB;
+    }
+
+    public PrivateKey getPrivateKeyA() {
+        return privateKeyA;
+    }
+
+    public PrivateKey getPrivateKeyB() {
+        return privateKeyB;
     }
 
     public KeyAgreement getKeyAgreementA() throws InvalidKeyException {
@@ -110,6 +121,7 @@ public class DHKeyAgreement2 {
         kpg.initialize(dhParamSpec);
         KeyPair kp = kpg.generateKeyPair();
         keyAgreeA.init(kp.getPrivate());
+        privateKeyA = kp.getPrivate();
         return kp.getPublic().getEncoded();
     }
 
@@ -125,6 +137,7 @@ public class DHKeyAgreement2 {
         kpg.initialize(dhps);
         KeyPair kp = kpg.generateKeyPair();
         keyAgreeB.init(kp.getPrivate());
+        privateKeyB = kp.getPrivate();
         return kp.getPublic().getEncoded();
     }
 

@@ -35,7 +35,7 @@ public class DESBase extends DHKeyAgreement2 {
 
         } catch (InvalidKeyException |
                 IllegalStateException |
-                NoSuchAlgorithmException  ex) {
+                NoSuchAlgorithmException ex) {
 
             System.out.println(ex);
 
@@ -50,5 +50,5 @@ public class DESBase extends DHKeyAgreement2 {
     public SecretKey getDESKeyB() {
         return keyDESB;
     }
-    
+
 }
