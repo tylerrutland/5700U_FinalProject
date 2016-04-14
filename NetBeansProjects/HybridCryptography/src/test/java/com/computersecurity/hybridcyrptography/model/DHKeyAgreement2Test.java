@@ -15,7 +15,7 @@ import org.junit.Test;
  */
 public class DHKeyAgreement2Test {
 
-    private DHKeyAgreement2 dh = new DHKeyAgreement2(512);
+    private final DHKeyAgreement2 dh = new DHKeyAgreement2(512);
 
     @Test
     public void testKeyAgreement() {
