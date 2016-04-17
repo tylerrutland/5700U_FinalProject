@@ -1,9 +1,7 @@
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import javafx.application.Application;
 import javafx.beans.value.*;
 import javafx.event.ActionEvent;
@@ -248,7 +246,7 @@ public class FinalProject2 extends Application {
                             sender.setUserAddress(senderName.getText());
                             sender.setReceiverAddress(receiverName.getText());
                             sendMyMessage.setGandP();
-                            
+
                             sender.setA(sendMyMessage.g, sendMyMessage.p);
                             if (sender.checkUser() == 1) {
                                 sendMyMessage.setMessage(fileContent);
@@ -270,7 +268,7 @@ public class FinalProject2 extends Application {
                             receiver.setReceiverPrivateKey();
                             receiver.setB(sendMyMessage.g, sendMyMessage.p);
                             receivedMessage.setStyle("-fx-text-fill: RED");
-                            System.out.println("BEORE p, A, B: " + sendMyMessage.p + " , "+ sender.getA()+ " , "+receiver.getB());
+                            System.out.println("BEORE p, A, B: " + sendMyMessage.p + " , " + sender.getA() + " , " + receiver.getB());
                             sender.setDHSender(sendMyMessage.p, receiver.getB());
                             System.out.println(DHSender + " and " + DHReceiver);
                             if (DHSender == DHReceiver) {
@@ -382,7 +380,7 @@ public class FinalProject2 extends Application {
         }
 
         public int getDHSender() {
-            
+
             return DHSender;
         }
     }
@@ -413,7 +411,7 @@ public class FinalProject2 extends Application {
         }
 
         public int getDHReceiver() {
-            
+
             return DHReceiver;
         }
     }
@@ -423,9 +421,12 @@ public class FinalProject2 extends Application {
         int g, p;
         byte message[];
         int primes[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29,
-            31, 37, 41, 43, 47, 53, 59, 61, 67, 71,
-            73, 79, 83, 89, 97, 101, 103, 107, 109, 113,
-            127, 131, 137, 139, 149, 151, 157, 163, 167, 173};
+            31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79,
+            83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 
+            137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 
+            191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 
+            241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 
+            307, 311, 313, 317, 331, 337, 347, 349};
 
         public void setGandP() {
             g = (int) primes[(int) (Math.random() * 40)];
