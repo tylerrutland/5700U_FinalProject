@@ -250,16 +250,11 @@ public class FinalProject2 extends Application {
                             sendMyMessage.setGandP();
                             
                             sender.setA(sendMyMessage.g, sendMyMessage.p);
-                            //if (sender.checkUser() == 1) {
+                            if (sender.checkUser() == 1) {
                                 sendMyMessage.setMessage(fileContent);
-                                System.out.println("A is: " + sender.getA());
-                                System.out.println("G is: " + sendMyMessage.g);
-                                System.out.println("P is: " + sendMyMessage.p);
-                                System.out.println("SPK is: " + sender.getSenderPrivateKey());
-//                            } else {
-//                                JOptionPane.showMessageDialog(null, "User not found");
-//                            }
-
+                            } else {
+                                JOptionPane.showMessageDialog(null, "User not found");
+                            }
                         } catch (Exception d) {
                             JOptionPane.showMessageDialog(null, e);
                         }
@@ -275,12 +270,6 @@ public class FinalProject2 extends Application {
                             receiver.setReceiverPrivateKey();
                             receiver.setB(sendMyMessage.g, sendMyMessage.p);
                             receivedMessage.setStyle("-fx-text-fill: RED");
-//                            System.out.println("A is: " + sendMyMessage.getA());
-                            System.out.println("G is: " + sendMyMessage.g);
-                            System.out.println("P is: " + sendMyMessage.p);
-                            System.out.println("RPK is: " + receiver.getReceiverPrivateKey());
-                            System.out.println("B is: " + receiver.getB());
-//                            System.out.println("P is: " + sendMyMessage.p);
                             System.out.println("BEORE p, A, B: " + sendMyMessage.p + " , "+ sender.getA()+ " , "+receiver.getB());
                             sender.setDHSender(sendMyMessage.p, receiver.getB());
                             System.out.println(DHSender + " and " + DHReceiver);
@@ -350,7 +339,6 @@ public class FinalProject2 extends Application {
 
         public void setSenderPrivateKey() {
             a = getUserExchangeKey(message);
-            System.out.println("private key is " + getSenderPrivateKey());
         }
 
         public int getSenderPrivateKey() {
@@ -391,8 +379,6 @@ public class FinalProject2 extends Application {
 
         public void setDHSender(int p, int B) {
             DHSender = (int) Math.pow(B, getSenderPrivateKey()) % p;
-            System.out.println("DHSender is " + DHSender);
-            System.out.println("Sender values " +B + ", " + getSenderPrivateKey());
         }
 
         public int getDHSender() {
@@ -424,8 +410,6 @@ public class FinalProject2 extends Application {
 
         public void setDHReceiver(int p) {
             DHReceiver = (int) Math.pow(A, getReceiverPrivateKey()) % p;
-            System.out.println("DHReceiver is " + DHReceiver);
-            System.out.println("Receiver values " +A + ", " + getReceiverPrivateKey());
         }
 
         public int getDHReceiver() {
@@ -450,7 +434,6 @@ public class FinalProject2 extends Application {
 
         public void setMessage(byte[] messageToSend) {
             message = messageToSend;
-            System.out.println(Arrays.toString(message));
         }
 
         public byte[] getMessage() {
