@@ -32,11 +32,15 @@ public class FinalProject2 extends Application {
     Label decryptedBytesText = new Label("10 decrypted bytes");
     Label decryptedBytes = new Label();
     Label Receiver1 = new Label("Receiver 1");
+    Label receivedMessage = new Label();
     byte[] encryptedSample;
     byte[] decryptedSample;
-    SendReceive sendMyMessage = new SendReceive();
     TextField senderName = new TextField("Type Sender's Name");
     TextField receiverName = new TextField("Receiver 1");
+    int DHSender, DHReceiver; // DHVALUES
+    int A, B; // DHVALUES
+    SendReceive sendMyMessage = new SendReceive();
+    Sender sender = new Sender();
 
     @Override
     public void start(final Stage primaryStage) throws Exception {
@@ -133,6 +137,7 @@ public class FinalProject2 extends Application {
         vbox5.getChildren().addAll(Receive, Decrypt, decryptedBytesText);
         vbox6.getChildren().addAll(iv2);
         vbox8.getChildren().addAll(iv3);
+        vbox5.getChildren().addAll(receivedMessage);
         //vbox7.getChildren().addAll(Receive, Decrypt);
         short buttonWidth = 160;
         openButton.setMinWidth(buttonWidth);
@@ -214,9 +219,9 @@ public class FinalProject2 extends Application {
                                 }
                                 OutputStream out = null;
                                 try {
+
                                     out = new BufferedOutputStream(new FileOutputStream("src/images/Encrypt.bmp"));
                                     out.write(fileContent);
-
                                     Image image2 = new Image("file:" + out);
                                     iv1.setImage(image2);
                                     encryptedBytes.setText(Arrays.toString(encryptedSample));
@@ -234,21 +239,26 @@ public class FinalProject2 extends Application {
 
         Send.setOnAction( // SEND MESSAGE
                 new EventHandler<ActionEvent>() {
+
                     @Override
                     public void handle(final ActionEvent e) {
 
                         try {
-
-                            sendMyMessage.setUserAddress(senderName.getText());
-                            sendMyMessage.setReceiverAddress(receiverName.getText());
+                            sender.setSenderPrivateKey();
+                            sender.setUserAddress(senderName.getText());
+                            sender.setReceiverAddress(receiverName.getText());
                             sendMyMessage.setGandP();
-                            sendMyMessage.getSenderPrivateKey();
-                            System.out.println(sendMyMessage.getB());
-                            if (sendMyMessage.checkUser() == 1) {
+                            
+                            sender.setA(sendMyMessage.g, sendMyMessage.p);
+                            //if (sender.checkUser() == 1) {
                                 sendMyMessage.setMessage(fileContent);
-                            } else {
-                                JOptionPane.showMessageDialog(null, "User not found");
-                            }
+                                System.out.println("A is: " + sender.getA());
+                                System.out.println("G is: " + sendMyMessage.g);
+                                System.out.println("P is: " + sendMyMessage.p);
+                                System.out.println("SPK is: " + sender.getSenderPrivateKey());
+//                            } else {
+//                                JOptionPane.showMessageDialog(null, "User not found");
+//                            }
 
                         } catch (Exception d) {
                             JOptionPane.showMessageDialog(null, e);
@@ -261,15 +271,21 @@ public class FinalProject2 extends Application {
                     public void handle(final ActionEvent e) {
 
                         try {
-                            sendMyMessage.getReceiverPrivateKey();
-                            Label receivedMessage = new Label();
+                            Receiver receiver = new Receiver();
+                            receiver.setReceiverPrivateKey();
+                            receiver.setB(sendMyMessage.g, sendMyMessage.p);
                             receivedMessage.setStyle("-fx-text-fill: RED");
-                            int p = (int) (Math.pow(sendMyMessage.getB(), sendMyMessage.a) % sendMyMessage.p);
-                            int q = (int) (Math.pow(sendMyMessage.getA(), sendMyMessage.b) % sendMyMessage.p);
-                            System.out.println(p + " and " + q);
-                            if (p == q) {
+//                            System.out.println("A is: " + sendMyMessage.getA());
+                            System.out.println("G is: " + sendMyMessage.g);
+                            System.out.println("P is: " + sendMyMessage.p);
+                            System.out.println("RPK is: " + receiver.getReceiverPrivateKey());
+                            System.out.println("B is: " + receiver.getB());
+//                            System.out.println("P is: " + sendMyMessage.p);
+                            System.out.println("BEORE p, A, B: " + sendMyMessage.p + " , "+ sender.getA()+ " , "+receiver.getB());
+                            sender.setDHSender(sendMyMessage.p, receiver.getB());
+                            System.out.println(DHSender + " and " + DHReceiver);
+                            if (DHSender == DHReceiver) {
                                 receivedMessage.setText(Arrays.toString(sendMyMessage.getMessage()));
-                                vbox5.getChildren().addAll(receivedMessage);
                             }
                         } catch (Exception d) {
                             JOptionPane.showMessageDialog(null, e);
@@ -309,10 +325,9 @@ public class FinalProject2 extends Application {
                         }
                     }
                 });
-
     }
-
 // GET RANDOM PIXEL BYTE FOR EXCHANGE AMONG GROUP MEMBERS
+
     public int getUserExchangeKey(byte[] bytes) {
         int max = 0;
         for (int i = 1; i < fileContent.length; i++) {
@@ -329,41 +344,29 @@ public class FinalProject2 extends Application {
 
     }
 
-    class SendReceive {
+    class Sender extends SendReceive {
 
-        int senderAddress;
-        int receiverAddress;
-        byte message[];
-        int primes[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29,
-            31, 37, 41, 43, 47, 53, 59, 61, 67, 71,
-            73, 79, 83, 89, 97, 101, 103, 107, 109, 113,
-            127, 131, 137, 139, 149, 151, 157, 163, 167, 173};
-        int g, p, a, b;
-        int A, B;
+        int senderAddress, receiverAddress, a;
 
-        public void setUserAddress(String userName) {
-            senderAddress = userName.hashCode();
-        }
-
-        public int getA() {
-            return (A = ((int) Math.pow(g, a) % p));
-        }
-
-        public int getB() {
-            return (B = ((int) Math.pow(g, b) % p));
+        public void setSenderPrivateKey() {
+            a = getUserExchangeKey(message);
+            System.out.println("private key is " + getSenderPrivateKey());
         }
 
         public int getSenderPrivateKey() {
-            return (a = getUserExchangeKey(message));
+            return a;
         }
 
-        public int getReceiverPrivateKey() {
-            return (b = getUserExchangeKey(message));
+        public void setA(int g, int p) {
+            A = ((int) Math.pow(g, a) % p);
         }
 
-        public void setGandP() {
-            g = (int) primes[(int) (Math.random() * 40)];
-            p = (int) primes[(int) (Math.random() * 40)];
+        public int getA() {
+            return A;
+        }
+
+        public void setUserAddress(String userName) {
+            senderAddress = userName.hashCode();
         }
 
         public int getUserAddress() {
@@ -378,6 +381,73 @@ public class FinalProject2 extends Application {
             return receiverAddress;
         }
 
+        public int checkUser() {
+            if (getReceiverAddress() == Receiver1.getText().hashCode()) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+
+        public void setDHSender(int p, int B) {
+            DHSender = (int) Math.pow(B, getSenderPrivateKey()) % p;
+            System.out.println("DHSender is " + DHSender);
+            System.out.println("Sender values " +B + ", " + getSenderPrivateKey());
+        }
+
+        public int getDHSender() {
+            
+            return DHSender;
+        }
+    }
+
+    class Receiver extends SendReceive {
+
+        int b;
+
+        public void setB(int g, int p) {
+            B = (int) Math.pow(g, b) % p;
+            setDHReceiver(p);
+        }
+
+        public int getB() {
+            return B;
+        }
+
+        public void setReceiverPrivateKey() {
+            b = getUserExchangeKey(message);
+        }
+
+        public int getReceiverPrivateKey() {
+            return b;
+        }
+
+        public void setDHReceiver(int p) {
+            DHReceiver = (int) Math.pow(A, getReceiverPrivateKey()) % p;
+            System.out.println("DHReceiver is " + DHReceiver);
+            System.out.println("Receiver values " +A + ", " + getReceiverPrivateKey());
+        }
+
+        public int getDHReceiver() {
+            
+            return DHReceiver;
+        }
+    }
+
+    class SendReceive {
+
+        int g, p;
+        byte message[];
+        int primes[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29,
+            31, 37, 41, 43, 47, 53, 59, 61, 67, 71,
+            73, 79, 83, 89, 97, 101, 103, 107, 109, 113,
+            127, 131, 137, 139, 149, 151, 157, 163, 167, 173};
+
+        public void setGandP() {
+            g = (int) primes[(int) (Math.random() * 40)];
+            p = (int) primes[(int) (Math.random() * 40)];
+        }
+
         public void setMessage(byte[] messageToSend) {
             message = messageToSend;
             System.out.println(Arrays.toString(message));
@@ -385,14 +455,6 @@ public class FinalProject2 extends Application {
 
         public byte[] getMessage() {
             return message;
-        }
-
-        public int checkUser() {
-            if (getReceiverAddress() == Receiver1.getText().hashCode()) {
-                return 1;
-            } else {
-                return 0;
-            }
         }
     }
 
