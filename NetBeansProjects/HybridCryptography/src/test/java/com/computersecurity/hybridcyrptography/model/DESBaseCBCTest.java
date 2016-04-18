@@ -26,7 +26,7 @@ public class DESBaseCBCTest {
 
         boolean expected = true;
         boolean result = Arrays.equals(plaintext, recovered);
-        assertEquals("Plain text as same as recovered text", expected, result);
+        assertEquals("Plain text is the same as recovered text", expected, result);
 
     }
 

@@ -7,6 +7,8 @@ package com.computersecurity.hybridcyrptography.model;
 
 import com.computersecurity.hybridcryptography.model.DHKeyAgreement2;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 /**
@@ -15,17 +17,27 @@ import org.junit.Test;
  */
 public class DHKeyAgreement2Test {
 
-    private final DHKeyAgreement2 dh = new DHKeyAgreement2(512);
-
     @Test
-    public void testKeyAgreement() {
-        boolean expected = true;
-        boolean result = dh.getSecretKeyA().equals(dh.getSecretKeyB());
-        assertEquals("Same key! ", expected, result);
+    public void testNullKey() {
+        DHKeyAgreement2 dh = new DHKeyAgreement2(512);
+        String keyB = dh.getSecretKeyB();
+        assertNull("KeyB is null before call to KeyA! ", keyB);
     }
 
     @Test
-    public void testNullKeys(){
-        
+    public void testNonNullKey() {
+        DHKeyAgreement2 dh = new DHKeyAgreement2(512);
+        String keyA = dh.getSecretKeyA();
+        String keyB = dh.getSecretKeyB();
+        assertNotNull("Key A is not null! ", keyA);
+        assertNotNull("Key B is not null! ", keyB);
+    }
+
+    @Test
+    public void testKeyAgreement() {
+        DHKeyAgreement2 dh = new DHKeyAgreement2(512);
+        boolean expected = true;
+        boolean result = dh.getSecretKeyA().equals(dh.getSecretKeyB());
+        assertEquals("Same key! ", expected, result);
     }
 }
