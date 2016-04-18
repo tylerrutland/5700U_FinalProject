@@ -7,6 +7,8 @@ package com.computersecurity.hybridcryptography.service;
 
 import com.computersecurity.hybridcryptography.model.DHKeyAgreement2;
 import java.math.BigInteger;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 
 /**
  *
@@ -36,19 +38,19 @@ public class DHKeyAgreement2Service {
         return dhk.getSecretKeyB();
     }
 
-    public byte[] getPublicKeyA() {
-        return dhk.getPublicKeyA().getEncoded();
+    public PublicKey getPublicKeyA() {
+        return dhk.getPublicKeyA();
     }
 
-    public byte[] getPublicKeyB() {
-        return dhk.getPublicKeyB().getEncoded();
+    public PublicKey getPublicKeyB() {
+        return dhk.getPublicKeyB();
     }
 
-    public byte[] getPrivateKeyA() {
-        return dhk.getPrivateKeyA().getEncoded();
+    public PrivateKey getPrivateKeyA() {
+        return dhk.getPrivateKeyA();
     }
 
-    public byte[] getPrivateKeyB() {
-        return dhk.getPrivateKeyB().getEncoded();
+    public PrivateKey getPrivateKeyB() {
+        return dhk.getPrivateKeyB();
     }
 }

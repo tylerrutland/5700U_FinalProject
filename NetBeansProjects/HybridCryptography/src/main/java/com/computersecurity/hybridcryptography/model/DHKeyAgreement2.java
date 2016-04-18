@@ -43,6 +43,10 @@ public class DHKeyAgreement2 {
             dhParamSpec = (paramGen.generateParameters()).getParameterSpec(DHParameterSpec.class);
             keyAgreeA = KeyAgreement.getInstance(ALGORITHM);
             keyAgreeB = KeyAgreement.getInstance(ALGORITHM);
+            publicKeyA = null;
+            publicKeyB = null;
+            privateKeyA = null;
+            privateKeyB = null;
         } catch (NoSuchAlgorithmException | InvalidParameterSpecException ex) {
             System.out.println(ex);
         }
