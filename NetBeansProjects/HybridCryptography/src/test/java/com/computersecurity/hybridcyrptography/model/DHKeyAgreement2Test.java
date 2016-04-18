@@ -21,7 +21,9 @@ public class DHKeyAgreement2Test {
     public void testNullKey() {
         DHKeyAgreement2 dh = new DHKeyAgreement2(512);
         String keyB = dh.getSecretKeyB();
+        String keyA = dh.getSecretKeyA();
         assertNull("KeyB is null before call to KeyA! ", keyB);
+        assertNotNull("KeyA is not null! ", keyA);
     }
 
     @Test
