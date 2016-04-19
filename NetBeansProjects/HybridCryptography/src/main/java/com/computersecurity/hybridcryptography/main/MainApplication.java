@@ -12,16 +12,14 @@ import javafx.stage.Stage;
  *
  * @author sm6668
  */
-public class MainApplication extends Application{
-    
-    
+public class MainApplication extends Application {
+
     @Override
-    public void start(Stage primaryStage){
-        
+    public void start(Stage primaryStage) {
+
     }
-    
-    
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         launch(args);
     }
 }

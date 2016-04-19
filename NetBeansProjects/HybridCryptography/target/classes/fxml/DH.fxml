@@ -23,7 +23,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.computersecurity.hybridcryptography.controller.DHController">
     <top>
         <Label maxWidth="1.7976931348623157E308" prefHeight="50.0" text="Diffie-Hellman Key Exchange Protocol" BorderPane.alignment="CENTER">
             <font>
@@ -51,10 +51,9 @@
                                 <RowConstraints maxHeight="65.0" minHeight="10.0" vgrow="SOMETIMES" />
                                 <RowConstraints maxHeight="65.0" minHeight="10.0" vgrow="SOMETIMES" />
                                 <RowConstraints maxHeight="65.0" minHeight="10.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="65.0" minHeight="10.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
                                 <Label text="Parameters">
@@ -80,8 +79,8 @@
                                         </Label>
                                         <HBox spacing="20.0">
                                             <children>
-                                                <RadioButton mnemonicParsing="false" text="512" />
-                                                <RadioButton mnemonicParsing="false" text="1024" />
+                                                <RadioButton fx:id="rb512" mnemonicParsing="false" text="512" />
+                                                <RadioButton fx:id="rb1024" mnemonicParsing="false" text="1024" />
                                             </children>
                                             <padding>
                                                 <Insets left="60.0" />
@@ -104,7 +103,7 @@
                                         </Label>
                                         <HBox>
                                             <children>
-                                                <TextField maxWidth="1.7976931348623157E308" prefHeight="35.0" promptText="123456789101112131415123456789101112131415...." HBox.hgrow="ALWAYS">
+                                                <TextField fx:id="baseTF" prefColumnCount="35" prefHeight="35.0" promptText="123456789101112131415123456789101112131415....">
                                                     <HBox.margin>
                                                         <Insets left="60.0" />
                                                     </HBox.margin>
@@ -128,7 +127,7 @@
                                         </Label>
                                         <HBox>
                                             <children>
-                                                <TextField maxWidth="1.7976931348623157E308" prefHeight="35.0" promptText="123456789101112131415123456789101112131415...." HBox.hgrow="ALWAYS">
+                                                <TextField fx:id="modTF" prefColumnCount="35" prefHeight="35.0" promptText="123456789101112131415123456789101112131415....">
                                                     <HBox.margin>
                                                         <Insets left="60.0" />
                                                     </HBox.margin>
@@ -160,7 +159,7 @@
                                                         <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
                                                     </graphic>
                                                 </Label>
-                                                <PasswordField prefHeight="35.0" promptText="Public Key" HBox.hgrow="ALWAYS" />
+                                                <TextField prefColumnCount="35" prefHeight="35.0" promptText="Public Key" />
                                             </children>
                                             <padding>
                                                 <Insets left="60.0" />
@@ -176,7 +175,7 @@
                                                         <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
                                                     </graphic>
                                                 </Label>
-                                                <PasswordField prefHeight="35.0" promptText="Private Key" HBox.hgrow="ALWAYS" />
+                                                <PasswordField fx:id="privKeyAPF" prefColumnCount="35" prefHeight="35.0" promptText="Private Key" />
                                             </children>
                                             <padding>
                                                 <Insets left="60.0" />
@@ -207,7 +206,7 @@
                                                         <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
                                                     </graphic>
                                                 </Label>
-                                                <PasswordField prefHeight="35.0" promptText="Public Key" HBox.hgrow="ALWAYS" />
+                                                <TextField prefColumnCount="35" prefHeight="35.0" promptText="Public Key" />
                                             </children>
                                             <VBox.margin>
                                                 <Insets />
@@ -226,7 +225,7 @@
                                                         <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
                                                     </graphic>
                                                 </Label>
-                                                <PasswordField prefHeight="35.0" promptText="Private Key" HBox.hgrow="ALWAYS" />
+                                                <PasswordField fx:id="privKeyBPF" prefColumnCount="35" prefHeight="35.0" promptText="Private Key" />
                                             </children>
                                             <padding>
                                                 <Insets left="60.0" />
@@ -257,7 +256,7 @@
                                                         <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
                                                     </graphic>
                                                 </Label>
-                                                <PasswordField prefHeight="35.0" promptText="Secret Key A" HBox.hgrow="ALWAYS" />
+                                                <PasswordField fx:id="secKeyAPF" prefColumnCount="35" prefHeight="35.0" promptText="Secret Key A" />
                                             </children>
                                             <VBox.margin>
                                                 <Insets />
@@ -276,7 +275,7 @@
                                                         <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
                                                     </graphic>
                                                 </Label>
-                                                <PasswordField prefHeight="35.0" promptText="Secret Key B" HBox.hgrow="ALWAYS" />
+                                                <PasswordField fx:id="secKeyBPF" prefColumnCount="35" prefHeight="35.0" promptText="Secret Key B" />
                                             </children>
                                             <padding>
                                                 <Insets left="60.0" />
@@ -294,7 +293,7 @@
     <left>
         <BorderPane BorderPane.alignment="CENTER">
             <center>
-                <ImageView fitHeight="400.0" fitWidth="218.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+                <ImageView fx:id="imageView" fitHeight="400.0" fitWidth="218.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
             </center>
             <top>
                 <VBox BorderPane.alignment="CENTER">
@@ -313,22 +312,22 @@
             </top>
         </BorderPane>
     </left>
-   <bottom>
-      <ToolBar prefHeight="30.0" BorderPane.alignment="CENTER">
-         <items>
-                    <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" spacing="10.0">
-                        <children>
-                  <Button layoutX="72.0" layoutY="13.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" text="Open Image" />
-                  <Label text="----------&gt;" />
-                            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" text="Generate Parameters" />
-                            <Label maxWidth="1.7976931348623157E308" prefHeight="30.0" text="Message" visible="false">
-                                <graphic>
-                                    <ProgressIndicator progress="0.0" />
-                                </graphic>
-                            </Label>
-                        </children>
-                    </HBox>
-         </items>
-      </ToolBar>
-   </bottom>
+    <bottom>
+        <ToolBar prefHeight="30.0" BorderPane.alignment="CENTER">
+            <items>
+                <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" spacing="10.0">
+                    <children>
+                        <Button fx:id="openBtn" layoutX="72.0" layoutY="13.0" mnemonicParsing="false" onAction="#openImage" prefHeight="25.0" prefWidth="170.0" text="Open Image" />
+                        <Label text="----------&gt;" />
+                        <Button fx:id="genBtn" mnemonicParsing="false" onAction="#generateParameters" prefHeight="25.0" prefWidth="170.0" text="Generate Parameters" />
+                        <Label maxWidth="1.7976931348623157E308" prefHeight="30.0" text="Message" visible="false">
+                            <graphic>
+                                <ProgressIndicator fx:id="progressIndicator" progress="0.0" />
+                            </graphic>
+                        </Label>
+                    </children>
+                </HBox>
+            </items>
+        </ToolBar>
+    </bottom>
 </BorderPane>

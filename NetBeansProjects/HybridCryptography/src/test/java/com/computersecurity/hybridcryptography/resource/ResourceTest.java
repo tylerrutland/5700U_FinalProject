@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.computersecurity.hybridcyrptography.model;
+package com.computersecurity.hybridcryptography.resource;
 
 import java.io.File;
 import static org.junit.Assert.assertEquals;

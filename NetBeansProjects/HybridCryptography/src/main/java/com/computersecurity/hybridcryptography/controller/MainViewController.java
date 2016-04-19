@@ -17,18 +17,19 @@ import javafx.scene.control.Pagination;
  * @author sm6668
  */
 public class MainViewController implements Initializable {
-    
+
     @FXML
     private Pagination pagination;
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
 }
