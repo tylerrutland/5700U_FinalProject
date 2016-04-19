@@ -5,6 +5,8 @@
  */
 package com.computersecurity.hybridcryptography.controller;
 
+import com.computersecurity.hybridcryptography.model.DESBaseCBC;
+import com.computersecurity.hybridcryptography.model.DESBaseECB;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -24,7 +26,14 @@ import javafx.scene.image.ImageView;
  */
 public class DHController implements Initializable {
 
-    private final ToggleGroup group = new ToggleGroup();
+    private final ToggleGroup keyGroup = new ToggleGroup();
+    private final ToggleGroup cipherGroup = new ToggleGroup();
+
+    private final DESBaseECB desBaseECB = new DESBaseECB();
+    private final DESBaseCBC desBaseCBC = new DESBaseCBC();
+
+    @FXML
+    private RadioButton rbECB, rbCBC;
 
     @FXML
     private RadioButton rb512, rb1024;
@@ -52,8 +61,11 @@ public class DHController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        rb512.setToggleGroup(group);
-        rb1024.setToggleGroup(group);
+        rbECB.setToggleGroup(cipherGroup);
+        rbCBC.setToggleGroup(cipherGroup);
+
+        rb512.setToggleGroup(keyGroup);
+        rb1024.setToggleGroup(keyGroup);
 
     }
 

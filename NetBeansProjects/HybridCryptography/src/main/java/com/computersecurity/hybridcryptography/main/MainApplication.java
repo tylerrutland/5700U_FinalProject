@@ -19,7 +19,7 @@ public class MainApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        
+
         try {
             FXMLLoader loader = new FXMLLoader(
                     MainApplication.class.getClassLoader()
