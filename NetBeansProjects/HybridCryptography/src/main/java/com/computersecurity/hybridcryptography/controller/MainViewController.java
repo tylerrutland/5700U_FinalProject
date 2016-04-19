@@ -6,9 +6,12 @@
 package com.computersecurity.hybridcryptography.controller;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Pagination;
 
 /**
@@ -17,6 +20,8 @@ import javafx.scene.control.Pagination;
  * @author sm6668
  */
 public class MainViewController implements Initializable {
+
+    private final ArrayList<Node> pages = new ArrayList(3);
 
     @FXML
     private Pagination pagination;
@@ -29,7 +34,23 @@ public class MainViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        addPage("fxml/DH.fxml");
+        pagination.setCurrentPageIndex(0);
+        pagination.setPageCount(pages.size() - 1);
+        pagination.setPageFactory((Integer pageIndex) -> pages.get(pageIndex));
+        pagination.getStyleClass().add(Pagination.STYLE_CLASS_BULLET);
     }
 
+    private void addPage(String resource) {
+        try {
+            pages.add((new FXMLLoader(
+                    MainViewController.class.getClassLoader()
+                    .getResource(resource)).load()));
+
+        } catch (Exception ex) {
+
+            pages.add(null);
+
+        }
+    }
 }
