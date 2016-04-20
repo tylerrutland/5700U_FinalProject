@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
@@ -36,7 +37,7 @@ public class DESBaseECBTest {
     }
 
     @Test
-    public void testEncryptionAndDecryptionForImage() throws IOException {
+    public void testEncryptionAndDecryptionForImagePath() throws IOException {
         DESBaseECB desBase = new DESBaseECB();
 
         File file = new File(path + "images/palmTree.bmp");
@@ -47,6 +48,16 @@ public class DESBaseECBTest {
         boolean expected = true;
         boolean result = Arrays.equals(fileBytePath, recovered);
         assertEquals("File Byte Path is same as recovered path", expected, result);
+    }
+
+    @Test
+    public void testEncryptionAndDecryption() throws IOException {
+        DESBaseECB desBase = new DESBaseECB();
+
+        File inputFile = new File(path + "images/palmTree.bmp");
+        File outputFile = new File(path + "images/cipherPalmTree.bmp");
+
+        desBase.encryptImage(inputFile, outputFile, desBase.getDESKeyA());
     }
 
 }

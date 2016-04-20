@@ -48,4 +48,20 @@ public class ResourceTest {
         boolean result = file.exists();
         assertEquals(expected, result);
     }
+
+    @Test
+    public void testImage3() {
+        File file = new File(path + "images/ecb.png");
+        boolean expected = true;
+        boolean result = file.exists();
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testImage4() {
+        File file = new File(path + "images/cbc.png");
+        boolean expected = true;
+        boolean result = file.exists();
+        assertEquals(expected, result);
+    }
 }

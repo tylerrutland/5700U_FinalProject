@@ -22,12 +22,12 @@ import javax.crypto.SecretKey;
  */
 public class DESBaseCBC extends DESBase {
 
-    private static final String CIPHER = "DES/CBC/PKCS5Padding";
+    private static final String ALGORITHM = "DES/CBC/PKCS5Padding";
     private Cipher cipher;
 
     public DESBaseCBC() {
         try {
-            cipher = Cipher.getInstance(CIPHER);
+            cipher = Cipher.getInstance(ALGORITHM);
         } catch (NoSuchAlgorithmException |
                 NoSuchPaddingException ex) {
 
@@ -58,12 +58,11 @@ public class DESBaseCBC extends DESBase {
             byte[] encodedParams = cipher.getParameters().getEncoded();
             AlgorithmParameters params = AlgorithmParameters.getInstance("DES");
             params.init(encodedParams);
-            
+
             cipher.init(Cipher.DECRYPT_MODE, key, params);
             return cipher.doFinal(ciphertext);
 
-        } catch (IOException 
-                | NoSuchAlgorithmException |
+        } catch (IOException | NoSuchAlgorithmException |
                 InvalidKeyException |
                 InvalidAlgorithmParameterException |
                 IllegalBlockSizeException |

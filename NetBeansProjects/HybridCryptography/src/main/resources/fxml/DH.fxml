@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
@@ -20,7 +27,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.computersecurity.hybridcryptography.controller.DHController">
+<BorderPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.computersecurity.hybridcryptography.controller.DHController">
     <top>
         <Label maxWidth="1.7976931348623157E308" prefHeight="50.0" text="DES and Diffie-Hellman Key Exchange Protocol" BorderPane.alignment="CENTER">
             <font>
@@ -51,7 +58,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <VBox alignment="CENTER_LEFT" spacing="5.0">
+                                    <VBox alignment="CENTER_LEFT" spacing="15.0">
                                        <children>
                                           <Label graphicTextGap="15.0" text="Cipher Modes">
                                              <graphic>
@@ -64,25 +71,27 @@
                                                 <Insets left="15.0" />
                                              </padding>
                                           </Label>
-                                          <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                          <HBox alignment="CENTER_LEFT" prefHeight="120.0" spacing="15.0">
                                              <children>
-                                                <RadioButton fx:id="rbECB" contentDisplay="RIGHT" graphicTextGap="10.0" mnemonicParsing="false" text="Electronic Code Block (ECB)">
-                                                   <graphic>
-                                                      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                                                   </graphic>
-                                                </RadioButton>
+                                                <RadioButton fx:id="rbECB" contentDisplay="RIGHT" graphicTextGap="12.0" mnemonicParsing="false" text="Electronic Code Block (ECB)" />
+                                                <ImageView fitWidth="330.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../images/ecb.png" />
+                                                   </image>
+                                                </ImageView>
                                              </children>
                                              <padding>
                                                 <Insets left="60.0" />
                                              </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                          <HBox alignment="CENTER_LEFT" prefHeight="120.0" spacing="15.0">
                                              <children>
-                                                <RadioButton fx:id="rbCBC" contentDisplay="RIGHT" graphicTextGap="10.0" mnemonicParsing="false" text="Cipher Block Chaining (CBC)">
-                                                   <graphic>
-                                                      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                                                   </graphic>
-                                                </RadioButton>
+                                                <RadioButton fx:id="rbCBC" contentDisplay="RIGHT" graphicTextGap="10.0" mnemonicParsing="false" text="Cipher Block Chaining (CBC)" />
+                                                <ImageView fitWidth="330.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../images/cbc.png" />
+                                                   </image>
+                                                </ImageView>
                                              </children>
                                              <padding>
                                                 <Insets left="60.0" />
