@@ -51,13 +51,19 @@ public class DESBaseECBTest {
     }
 
     @Test
-    public void testEncryptionAndDecryption() throws IOException {
+    public void testImageEncryption() throws Exception {
         DESBaseECB desBase = new DESBaseECB();
 
         File inputFile = new File(path + "images/palmTree.bmp");
         File outputFile = new File(path + "images/cipherPalmTree.bmp");
 
-        desBase.encryptImage(inputFile, outputFile, desBase.getDESKeyA());
+        boolean expected = true;
+        boolean result = desBase.encryptImage(inputFile, outputFile, desBase.getDESKeyA());
+        assertEquals("Image encrypted! ", expected, result);
     }
 
+    @Test
+    public void testImageDecryption() throws Exception {
+        assertTrue(true);
+    }
 }

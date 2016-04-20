@@ -1,0 +1,22 @@
+#surefire
+#Wed Apr 20 13:49:28 EDT 2016
+testClassesDirectory=C\:\\Users\\Steve\\Documents\\5700U_FinalProject\\NetBeansProjects\\HybridCryptography\\target\\test-classes
+forkMode=once
+classPathUrl.3=C\:\\Users\\Steve\\.m2\\repository\\junit\\junit\\4.10\\junit-4.10.jar
+classPathUrl.2=C\:\\Users\\Steve\\.m2\\repository\\org\\bouncycastle\\bcprov-jdk15on\\1.54\\bcprov-jdk15on-1.54.jar
+useManifestOnlyJar=true
+classPathUrl.1=C\:\\Users\\Steve\\Documents\\5700U_FinalProject\\NetBeansProjects\\HybridCryptography\\target\\classes
+classPathUrl.0=C\:\\Users\\Steve\\Documents\\5700U_FinalProject\\NetBeansProjects\\HybridCryptography\\target\\test-classes
+reportsDirectory=C\:\\Users\\Steve\\Documents\\5700U_FinalProject\\NetBeansProjects\\HybridCryptography\\target\\surefire-reports
+providerConfiguration=org.apache.maven.surefire.junit4.JUnit4Provider
+testSuiteDefinitionTestSourceDirectory=C\:\\Users\\Steve\\Documents\\5700U_FinalProject\\NetBeansProjects\\HybridCryptography\\src\\test\\java
+requestedTest=com.computersecurity.hybridcyrptography.model.DESBaseECBTest
+surefireClassPathUrl.1=C\:\\Users\\Steve\\.m2\\repository\\org\\apache\\maven\\surefire\\surefire-api\\2.10\\surefire-api-2.10.jar
+surefireClassPathUrl.0=C\:\\Users\\Steve\\.m2\\repository\\org\\apache\\maven\\surefire\\surefire-junit4\\2.10\\surefire-junit4-2.10.jar
+runOrder=filesystem
+useSystemClassLoader=true
+isTrimStackTrace=true
+enableAssertions=true
+failIfNoTests=true
+includes0=**/com/computersecurity/hybridcyrptography/model/DESBaseECBTest.java
+childDelegation=false
