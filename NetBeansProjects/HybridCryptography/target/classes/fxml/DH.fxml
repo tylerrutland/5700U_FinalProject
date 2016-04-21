@@ -7,9 +7,12 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -65,10 +68,10 @@
                                                 <Insets left="15.0" />
                                              </padding>
                                           </Label>
-                                          <HBox alignment="CENTER_LEFT" prefHeight="120.0" spacing="15.0">
+                                          <HBox alignment="CENTER_LEFT" prefHeight="200.0" spacing="15.0">
                                              <children>
                                                 <RadioButton fx:id="rbECB" contentDisplay="RIGHT" graphicTextGap="12.0" mnemonicParsing="false" text="Electronic Code Book (ECB)" />
-                                                <ImageView fitWidth="330.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@../images/ecb.png" />
                                                    </image>
@@ -78,10 +81,10 @@
                                                 <Insets left="60.0" />
                                              </padding>
                                           </HBox>
-                                          <HBox alignment="CENTER_LEFT" prefHeight="120.0" spacing="15.0">
+                                          <HBox alignment="CENTER_LEFT" prefHeight="200.0" spacing="15.0">
                                              <children>
                                                 <RadioButton fx:id="rbCBC" contentDisplay="RIGHT" graphicTextGap="10.0" mnemonicParsing="false" text="Cipher Block Chaining (CBC)" />
-                                                <ImageView fitWidth="330.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@../images/cbc.png" />
                                                    </image>
@@ -110,12 +113,12 @@
                                             <RowConstraints minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
                                             <RowConstraints minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
                                             <RowConstraints minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
                                         </rowConstraints>
                                         <children>
                                             <VBox layoutX="10.0" layoutY="135.0" spacing="10.0">
                                                 <children>
-                                                    <Label graphicTextGap="10.0" text="Key Sizes">
+                                                    <Label graphicTextGap="10.0" text="Bit Length">
                                                         <graphic>
                                                             <Circle radius="5.0" stroke="BLACK" strokeType="INSIDE" />
                                                         </graphic>
@@ -208,7 +211,7 @@
                                                                     <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
                                                                 </graphic>
                                                             </Label>
-                                                            <TextField prefColumnCount="35" prefHeight="35.0" promptText="Public Key" />
+                                                            <TextField fx:id="pubKeyATF" prefColumnCount="35" prefHeight="35.0" promptText="Public Key" />
                                                         </children>
                                                         <padding>
                                                             <Insets left="60.0" />
@@ -255,7 +258,7 @@
                                                                     <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
                                                                 </graphic>
                                                             </Label>
-                                                            <TextField prefColumnCount="35" prefHeight="35.0" promptText="Public Key" />
+                                                            <TextField fx:id="pubKeyBTF" prefColumnCount="35" prefHeight="35.0" promptText="Public Key" />
                                                         </children>
                                                         <VBox.margin>
                                                             <Insets />
@@ -294,6 +297,9 @@
                                                         <padding>
                                                             <Insets left="15.0" />
                                                         </padding>
+                                             <tooltip>
+                                                <Tooltip text="Shared secret keys will be the same" />
+                                             </tooltip>
                                                     </Label>
                                                     <HBox alignment="CENTER_LEFT" spacing="5.0">
                                                         <children>
@@ -332,6 +338,16 @@
                                                     </HBox>
                                                 </children>
                                             </VBox>
+                                        <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" spacing="15.0" GridPane.rowIndex="6">
+                                            <children>
+                                                <Button fx:id="genBtn" mnemonicParsing="false" onAction="#generateParameters" prefHeight="30.0" prefWidth="170.0" text="Generate Parameters" />
+                                                <Label fx:id="messageLabel" maxWidth="1.7976931348623157E308" prefHeight="30.0" text="Message" visible="false">
+                                                    <graphic>
+                                                        <ProgressIndicator fx:id="progressIndicator" prefHeight="25.0" progress="0.0" />
+                                                    </graphic>
+                                                </Label>
+                                            </children>
+                                        </HBox>
                                         </children>
                                     </GridPane>
                            </content>
@@ -345,42 +361,28 @@
     </center>
     <left>
         <BorderPane BorderPane.alignment="CENTER">
-            <center>
-                <ImageView fx:id="imageView" fitHeight="400.0" fitWidth="218.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
-            </center>
             <top>
-                <VBox BorderPane.alignment="CENTER">
-                    <children>
-                        <ToolBar prefWidth="230.0">
-                            <items>
-                                <Label prefWidth="218.0" text="Choose an Image to Encrypt">
-                                    <font>
-                                        <Font size="11.0" />
-                                    </font>
-                                </Label>
-                            </items>
-                        </ToolBar>
-                    </children>
-                </VBox>
+                  <ToolBar prefWidth="230.0">
+               <items>
+                        <Button fx:id="openBtn" mnemonicParsing="false" onAction="#openImage" prefHeight="30.0" prefWidth="125.0" text="Open Image" />
+               </items>
+                  </ToolBar>
             </top>
+         <center>
+            <SplitPane fx:id="splitPane" dividerPositions="0.66" orientation="VERTICAL" prefWidth="250.0" BorderPane.alignment="CENTER">
+              <items>
+                  <BorderPane fx:id="imagePane">
+                     <center>
+                            <ImageView fx:id="openImageView" pickOnBounds="true" preserveRatio="true" />
+                     </center>
+                  </BorderPane>
+                  <TextArea />
+              </items>
+            </SplitPane>
+         </center>
         </BorderPane>
     </left>
     <bottom>
-        <ToolBar prefHeight="30.0" BorderPane.alignment="CENTER">
-            <items>
-                <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" spacing="10.0">
-                    <children>
-                        <Button fx:id="openBtn" layoutX="72.0" layoutY="13.0" mnemonicParsing="false" onAction="#openImage" prefHeight="25.0" prefWidth="170.0" text="Open Image" />
-                        <Label text="----------&gt;" />
-                        <Button fx:id="genBtn" mnemonicParsing="false" onAction="#generateParameters" prefHeight="25.0" prefWidth="170.0" text="Generate Parameters" />
-                        <Label maxWidth="1.7976931348623157E308" prefHeight="30.0" text="Message" visible="false">
-                            <graphic>
-                                <ProgressIndicator fx:id="progressIndicator" progress="0.0" />
-                            </graphic>
-                        </Label>
-                    </children>
-                </HBox>
-            </items>
-        </ToolBar>
+        <ToolBar prefHeight="30.0" BorderPane.alignment="CENTER" />
     </bottom>
 </BorderPane>

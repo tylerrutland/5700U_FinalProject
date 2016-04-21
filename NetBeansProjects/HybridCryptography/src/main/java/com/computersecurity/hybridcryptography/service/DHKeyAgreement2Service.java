@@ -22,6 +22,14 @@ public class DHKeyAgreement2Service {
         this.dhk = dhk;
     }
 
+    public DHKeyAgreement2 getDHKeyAgreement2() {
+        return dhk;
+    }
+
+    public void setDHKeyAgreement2(DHKeyAgreement2 dhk) {
+        this.dhk = dhk;
+    }
+
     public BigInteger getModulus() {
         return dhk.getDHParameterSpec().getP();
     }
