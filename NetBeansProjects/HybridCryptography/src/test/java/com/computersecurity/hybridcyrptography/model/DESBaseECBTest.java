@@ -55,10 +55,9 @@ public class DESBaseECBTest {
 
         File origFile = new File(path + "images/palmTree.bmp");
         File encryptedFile = new File(path + "images/cipherPalmTree.bmp");
-        File recoveredFile = new File(path + "images/recovPalmTree.bmp");
+        File recoveredFile = new File(path + "images/recovPalmTree.jpg");
 
         boolean expected = true;
-
         boolean isEncrypted = desBase.encryptImage(origFile, encryptedFile, desBase.getDESKeyA());
         boolean isDecrypted = desBase.decryptImage(encryptedFile, recoveredFile, desBase.getDESKeyB());
 

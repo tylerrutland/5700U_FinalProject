@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
@@ -24,7 +31,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.computersecurity.hybridcryptography.controller.DHController">
+<BorderPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.computersecurity.hybridcryptography.controller.DHController">
     <top>
         <Label maxWidth="1.7976931348623157E308" prefHeight="50.0" text="DES and Diffie-Hellman Key Exchange Protocol" BorderPane.alignment="CENTER">
             <font>
@@ -35,7 +42,8 @@
     <center>
         <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="773.0" minWidth="10.0" prefWidth="648.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -142,7 +150,7 @@
                                             </VBox>
                                             <VBox spacing="3.0" GridPane.rowIndex="1">
                                                 <children>
-                                                    <Label graphicTextGap="10.0" text="Base G">
+                                                    <Label graphicTextGap="10.0" text="Base">
                                                         <graphic>
                                                             <Circle radius="5.0" stroke="BLACK" strokeType="INSIDE" />
                                                         </graphic>
@@ -155,7 +163,7 @@
                                                     </Label>
                                                     <HBox>
                                                         <children>
-                                                            <TextField fx:id="baseTF" prefColumnCount="35" prefHeight="35.0" promptText="123456789101112131415123456789101112131415123456789101112131415123456789101112131415123456789101112131415123456789101112131415.">
+                                                            <TextField fx:id="baseTF" prefColumnCount="50" prefHeight="35.0" promptText="123456789101112131415123456789101112131415123456789101112131415123456789101112131415123456789101112131415123456789101112131415.">
                                                                 <HBox.margin>
                                                                     <Insets left="60.0" />
                                                                 </HBox.margin>
@@ -166,7 +174,7 @@
                                             </VBox>
                                             <VBox spacing="3.0" GridPane.rowIndex="2">
                                                 <children>
-                                                    <Label graphicTextGap="10.0" text="Modulus P">
+                                                    <Label graphicTextGap="10.0" text="Modulus ">
                                                         <graphic>
                                                             <Circle radius="5.0" stroke="BLACK" strokeType="INSIDE" />
                                                         </graphic>
@@ -179,7 +187,7 @@
                                                     </Label>
                                                     <HBox>
                                                         <children>
-                                                            <TextField fx:id="modTF" prefColumnCount="35" prefHeight="35.0" promptText="123456789101112131415123456789101112131415123456789101112131415123456789101112131415123456789101112131415123456789101112131415.">
+                                                            <TextField fx:id="modTF" prefColumnCount="50" prefHeight="35.0" promptText="123456789101112131415123456789101112131415123456789101112131415123456789101112131415123456789101112131415123456789101112131415.">
                                                                 <HBox.margin>
                                                                     <Insets left="60.0" />
                                                                 </HBox.margin>
@@ -211,7 +219,7 @@
                                                                     <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
                                                                 </graphic>
                                                             </Label>
-                                                            <TextField fx:id="pubKeyATF" prefColumnCount="35" prefHeight="35.0" promptText="Public Key" />
+                                                            <TextField fx:id="pubKeyATF" prefColumnCount="45" prefHeight="35.0" promptText="Public Key" />
                                                         </children>
                                                         <padding>
                                                             <Insets left="60.0" />
@@ -227,7 +235,7 @@
                                                                     <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
                                                                 </graphic>
                                                             </Label>
-                                                            <PasswordField fx:id="privKeyAPF" prefColumnCount="35" prefHeight="35.0" promptText="Private Key" />
+                                                            <PasswordField fx:id="privKeyAPF" prefColumnCount="45" prefHeight="35.0" promptText="Private Key" />
                                                         </children>
                                                         <padding>
                                                             <Insets left="60.0" />
@@ -258,7 +266,7 @@
                                                                     <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
                                                                 </graphic>
                                                             </Label>
-                                                            <TextField fx:id="pubKeyBTF" prefColumnCount="35" prefHeight="35.0" promptText="Public Key" />
+                                                            <TextField fx:id="pubKeyBTF" prefColumnCount="45" prefHeight="35.0" promptText="Public Key" />
                                                         </children>
                                                         <VBox.margin>
                                                             <Insets />
@@ -277,7 +285,7 @@
                                                                     <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
                                                                 </graphic>
                                                             </Label>
-                                                            <PasswordField fx:id="privKeyBPF" prefColumnCount="35" prefHeight="35.0" promptText="Private Key" />
+                                                            <PasswordField fx:id="privKeyBPF" prefColumnCount="45" prefHeight="35.0" promptText="Private Key" />
                                                         </children>
                                                         <padding>
                                                             <Insets left="60.0" />
@@ -311,7 +319,7 @@
                                                                     <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
                                                                 </graphic>
                                                             </Label>
-                                                            <PasswordField fx:id="secKeyAPF" prefColumnCount="35" prefHeight="35.0" promptText="Secret Key A" />
+                                                            <PasswordField fx:id="secKeyAPF" prefColumnCount="45" prefHeight="35.0" promptText="Secret Key A" />
                                                         </children>
                                                         <VBox.margin>
                                                             <Insets />
@@ -330,7 +338,7 @@
                                                                     <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
                                                                 </graphic>
                                                             </Label>
-                                                            <PasswordField fx:id="secKeyBPF" prefColumnCount="35" prefHeight="35.0" promptText="Secret Key B" />
+                                                            <PasswordField fx:id="secKeyBPF" prefColumnCount="45" prefHeight="35.0" promptText="Secret Key B" />
                                                         </children>
                                                         <padding>
                                                             <Insets left="60.0" />
@@ -356,27 +364,118 @@
                   </Accordion>
                </center>
                 </BorderPane>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+               <center>
+                  <SplitPane dividerPositions="0.5" orientation="VERTICAL" BorderPane.alignment="CENTER">
+                     <items>
+                        <BorderPane>
+                           <center>
+                              <SplitPane dividerPositions="0.5">
+                                 <items>
+                                    <BorderPane>
+                                       <center>
+                                          <ImageView fx:id="origImageView" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                                             <viewport>
+                                                <Rectangle2D height="218.0" width="133.0" />
+                                             </viewport>
+                                          </ImageView>
+                                       </center>
+                                    </BorderPane>
+                                    <BorderPane>
+                                       <center>
+                                          <ImageView fx:id="encImageView" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                                             <viewport>
+                                                <Rectangle2D height="218.0" width="133.0" />
+                                             </viewport>
+                                          </ImageView>
+                                       </center>
+                                    </BorderPane>
+                                 </items>
+                              </SplitPane>
+                           </center>
+                           <top>
+                              <ToolBar BorderPane.alignment="CENTER_LEFT">
+                                 <BorderPane.margin>
+                                    <Insets />
+                                 </BorderPane.margin>
+                                 <items>
+                                    <Label text="Matthew">
+                                       <padding>
+                                          <Insets left="5.0" />
+                                       </padding>
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </items>
+                              </ToolBar>
+                           </top>
+                        </BorderPane>
+                        <BorderPane>
+                           <center>
+                              <SplitPane dividerPositions="0.5">
+                                 <items>
+                                    <BorderPane>
+                                       <center>
+                                          <ImageView pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                                             <viewport>
+                                                <Rectangle2D height="218.0" width="133.0" />
+                                             </viewport>
+                                          </ImageView>
+                                       </center>
+                                    </BorderPane>
+                                    <BorderPane>
+                                       <center>
+                                          <ImageView pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                                             <viewport>
+                                                <Rectangle2D height="218.0" width="133.0" />
+                                             </viewport>
+                                          </ImageView>
+                                       </center>
+                                    </BorderPane>
+                                 </items>
+                              </SplitPane>
+                           </center>
+                           <top>
+                              <ToolBar BorderPane.alignment="CENTER_LEFT">
+                                 <items>
+                                    <Label text="Tyler">
+                                       <padding>
+                                          <Insets left="5.0" />
+                                       </padding>
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </items>
+                              </ToolBar>
+                           </top>
+                        </BorderPane>
+                     </items>
+                  </SplitPane>
+               </center>
+            </BorderPane>
             </children>
         </GridPane>
     </center>
     <left>
         <BorderPane BorderPane.alignment="CENTER">
             <top>
-                  <ToolBar prefWidth="230.0">
+                  <ToolBar prefHeight="50.0">
                <items>
                         <Button fx:id="openBtn" mnemonicParsing="false" onAction="#openImage" prefHeight="30.0" prefWidth="125.0" text="Open Image" />
                </items>
                   </ToolBar>
             </top>
          <center>
-            <SplitPane fx:id="splitPane" dividerPositions="0.66" orientation="VERTICAL" prefWidth="250.0" BorderPane.alignment="CENTER">
+            <SplitPane fx:id="splitPane" dividerPositions="0.66" orientation="VERTICAL" prefWidth="200.0" BorderPane.alignment="CENTER">
               <items>
                   <BorderPane fx:id="imagePane">
                      <center>
-                            <ImageView fx:id="openImageView" pickOnBounds="true" preserveRatio="true" />
+                            <ImageView fx:id="initImageView" fitHeight="312.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true" />
                      </center>
                   </BorderPane>
-                  <TextArea />
+                  <TextArea maxHeight="150.0" />
               </items>
             </SplitPane>
          </center>

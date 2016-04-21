@@ -50,10 +50,7 @@ public class DHController implements Initializable {
     private SplitPane splitPane;
 
     @FXML
-    private BorderPane imagePane;
-
-    @FXML
-    private ImageView openImageView;
+    private ImageView initImageView, origImageView, encImageView;
 
     @FXML
     private RadioButton rbECB, rbCBC;
@@ -115,8 +112,9 @@ public class DHController implements Initializable {
     private void openImage(ActionEvent event) {
         File imageFile = fileChooser.showOpenDialog(null);
         if (imageFile != null) {
-            openImageView.setImage(new Image(
-                    "File:" + imageFile.getAbsolutePath()));
+            Image img = new Image("File:" + imageFile.getAbsolutePath());
+            initImageView.setImage(img);
+            origImageView.setImage(img);
         }
 
         event.consume();
@@ -137,7 +135,6 @@ public class DHController implements Initializable {
 
             secKeyAPF.setText((String) items[0]);
             secKeyBPF.setText((String) items[1]);
-
             baseTF.setText(((BigInteger) items[2]).toString());
             modTF.setText(((BigInteger) items[3]).toString());
 
@@ -148,10 +145,9 @@ public class DHController implements Initializable {
 //            System.out.println("PrivateKey A: " + items[5]);
 //            System.out.println("PublicKey B: " + items[6]);
 //            System.out.println("PrivateKey B: " + items[7]);
-            
             pubKeyATF.setText(Arrays.toString(((PublicKey) items[4]).getEncoded()));
-            pubKeyBTF.setText(Arrays.toString(((PrivateKey) items[5]).getEncoded()));
-            privKeyAPF.setText(Arrays.toString(((PublicKey) items[6]).getEncoded()));
+            privKeyAPF.setText(Arrays.toString(((PrivateKey) items[5]).getEncoded()));
+            pubKeyBTF.setText(Arrays.toString(((PublicKey) items[6]).getEncoded()));
             privKeyBPF.setText(Arrays.toString(((PrivateKey) items[7]).getEncoded()));
 
             dhGeneratorService.reset();
