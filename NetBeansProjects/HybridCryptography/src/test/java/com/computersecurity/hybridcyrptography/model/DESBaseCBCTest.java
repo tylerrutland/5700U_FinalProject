@@ -6,6 +6,7 @@
 package com.computersecurity.hybridcyrptography.model;
 
 import com.computersecurity.hybridcryptography.model.DESBaseCBC;
+import com.computersecurity.hybridcryptography.model.DESBaseECB;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -35,7 +36,7 @@ public class DESBaseCBCTest {
     }
 
     @Test
-    public void testEncryptionAndDecryptionForImage() throws IOException {
+    public void testEncryptionAndDecryptionForImagePath() throws IOException {
         DESBaseCBC desBase = new DESBaseCBC();
 
         File file = new File(path + "images/palmTree.bmp");
@@ -46,5 +47,22 @@ public class DESBaseCBCTest {
         boolean expected = true;
         boolean result = Arrays.equals(fileBytePath, recovered);
         assertEquals("File Byte Path is same as recovered path", expected, result);
+    }
+
+    @Test
+    public void testImageEncryptionAndDecryption() throws Exception {
+        DESBaseCBC desBase = new DESBaseCBC();
+
+        File origFile = new File(path + "images/palmTree.bmp");
+        File encryptedFile = new File(path + "images/cipherPalmTree.bmp");
+        File recoveredFile = new File(path + "images/recovPalmTree.bmp");
+
+        boolean expected = true;
+
+        boolean isEncrypted = desBase.encryptImage(origFile, encryptedFile, desBase.getDESKeyA());
+        boolean isDecrypted = desBase.decryptImage(encryptedFile, recoveredFile, desBase.getDESKeyB());
+
+        boolean result = (isEncrypted && isDecrypted);
+        assertEquals("Image encrypted and decrypted successfully! ", expected, result);
     }
 }

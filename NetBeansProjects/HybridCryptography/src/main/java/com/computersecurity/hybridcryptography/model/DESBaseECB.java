@@ -6,8 +6,6 @@
 package com.computersecurity.hybridcryptography.model;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -24,12 +22,10 @@ import javax.crypto.SecretKey;
 public class DESBaseECB extends DESBase {
 
     private static final String ALGORITHM = "DES/ECB/PKCS5Padding";
-//    private SecureRandom sr;
     private Cipher cipher;
 
     public DESBaseECB() {
         try {
-//            sr = new SecureRandom();
             cipher = Cipher.getInstance(ALGORITHM);
         } catch (NoSuchAlgorithmException |
                 NoSuchPaddingException ex) {
@@ -39,6 +35,7 @@ public class DESBaseECB extends DESBase {
         }
     }
 
+    @Override
     public boolean encryptImage(File imageFile, File outputFile, SecretKey key) {
         try {
 
@@ -55,6 +52,7 @@ public class DESBaseECB extends DESBase {
         }
     }
 
+    @Override
     public boolean decryptImage(File imageFile, File outputFile, SecretKey key) {
 
         try {
@@ -73,6 +71,7 @@ public class DESBaseECB extends DESBase {
 
     }
 
+    @Override
     public byte[] getCipherText(byte[] plaintext, SecretKey key) {
         try {
 
@@ -88,6 +87,7 @@ public class DESBaseECB extends DESBase {
         }
     }
 
+    @Override
     public byte[] getPlainText(byte[] ciphertext, SecretKey key) {
         try {
 
@@ -102,21 +102,6 @@ public class DESBaseECB extends DESBase {
             return null;
 
         }
-    }
-
-    private void write(Cipher cipher, File imageFile, File outputFile) throws IOException, IllegalBlockSizeException, BadPaddingException {
-        FileOutputStream fos;
-        FileInputStream fis = new FileInputStream(imageFile);
-        fos = new FileOutputStream(outputFile);
-        byte[] buffer = new byte[super.getSize()];
-        int len;
-        while ((len = fis.read(buffer)) > 0) {
-            fos.write(cipher.update(buffer, 0, len));
-            fos.flush();
-        }
-        fos.write(cipher.doFinal());
-        fos.close();
-
     }
 
 //    public boolean encryptImage(File imageFile, File outputFile, SecretKey key) {

@@ -12,6 +12,7 @@ import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
@@ -49,18 +50,24 @@ public class DHKeyAgreement2 {
             publicKeyB = null;
             privateKeyA = null;
             privateKeyB = null;
-        } catch (NoSuchAlgorithmException | InvalidParameterSpecException ex) {
+        } catch (NoSuchAlgorithmException |
+                InvalidParameterSpecException ex) {
             System.out.println(ex);
         }
     }
 
     public DHKeyAgreement2(int size) {
         try {
+            this.size = size;
             paramGen = AlgorithmParameterGenerator.getInstance(ALGORITHM);
             paramGen.init(size);
             dhParamSpec = (paramGen.generateParameters()).getParameterSpec(DHParameterSpec.class);
             keyAgreeA = KeyAgreement.getInstance(ALGORITHM);
             keyAgreeB = KeyAgreement.getInstance(ALGORITHM);
+            publicKeyA = null;
+            publicKeyB = null;
+            privateKeyA = null;
+            privateKeyB = null;
         } catch (NoSuchAlgorithmException | InvalidParameterSpecException ex) {
             System.out.println(ex);
         }

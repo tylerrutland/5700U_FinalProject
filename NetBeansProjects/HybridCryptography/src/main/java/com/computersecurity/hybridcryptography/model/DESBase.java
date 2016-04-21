@@ -5,8 +5,15 @@
  */
 package com.computersecurity.hybridcryptography.model;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyAgreement;
 import javax.crypto.SecretKey;
 
@@ -14,7 +21,7 @@ import javax.crypto.SecretKey;
  *
  * @author sm6668
  */
-public class DESBase extends DHKeyAgreement2 {
+abstract class DESBase extends DHKeyAgreement2 {
 
     private static final String ALGORITHM = "DES";
     private SecretKey keyDESA, keyDESB;
@@ -51,4 +58,28 @@ public class DESBase extends DHKeyAgreement2 {
         return keyDESB;
     }
 
+    public abstract boolean encryptImage(File imageFile, File outputFile, SecretKey key);
+
+    public abstract boolean decryptImage(File imageFile, File outputFile, SecretKey key);
+
+    public abstract byte[] getCipherText(byte[] plaintext, SecretKey key);
+
+    public abstract byte[] getPlainText(byte[] ciphertext, SecretKey key);
+
+    public static void write(Cipher cipher, File imageFile, File outputFile)
+            throws IOException, IllegalBlockSizeException, BadPaddingException {
+
+        FileOutputStream fos;
+        FileInputStream fis = new FileInputStream(imageFile);
+        fos = new FileOutputStream(outputFile);
+        byte[] buffer = new byte[4096];
+        int len;
+        while ((len = fis.read(buffer)) > 0) {
+            fos.write(cipher.update(buffer, 0, len));
+            fos.flush();
+        }
+        fos.write(cipher.doFinal());
+        fos.close();
+
+    }
 }
