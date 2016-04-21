@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
@@ -17,6 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -27,7 +21,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.computersecurity.hybridcryptography.controller.DHController">
+<BorderPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.computersecurity.hybridcryptography.controller.DHController">
     <top>
         <Label maxWidth="1.7976931348623157E308" prefHeight="50.0" text="DES and Diffie-Hellman Key Exchange Protocol" BorderPane.alignment="CENTER">
             <font>
@@ -73,7 +67,7 @@
                                           </Label>
                                           <HBox alignment="CENTER_LEFT" prefHeight="120.0" spacing="15.0">
                                              <children>
-                                                <RadioButton fx:id="rbECB" contentDisplay="RIGHT" graphicTextGap="12.0" mnemonicParsing="false" text="Electronic Code Block (ECB)" />
+                                                <RadioButton fx:id="rbECB" contentDisplay="RIGHT" graphicTextGap="12.0" mnemonicParsing="false" text="Electronic Code Book (ECB)" />
                                                 <ImageView fitWidth="330.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@../images/ecb.png" />

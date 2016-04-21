@@ -77,7 +77,7 @@ public class DHKeyAgreement2ServiceTest {
     }
 
     @Test
-    public void testNonNullPrivatecKeys() {
+    public void testNonNullPrivateKeys() {
         DHKeyAgreement2 dhk = new DHKeyAgreement2(512);
         DHKeyAgreement2Service dhkService = new DHKeyAgreement2Service(dhk);
 
