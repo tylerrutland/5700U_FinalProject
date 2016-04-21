@@ -28,6 +28,7 @@ import static org.bouncycastle.pqc.math.linearalgebra.ByteUtils.toHexString;
  */
 public class DHKeyAgreement2 {
 
+    private int size;
     private static final String ALGORITHM = "DH";
     private DHParameterSpec dhParamSpec;
     private AlgorithmParameterGenerator paramGen;
@@ -38,8 +39,9 @@ public class DHKeyAgreement2 {
 
     public DHKeyAgreement2() {
         try {
+            size = 512;
             paramGen = AlgorithmParameterGenerator.getInstance(ALGORITHM);
-            paramGen.init(512);
+            paramGen.init(size);
             dhParamSpec = (paramGen.generateParameters()).getParameterSpec(DHParameterSpec.class);
             keyAgreeA = KeyAgreement.getInstance(ALGORITHM);
             keyAgreeB = KeyAgreement.getInstance(ALGORITHM);
@@ -68,7 +70,12 @@ public class DHKeyAgreement2 {
         return dhParamSpec;
     }
 
+    public int getSize() {
+        return size;
+    }
+
     public void setSize(int size) {
+        this.size = size;
         paramGen.init(size);
     }
 

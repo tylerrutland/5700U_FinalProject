@@ -6,12 +6,15 @@
 package com.computersecurity.hybridcyrptography.model;
 
 import com.computersecurity.hybridcryptography.model.DESBaseECB;
+import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
+import javax.imageio.ImageIO;
+import javax.imageio.stream.FileImageInputStream;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
@@ -51,19 +54,38 @@ public class DESBaseECBTest {
     }
 
     @Test
-    public void testImageEncryption() throws Exception {
+    public void testImageEncryptionAndDecryption() throws Exception {
         DESBaseECB desBase = new DESBaseECB();
 
-        File inputFile = new File(path + "images/palmTree.bmp");
-        File outputFile = new File(path + "images/cipherPalmTree.bmp");
+        File origFile = new File(path + "images/palmTree.bmp");
+        File encryptedFile = new File(path + "images/cipherPalmTree.bmp");
+        File recoveredFile = new File(path + "images/recovPalmTree.bmp");
 
         boolean expected = true;
-        boolean result = desBase.encryptImage(inputFile, outputFile, desBase.getDESKeyA());
-        assertEquals("Image encrypted! ", expected, result);
+
+        boolean isEncrypted = desBase.encryptImage(origFile, encryptedFile, desBase.getDESKeyA());
+        boolean isDecrypted = desBase.decryptImage(encryptedFile, recoveredFile, desBase.getDESKeyB());
+
+        boolean result = (isEncrypted && isDecrypted);
+        assertEquals("Image encrypted and decrypted successfully! ", expected, result);
     }
 
     @Test
-    public void testImageDecryption() throws Exception {
-        assertTrue(true);
+    public void testSameImageEncryptionAndDecryption() throws Exception {
+        DESBaseECB desBase = new DESBaseECB();
+
+        File origFile = new File(path + "images/palmTree.bmp");
+        File encryptedFile = new File(path + "images/cipherPalmTree.bmp");
+        File recovFile = new File(path + "images/recovPalmTree.bmp");
+
+        boolean expected = true;
+        desBase.encryptImage(origFile, encryptedFile, desBase.getDESKeyA());
+        desBase.decryptImage(encryptedFile, recovFile, desBase.getDESKeyB());
+
+        BufferedImage bufOrig = ImageIO.read((new FileImageInputStream(origFile)));
+        BufferedImage bufReco = ImageIO.read(new FileImageInputStream(recovFile));
+
+        boolean result = (bufOrig.getData() == bufReco.getData());
+        assertEquals("Original Image is the same as the Recovered Image! ", expected, result);
     }
 }

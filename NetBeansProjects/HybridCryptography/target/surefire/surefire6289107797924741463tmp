@@ -1,0 +1,12 @@
+#surefire
+#Thu Apr 21 09:02:27 EDT 2016
+jpda.address=51587
+maven.ext.class.path=C\:\\Program Files\\NetBeans 8.1\\java\\maven-nblib\\netbeans-eventspy.jar
+file.encoding=UTF-8
+jpda.listen=true
+forkMode=once
+user.dir=C\:\\Users\\Steve\\Documents\\5700U_FinalProject\\NetBeansProjects\\HybridCryptography
+localRepository=C\:\\Users\\Steve\\.m2\\repository
+test=com.computersecurity.hybridcyrptography.model.DESBaseECBTest
+basedir=C\:\\Users\\Steve\\Documents\\5700U_FinalProject\\NetBeansProjects\\HybridCryptography
+maven.surefire.debug=-Xdebug -Xrunjdwp\:transport\=dt_socket,server\=n,address\=51587

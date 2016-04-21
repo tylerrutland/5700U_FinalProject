@@ -1,5 +1,5 @@
 #surefire
-#Wed Apr 20 13:49:28 EDT 2016
+#Thu Apr 21 09:02:27 EDT 2016
 testClassesDirectory=C\:\\Users\\Steve\\Documents\\5700U_FinalProject\\NetBeansProjects\\HybridCryptography\\target\\test-classes
 forkMode=once
 classPathUrl.3=C\:\\Users\\Steve\\.m2\\repository\\junit\\junit\\4.10\\junit-4.10.jar
