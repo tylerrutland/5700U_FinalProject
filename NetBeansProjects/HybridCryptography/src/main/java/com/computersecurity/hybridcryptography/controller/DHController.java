@@ -30,6 +30,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 
 /**
@@ -48,6 +49,9 @@ public class DHController implements Initializable {
     @FXML
     private SplitPane splitPane;
 
+    @FXML
+    private BorderPane cipherPane;
+    
     @FXML
     private ImageView initImageView, origImageView, encImageView;
 
@@ -101,6 +105,7 @@ public class DHController implements Initializable {
         rb1024.setToggleGroup(bitLengthGroup);
 
         splitPane.disableProperty().bind(dhGeneratorService.runningProperty());
+        cipherPane.disableProperty().bind(dhGeneratorService.runningProperty());
         openBtn.disableProperty().bind(dhGeneratorService.runningProperty());
         genBtn.disableProperty().bind(dhGeneratorService.runningProperty());
         messageLabel.textProperty().bind(dhGeneratorService.messageProperty());

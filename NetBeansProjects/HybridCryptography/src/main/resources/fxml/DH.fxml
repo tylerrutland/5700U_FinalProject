@@ -36,8 +36,8 @@
     <center>
         <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="5.0" minWidth="0.0" prefWidth="0.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -45,7 +45,7 @@
             <children>
                 <BorderPane>
                <center>
-                  <Accordion BorderPane.alignment="CENTER">
+                  <Accordion maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
                     <panes>
                       <TitledPane animated="false" text="DES Parameters">
                            <content>
@@ -157,7 +157,7 @@
                                                     </Label>
                                                     <HBox>
                                                         <children>
-                                                            <TextField fx:id="baseTF" prefColumnCount="50" prefHeight="35.0" promptText="123456789101112131415123456789101112131415123456789101112131415123456789101112131415123456789101112131415123456789101112131415.">
+                                                            <TextField fx:id="baseTF" editable="false" prefColumnCount="50" prefHeight="35.0" promptText="123456789101112131415123456789101112131415123456789101112131415123456789101112131415123456789101112131415123456789101112131415.">
                                                                 <HBox.margin>
                                                                     <Insets left="60.0" />
                                                                 </HBox.margin>
@@ -181,7 +181,7 @@
                                                     </Label>
                                                     <HBox>
                                                         <children>
-                                                            <TextField fx:id="modTF" prefColumnCount="50" prefHeight="35.0" promptText="123456789101112131415123456789101112131415123456789101112131415123456789101112131415123456789101112131415123456789101112131415.">
+                                                            <TextField fx:id="modTF" editable="false" prefColumnCount="50" prefHeight="35.0" promptText="123456789101112131415123456789101112131415123456789101112131415123456789101112131415123456789101112131415123456789101112131415.">
                                                                 <HBox.margin>
                                                                     <Insets left="60.0" />
                                                                 </HBox.margin>
@@ -213,7 +213,7 @@
                                                                     <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
                                                                 </graphic>
                                                             </Label>
-                                                            <TextField fx:id="pubKeyATF" prefColumnCount="45" prefHeight="35.0" promptText="Public Key" />
+                                                            <TextField fx:id="pubKeyATF" editable="false" prefColumnCount="45" prefHeight="35.0" promptText="Public Key" />
                                                         </children>
                                                         <padding>
                                                             <Insets left="60.0" />
@@ -229,7 +229,7 @@
                                                                     <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
                                                                 </graphic>
                                                             </Label>
-                                                            <PasswordField fx:id="privKeyAPF" prefColumnCount="45" prefHeight="35.0" promptText="Private Key" />
+                                                            <PasswordField fx:id="privKeyAPF" editable="false" prefColumnCount="45" prefHeight="35.0" promptText="Private Key" />
                                                         </children>
                                                         <padding>
                                                             <Insets left="60.0" />
@@ -260,7 +260,7 @@
                                                                     <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
                                                                 </graphic>
                                                             </Label>
-                                                            <TextField fx:id="pubKeyBTF" prefColumnCount="45" prefHeight="35.0" promptText="Public Key" />
+                                                            <TextField fx:id="pubKeyBTF" editable="false" prefColumnCount="45" prefHeight="35.0" promptText="Public Key" />
                                                         </children>
                                                         <VBox.margin>
                                                             <Insets />
@@ -279,7 +279,7 @@
                                                                     <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
                                                                 </graphic>
                                                             </Label>
-                                                            <PasswordField fx:id="privKeyBPF" prefColumnCount="45" prefHeight="35.0" promptText="Private Key" />
+                                                            <PasswordField fx:id="privKeyBPF" editable="false" prefColumnCount="45" prefHeight="35.0" promptText="Private Key" />
                                                         </children>
                                                         <padding>
                                                             <Insets left="60.0" />
@@ -313,7 +313,7 @@
                                                                     <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
                                                                 </graphic>
                                                             </Label>
-                                                            <PasswordField fx:id="secKeyAPF" prefColumnCount="45" prefHeight="35.0" promptText="Secret Key A" />
+                                                            <PasswordField fx:id="secKeyAPF" editable="false" prefColumnCount="45" prefHeight="35.0" promptText="Secret Key A" />
                                                         </children>
                                                         <VBox.margin>
                                                             <Insets />
@@ -332,7 +332,7 @@
                                                                     <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
                                                                 </graphic>
                                                             </Label>
-                                                            <PasswordField fx:id="secKeyBPF" prefColumnCount="45" prefHeight="35.0" promptText="Secret Key B" />
+                                                            <PasswordField fx:id="secKeyBPF" editable="false" prefColumnCount="45" prefHeight="35.0" promptText="Secret Key B" />
                                                         </children>
                                                         <padding>
                                                             <Insets left="60.0" />
@@ -358,11 +358,43 @@
                   </Accordion>
                </center>
                 </BorderPane>
-            <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-               <center>
-                  <SplitPane dividerPositions="0.5" orientation="VERTICAL" BorderPane.alignment="CENTER">
+            </children>
+        </GridPane>
+    </center>
+    <left>
+        <BorderPane BorderPane.alignment="CENTER">
+            <top>
+                  <ToolBar prefHeight="50.0">
+               <items>
+                        <Button fx:id="openBtn" mnemonicParsing="false" onAction="#openImage" prefHeight="30.0" prefWidth="125.0" text="Open Image" />
+               </items>
+                  </ToolBar>
+            </top>
+         <center>
+            <SplitPane fx:id="splitPane" dividerPositions="0.66" orientation="VERTICAL" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <items>
+                  <BorderPane fx:id="imagePane">
+                     <center>
+                            <ImageView fx:id="initImageView" fitHeight="312.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true" />
+                     </center>
+                  </BorderPane>
+                  <TextArea editable="false" maxHeight="150.0" wrapText="true" />
+              </items>
+            </SplitPane>
+         </center>
+        </BorderPane>
+    </left>
+    <bottom>
+        <ToolBar prefHeight="30.0" BorderPane.alignment="CENTER" />
+    </bottom>
+   <right>
+      <BorderPane fx:id="cipherPane" maxHeight="1.7976931348623157E308">
+         <center>
+            <TitledPane maxHeight="1.7976931348623157E308" text="Encryption/Decryption" BorderPane.alignment="CENTER">
+               <content>
+                  <SplitPane dividerPositions="0.5" maxHeight="1.7976931348623157E308" orientation="VERTICAL">
                      <items>
-                        <BorderPane>
+                        <BorderPane maxHeight="1.7976931348623157E308">
                            <center>
                               <SplitPane dividerPositions="0.5">
                                  <items>
@@ -394,9 +426,6 @@
                                  </BorderPane.margin>
                                  <items>
                                     <Label contentDisplay="RIGHT" graphicTextGap="15.0" text="Matthew">
-                                       <padding>
-                                          <Insets left="5.0" />
-                                       </padding>
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -437,9 +466,6 @@
                               <ToolBar BorderPane.alignment="CENTER_LEFT">
                                  <items>
                                     <Label contentDisplay="RIGHT" graphicTextGap="15.0" text="Tyler">
-                                       <padding>
-                                          <Insets left="5.0" />
-                                       </padding>
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -453,35 +479,9 @@
                         </BorderPane>
                      </items>
                   </SplitPane>
-               </center>
-            </BorderPane>
-            </children>
-        </GridPane>
-    </center>
-    <left>
-        <BorderPane BorderPane.alignment="CENTER">
-            <top>
-                  <ToolBar prefHeight="50.0">
-               <items>
-                        <Button fx:id="openBtn" mnemonicParsing="false" onAction="#openImage" prefHeight="30.0" prefWidth="125.0" text="Open Image" />
-               </items>
-                  </ToolBar>
-            </top>
-         <center>
-            <SplitPane fx:id="splitPane" dividerPositions="0.66" orientation="VERTICAL" prefWidth="200.0" BorderPane.alignment="CENTER">
-              <items>
-                  <BorderPane fx:id="imagePane">
-                     <center>
-                            <ImageView fx:id="initImageView" fitHeight="312.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true" />
-                     </center>
-                  </BorderPane>
-                  <TextArea maxHeight="150.0" />
-              </items>
-            </SplitPane>
+               </content>
+            </TitledPane>
          </center>
-        </BorderPane>
-    </left>
-    <bottom>
-        <ToolBar prefHeight="30.0" BorderPane.alignment="CENTER" />
-    </bottom>
+      </BorderPane>
+   </right>
 </BorderPane>
