@@ -30,7 +30,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 
 /**
@@ -72,6 +71,9 @@ public class DHController implements Initializable {
 
     @FXML
     private Button openBtn, genBtn;
+
+    @FXML
+    private Button encryptBtn, decryptBtn;
 
     @FXML
     private Label messageLabel;
@@ -125,6 +127,18 @@ public class DHController implements Initializable {
         int bitLength = (Integer) bitLengthGroup.getSelectedToggle().getUserData();
         dhGeneratorService.setDHKeyAgreement2(new DHKeyAgreement2(bitLength));
         dhGeneratorService.start();
+        event.consume();
+    }
+
+    @FXML
+    private void encryptImage(ActionEvent event) {
+
+        event.consume();
+    }
+
+    @FXML
+    private void decryptImage(ActionEvent event) {
+
         event.consume();
     }
 
