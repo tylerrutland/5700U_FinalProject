@@ -432,7 +432,7 @@
                                  <items>
                                     <ScrollPane prefViewportHeight="175.0" prefWidth="200.0">
                                        <content>
-                                          <ImageView fx:id="encImageView" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="origImageView" pickOnBounds="true" preserveRatio="true">
                                              <viewport>
                                                 <Rectangle2D />
                                              </viewport>
@@ -441,7 +441,7 @@
                                     </ScrollPane>
                                     <ScrollPane prefViewportHeight="175.0" prefWidth="200.0">
                                        <content>
-                                          <ImageView fx:id="origImageView" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="encImageView" pickOnBounds="true" preserveRatio="true">
                                              <viewport>
                                                 <Rectangle2D />
                                              </viewport>

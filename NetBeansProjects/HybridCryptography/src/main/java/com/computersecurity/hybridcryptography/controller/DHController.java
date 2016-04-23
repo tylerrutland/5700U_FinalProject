@@ -51,7 +51,7 @@ public class DHController implements Initializable {
 
     @FXML
     private BorderPane cipherPane;
-    
+
     @FXML
     private ImageView initImageView, origImageView, encImageView;
 
