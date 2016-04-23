@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Accordion?>
@@ -25,7 +32,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.computersecurity.hybridcryptography.controller.DHController">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.computersecurity.hybridcryptography.controller.DHController">
     <top>
         <Label maxWidth="1.7976931348623157E308" prefHeight="50.0" text="DES and Diffie-Hellman Key Exchange Protocol" BorderPane.alignment="CENTER">
             <font>
@@ -375,7 +382,15 @@
               <items>
                   <BorderPane fx:id="imagePane">
                      <center>
-                            <ImageView fx:id="initImageView" fitHeight="312.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true" />
+                        <ScrollPane prefViewportHeight="350.0" BorderPane.alignment="CENTER">
+                           <content>
+                                  <ImageView fx:id="initImageView" pickOnBounds="true" preserveRatio="true">
+                                 <viewport>
+                                    <Rectangle2D />
+                                 </viewport>
+                              </ImageView>
+                           </content>
+                        </ScrollPane>
                      </center>
                   </BorderPane>
                   <TextArea editable="false" maxHeight="150.0" wrapText="true" />
@@ -395,30 +410,6 @@
                   <SplitPane dividerPositions="0.5" maxHeight="1.7976931348623157E308" orientation="VERTICAL">
                      <items>
                         <BorderPane maxHeight="1.7976931348623157E308">
-                           <center>
-                              <SplitPane dividerPositions="0.5">
-                                 <items>
-                                    <BorderPane>
-                                       <center>
-                                          <ImageView fx:id="origImageView" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-                                             <viewport>
-                                                <Rectangle2D height="218.0" width="133.0" />
-                                             </viewport>
-                                          </ImageView>
-                                       </center>
-                                    </BorderPane>
-                                    <BorderPane>
-                                       <center>
-                                          <ImageView fx:id="encImageView" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-                                             <viewport>
-                                                <Rectangle2D height="218.0" width="133.0" />
-                                             </viewport>
-                                          </ImageView>
-                                       </center>
-                                    </BorderPane>
-                                 </items>
-                              </SplitPane>
-                           </center>
                            <top>
                               <ToolBar BorderPane.alignment="CENTER_LEFT">
                                  <BorderPane.margin>
@@ -436,29 +427,53 @@
                                  </items>
                               </ToolBar>
                            </top>
+                           <center>
+                              <SplitPane dividerPositions="0.5" BorderPane.alignment="CENTER">
+                                 <items>
+                                    <ScrollPane prefViewportHeight="175.0" prefWidth="200.0">
+                                       <content>
+                                          <ImageView fx:id="encImageView" pickOnBounds="true" preserveRatio="true">
+                                             <viewport>
+                                                <Rectangle2D />
+                                             </viewport>
+                                          </ImageView>
+                                       </content>
+                                    </ScrollPane>
+                                    <ScrollPane prefViewportHeight="175.0" prefWidth="200.0">
+                                       <content>
+                                          <ImageView fx:id="origImageView" pickOnBounds="true" preserveRatio="true">
+                                             <viewport>
+                                                <Rectangle2D />
+                                             </viewport>
+                                          </ImageView>
+                                       </content>
+                                    </ScrollPane>
+                                 </items>
+                              </SplitPane>
+                           </center>
                         </BorderPane>
                         <BorderPane>
                            <center>
                               <SplitPane dividerPositions="0.5">
                                  <items>
-                                    <BorderPane>
-                                       <center>
-                                          <ImageView pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                                    <ScrollPane prefViewportHeight="175.0" prefWidth="200.0">
+                                       <content>
+                                          <ImageView pickOnBounds="true" preserveRatio="true">
                                              <viewport>
                                                 <Rectangle2D height="218.0" width="133.0" />
                                              </viewport>
                                           </ImageView>
-                                       </center>
-                                    </BorderPane>
-                                    <BorderPane>
-                                       <center>
-                                          <ImageView pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                                       </content>
+                                    </ScrollPane>
+                                    <ScrollPane prefViewportHeight="175.0" prefWidth="200.0">
+                                       <content>
+                                          <ImageView pickOnBounds="true" preserveRatio="true">
                                              <viewport>
                                                 <Rectangle2D height="218.0" width="133.0" />
                                              </viewport>
                                           </ImageView>
-                                       </center>
-                                    </BorderPane>
+                                       </content>
+                                    </ScrollPane>
                                  </items>
                               </SplitPane>
                            </center>
