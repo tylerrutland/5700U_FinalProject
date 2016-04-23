@@ -19,6 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.*;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+import javafx.scene.control.SpinnerValueFactory;
 
 public class FinalProject2 extends Application {
 
@@ -40,6 +41,7 @@ public class FinalProject2 extends Application {
     byte[] decryptedSample;
     TextField senderName = new TextField("Type Sender's Name");
     TextField receiverName = new TextField("Receiver 1");
+    Spinner rounds = new Spinner();
     int DHSender, DHReceiver; // DHVALUES
     int A, B; // DHVALUES
     SendReceive sendMyMessage = new SendReceive();
@@ -62,10 +64,12 @@ public class FinalProject2 extends Application {
         final Button Send = new Button("Send Encrypted Image");
         final Button Receive = new Button("Receive Encrypted Image");
         final DES encrypter = new DES();
+        final VEA VEAencrypter = new VEA();
         final ImageView iv1 = new ImageView();
         final ImageView iv2 = new ImageView();
         final ImageView iv3 = new ImageView();
         final ImageView iv4 = new ImageView();
+        rounds.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100));
 
         final RadioButton DESRadioButtonOption = new RadioButton("DES");
         final ToggleGroup pickEncryptionType = new ToggleGroup();
@@ -167,7 +171,7 @@ public class FinalProject2 extends Application {
         vbox2.setPrefHeight(750);
         vbox4.setPadding(new Insets(10, 10, 10, 10));
         vbox6.setPadding(new Insets(10, 10, 10, 10));
-        vbox3.getChildren().addAll(openButton, senderPrivateKey, DESRadioButtonOption, VEARadioButtonOption,
+        vbox3.getChildren().addAll(openButton, senderPrivateKey, DESRadioButtonOption, VEARadioButtonOption, rounds,
                 Encrypt, originalBytesText, originalBytes, encryptedBytesText,
                 encryptedBytes, sendChooser, SendToUserRadioButtonOption, SendToGroupRadioButtonOption);
         Scene scene = new Scene(root, 1000, 750);
@@ -258,7 +262,6 @@ public class FinalProject2 extends Application {
                 }
             }
         });
-
         Encrypt.setOnAction( // ENCRYPT
                 new EventHandler<ActionEvent>() {
             @Override
@@ -266,6 +269,7 @@ public class FinalProject2 extends Application {
                 if (DESRadioButtonOption.isSelected()) {
 
                     try {
+                        encrypter.rounds = (int) rounds.getValue();
                         fileContent = encrypter.encrypt(fileContent);
                         System.out.println("\n100 of the encrypted image bytes");
                         encryptedSample = new byte[10];
@@ -276,11 +280,51 @@ public class FinalProject2 extends Application {
                             }
                             System.out.print(fileContent[i] + " ");
                         }
-                        OutputStream out = null;
+                        OutputStream out = null, outText = null;
                         try {
 
                             out = new BufferedOutputStream(new FileOutputStream("src/images/Encrypt.bmp"));
-                            out.write(fileContent);
+                            //outText = new BufferedOutputStream(new FileOutputStream("src/images/Encrypt.txt"));
+                            outText = new ObjectOutputStream(new FileOutputStream("src/images/Encrypt.txt"));
+                            //for (int i = 0; i < fileContent.length; i++) {
+                            outText.write(fileContent); // WRITE ENCRYPTED BYTES TO TEXT FILE
+                            out.write(fileContent); // WRITE ENCRYPTED BYTES TO IMAGE FILE
+                            //}
+                            Image image2 = new Image("file:" + out);
+                            iv1.setImage(image2);
+                            encryptedBytes.setText(Arrays.toString(encryptedSample));
+                        } finally {
+                            if (out != null) {
+                                out.close();
+                            }
+                        }
+                    } catch (Exception d) {
+                        JOptionPane.showMessageDialog(null, e);
+                    }
+                }if (VEARadioButtonOption.isSelected()) {
+
+                    try {
+                        VEAencrypter.rounds = (int) rounds.getValue();
+                        fileContent = VEAencrypter.encrypt(fileContent);
+                        System.out.println("\n100 of the encrypted image bytes");
+                        encryptedSample = new byte[10];
+
+                        for (int i = 0; i < 100; i++) {
+                            if (i < 10) {
+                                encryptedSample[i] = fileContent[i];
+                            }
+                            System.out.print(fileContent[i] + " ");
+                        }
+                        OutputStream out = null, outText = null;
+                        try {
+
+                            out = new BufferedOutputStream(new FileOutputStream("src/images/Encrypt.bmp"));
+                            //outText = new BufferedOutputStream(new FileOutputStream("src/images/Encrypt.txt"));
+                            outText = new ObjectOutputStream(new FileOutputStream("src/images/Encrypt.txt"));
+                            //for (int i = 0; i < fileContent.length; i++) {
+                            outText.write(fileContent); // WRITE ENCRYPTED BYTES TO TEXT FILE
+                            out.write(fileContent); // WRITE ENCRYPTED BYTES TO IMAGE FILE
+                            //}
                             Image image2 = new Image("file:" + out);
                             iv1.setImage(image2);
                             encryptedBytes.setText(Arrays.toString(encryptedSample));
@@ -324,7 +368,7 @@ public class FinalProject2 extends Application {
                             Alert alert = new Alert(AlertType.INFORMATION);
                             alert.setTitle("Alert");
                             alert.setHeaderText(null);
-                            alert.setContentText("Message sent successfully to "+ receiverName.getText());
+                            alert.setContentText("Message sent successfully to " + receiverName.getText());
                             alert.showAndWait();
                         } else {
                             JOptionPane.showMessageDialog(null, "User not found");
