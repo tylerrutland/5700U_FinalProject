@@ -27,7 +27,7 @@ public class DHKeyAgreement2Test {
     }
 
     @Test
-    public void testNonNullKey() {
+    public void testNonNullKeys() {
         DHKeyAgreement2 dh = new DHKeyAgreement2(512);
         String keyA = dh.getSecretKeyA();
         String keyB = dh.getSecretKeyB();

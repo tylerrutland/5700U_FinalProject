@@ -15,10 +15,9 @@ import org.junit.Test;
  */
 public class RSATest {
 
-    public final RSA rsa = new RSA(512);
-
     @Test
     public void testRSA() {
+        RSA rsa = new RSA(512);
         String initialMessage = "This is a test string for encryption and decryption";
         byte[] encrypted = rsa.encrypt(initialMessage.getBytes());
 
@@ -28,7 +27,7 @@ public class RSATest {
         boolean expected = true;
         boolean result = initialMessage.equals(finalMessage);
 
-        assertEquals("The final message is the same as the original message",
+        assertEquals("The final message is the same as the initial message",
                 expected, result);
     }
 

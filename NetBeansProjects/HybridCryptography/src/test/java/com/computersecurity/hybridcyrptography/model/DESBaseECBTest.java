@@ -23,11 +23,11 @@ public class DESBaseECBTest {
 
     @Test
     public void testSecretKeyForEncryptionAndDecryption() {
-        DESBaseECB desBase = new DESBaseECB();
+        DESBaseECB ecb = new DESBaseECB();
 
         byte[] plaintext = "This is just an example".getBytes();
-        byte[] ciphertext = desBase.getCipherText(plaintext, desBase.getDESKeyA());
-        byte[] recovered = desBase.getPlainText(ciphertext, desBase.getDESKeyB());
+        byte[] ciphertext = ecb.getCipherText(plaintext, ecb.getDESKeyA());
+        byte[] recovered = ecb.getPlainText(ciphertext, ecb.getDESKeyB());
 
         boolean expected = true;
         boolean result = Arrays.equals(plaintext, recovered);
@@ -37,12 +37,12 @@ public class DESBaseECBTest {
 
     @Test
     public void testEncryptionAndDecryptionForImagePath() throws IOException {
-        DESBaseECB desBase = new DESBaseECB();
+        DESBaseECB ecb = new DESBaseECB();
 
         File file = new File(path + "images/palmTree.bmp");
         byte[] fileBytePath = Files.readAllBytes(file.toPath());
-        byte[] cipherText = desBase.getCipherText(fileBytePath, desBase.getDESKeyA());
-        byte[] recovered = desBase.getPlainText(cipherText, desBase.getDESKeyB());
+        byte[] cipherText = ecb.getCipherText(fileBytePath, ecb.getDESKeyA());
+        byte[] recovered = ecb.getPlainText(cipherText, ecb.getDESKeyB());
 
         boolean expected = true;
         boolean result = Arrays.equals(fileBytePath, recovered);
@@ -51,15 +51,15 @@ public class DESBaseECBTest {
 
     @Test
     public void testImageEncryptionAndDecryption() throws Exception {
-        DESBaseECB desBase = new DESBaseECB();
+        DESBaseECB ecb = new DESBaseECB();
 
         File origFile = new File(path + "images/palmTree.bmp");
         File encryptedFile = new File(path + "images/cipherPalmTree.bmp");
         File recoveredFile = new File(path + "images/recovPalmTree.jpg");
 
         boolean expected = true;
-        boolean isEncrypted = desBase.encryptImage(origFile, encryptedFile, desBase.getDESKeyA());
-        boolean isDecrypted = desBase.decryptImage(encryptedFile, recoveredFile, desBase.getDESKeyB());
+        boolean isEncrypted = ecb.encryptImage(origFile, encryptedFile, ecb.getDESKeyA());
+        boolean isDecrypted = ecb.decryptImage(encryptedFile, recoveredFile, ecb.getDESKeyB());
 
         boolean result = (isEncrypted && isDecrypted);
         assertEquals("Image encrypted and decrypted successfully! ", expected, result);
