@@ -7,6 +7,7 @@ package com.computersecurity.hybridcryptography.controller;
 
 import com.computersecurity.hybridcryptography.concurrency.AppExecutorService;
 import com.computersecurity.hybridcryptography.concurrency.DHGeneratorService;
+import com.computersecurity.hybridcryptography.model.DESBase;
 import com.computersecurity.hybridcryptography.model.DESBaseCBC;
 import com.computersecurity.hybridcryptography.model.DESBaseECB;
 import com.computersecurity.hybridcryptography.model.DHKeyAgreement2;
@@ -82,7 +83,8 @@ public class DHController implements Initializable {
 
     @FXML
     private Tooltip baseTooltip, modTooltip,
-            pubKeyATooltip, pubKeyBTooltip;
+            pubKeyATooltip, pubKeyBTooltip,
+            secretKeyATooltip;
 
     @FXML
     private Label messageLabel;
@@ -140,15 +142,14 @@ public class DHController implements Initializable {
         event.consume();
     }
 
+    
     @FXML
     private void encryptImage(ActionEvent event) {
-
         event.consume();
     }
 
     @FXML
     private void decryptImage(ActionEvent event) {
-
         event.consume();
     }
 
@@ -156,8 +157,12 @@ public class DHController implements Initializable {
         Object[] items = dhGeneratorService.getValue();
 
         if (items.length != 0) {
-            secKeyAPF.setText((String) items[0]);
-            secKeyBPF.setText((String) items[1]);
+            String secKeyA = (String) items[0];
+            String secKeyB = (String) items[1];
+
+            secKeyAPF.setText(secKeyA);
+            secKeyBPF.setText(secKeyB);
+            secretKeyATooltip.setText("Secret Keys Are Equal: " + secKeyA.contains(secKeyB));
 
             String base = ((BigInteger) items[2]).toString();
             String mod = ((BigInteger) items[3]).toString();
@@ -205,5 +210,4 @@ public class DHController implements Initializable {
 
         }
     }
-
 }

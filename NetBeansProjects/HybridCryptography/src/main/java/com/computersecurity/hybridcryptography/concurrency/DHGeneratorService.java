@@ -39,7 +39,7 @@ public class DHGeneratorService extends Service<Object[]> {
 
             @Override
             public Object[] call() throws InterruptedException {
-                updateMessage("Generating Diffie-Hellman Parameters");
+                updateMessage("Generating Diffie-Hellman Parameters . . . . .");
                 Thread.sleep(2000);
 
                 Object[] items = {

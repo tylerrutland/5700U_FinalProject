@@ -21,7 +21,7 @@ import javax.crypto.SecretKey;
  *
  * @author sm6668
  */
-abstract class DESBase extends DHKeyAgreement2 {
+public abstract class DESBase extends DHKeyAgreement2 {
 
     private static final String ALGORITHM = "DES";
     private SecretKey keyDESA, keyDESB;

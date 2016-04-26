@@ -292,7 +292,7 @@
                                                             </Label>
                                                             <PasswordField fx:id="secKeyAPF" editable="false" prefColumnCount="45" promptText="Secret Key A">
                                                    <tooltip>
-                                                      <Tooltip text="Shared secret keys will be the same" />
+                                                      <Tooltip fx:id="secretKeyATooltip" wrapText="true" />
                                                    </tooltip></PasswordField>
                                                         </children>
                                                         <VBox.margin>
