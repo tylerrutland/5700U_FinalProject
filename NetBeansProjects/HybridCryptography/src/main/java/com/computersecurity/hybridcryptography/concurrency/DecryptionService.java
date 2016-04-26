@@ -16,14 +16,14 @@ import javafx.concurrent.Task;
 
 /**
  *
- * @author Steve
+ * @author sm6668
  */
-public class EncryptionService extends Service<Boolean> {
+public class DecryptionService extends Service<Boolean> {
 
     private DESBase desBase;
     private File imageFile, outputFile;
 
-    public EncryptionService() {
+    public DecryptionService() {
     }
 
     public void setDESBase(DESBase desBase) {
@@ -52,18 +52,19 @@ public class EncryptionService extends Service<Boolean> {
 
             @Override
             public Boolean call() throws InterruptedException {
-                updateMessage("Encrypting Image . . . . .");
+                updateMessage("Decrypting Image . . . . .");
                 Thread.sleep(2000);
                 if (desBase instanceof DESBaseECB) {
                     Thread.sleep(1500);
                     updateMessage("Encryption Successful");
                     return new DESBaseECBService((DESBaseECB) desBase)
-                            .encryptImage(imageFile, outputFile);
+                            .decryptImage(imageFile, outputFile);
+
                 } else {
                     Thread.sleep(1500);
                     updateMessage("Encryption Successful");
                     return new DESBaseCBCService((DESBaseCBC) desBase)
-                            .encryptImage(imageFile, outputFile);
+                            .decryptImage(imageFile, outputFile);
                 }
             }
         };

@@ -21,7 +21,7 @@ import javax.crypto.SecretKey;
  *
  * @author sm6668
  */
-public abstract class DESBase extends DHKeyAgreement2 {
+public class DESBase extends DHKeyAgreement2 {
 
     private static final String ALGORITHM = "DES";
     private SecretKey keyDESA, keyDESB;
@@ -57,14 +57,6 @@ public abstract class DESBase extends DHKeyAgreement2 {
     public SecretKey getDESKeyB() {
         return keyDESB;
     }
-
-    public abstract boolean encryptImage(File imageFile, File outputFile, SecretKey key);
-
-    public abstract boolean decryptImage(File imageFile, File outputFile, SecretKey key);
-
-    public abstract byte[] getCipherText(byte[] plaintext, SecretKey key);
-
-    public abstract byte[] getPlainText(byte[] ciphertext, SecretKey key);
 
     public static void write(Cipher cipher, File imageFile, File outputFile)
             throws IOException, IllegalBlockSizeException, BadPaddingException {

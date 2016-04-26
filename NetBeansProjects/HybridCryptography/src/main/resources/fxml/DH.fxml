@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToolBar?>
@@ -32,383 +26,27 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.computersecurity.hybridcryptography.controller.DHController">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.computersecurity.hybridcryptography.controller.DHController">
     <top>
-        <Label maxWidth="1.7976931348623157E308" prefHeight="50.0" text="DES and Diffie-Hellman Key Exchange Protocol" BorderPane.alignment="CENTER">
+        <Label maxWidth="1.7976931348623157E308" text="DES and Diffie-Hellman Key Exchange Protocol" BorderPane.alignment="CENTER">
             <font>
                 <Font size="25.0" />
             </font>
         </Label>
     </top>
     <center>
-        <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="5.0" minWidth="0.0" prefWidth="0.0" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            </rowConstraints>
-            <children>
-                <BorderPane>
+      <SplitPane dividerPositions="0.25, 0.75" BorderPane.alignment="CENTER">
+         <items>
+              <BorderPane>
+                  <top>
+                        <ToolBar prefHeight="50.0">
+                     <items>
+                              <Button fx:id="openBtn" mnemonicParsing="false" onAction="#openImage" prefHeight="30.0" prefWidth="125.0" text="Open Image" />
+                     </items>
+                        </ToolBar>
+                  </top>
                <center>
-                  <Accordion maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
-                    <panes>
-                        <TitledPane text="Diffie-Hellman Parameters">
-                           <content>
-                                    <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="5.0">
-                                        <columnConstraints>
-                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                                        </columnConstraints>
-                                        <rowConstraints>
-                                            <RowConstraints maxHeight="65.0" minHeight="10.0" vgrow="SOMETIMES" />
-                                            <RowConstraints maxHeight="65.0" minHeight="10.0" vgrow="SOMETIMES" />
-                                            <RowConstraints maxHeight="65.0" minHeight="10.0" vgrow="SOMETIMES" />
-                                            <RowConstraints minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
-                                            <RowConstraints minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
-                                            <RowConstraints minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
-                                        </rowConstraints>
-                                        <children>
-                                            <VBox layoutX="10.0" layoutY="135.0" spacing="10.0">
-                                                <children>
-                                                    <Label graphicTextGap="10.0" text="Bit Length">
-                                                        <graphic>
-                                                            <Circle radius="5.0" stroke="BLACK" strokeType="INSIDE" />
-                                                        </graphic>
-                                                        <font>
-                                                            <Font size="15.0" />
-                                                        </font>
-                                                        <padding>
-                                                            <Insets left="15.0" />
-                                                        </padding>
-                                                    </Label>
-                                                    <HBox spacing="20.0">
-                                                        <children>
-                                                            <RadioButton fx:id="rb512" mnemonicParsing="false" text="512" />
-                                                            <RadioButton fx:id="rb1024" mnemonicParsing="false" text="1024" />
-                                                        </children>
-                                                        <padding>
-                                                            <Insets left="60.0" />
-                                                        </padding>
-                                                    </HBox>
-                                                </children>
-                                            </VBox>
-                                            <VBox spacing="3.0" GridPane.rowIndex="1">
-                                                <children>
-                                                    <Label graphicTextGap="10.0" text="Base">
-                                                        <graphic>
-                                                            <Circle radius="5.0" stroke="BLACK" strokeType="INSIDE" />
-                                                        </graphic>
-                                                        <font>
-                                                            <Font size="15.0" />
-                                                        </font>
-                                                        <padding>
-                                                            <Insets left="15.0" />
-                                                        </padding>
-                                                    </Label>
-                                                    <HBox>
-                                                        <children>
-                                                            <TextField fx:id="baseTF" editable="false" prefColumnCount="50" promptText="123456789101112131415123456789101112131415123456789101112131415123456789101112131415123456789101112131415123456789101112131415.">
-                                                                <HBox.margin>
-                                                                    <Insets left="60.0" />
-                                                                </HBox.margin>
-                                                   <tooltip>
-                                                      <Tooltip fx:id="baseTooltip" wrapText="true">
-                                                         <font>
-                                                            <Font size="10.0" />
-                                                         </font>
-                                                      </Tooltip>
-                                                   </tooltip>
-                                                            </TextField>
-                                                        </children>
-                                                    </HBox>
-                                                </children>
-                                            </VBox>
-                                            <VBox spacing="3.0" GridPane.rowIndex="2">
-                                                <children>
-                                                    <Label graphicTextGap="10.0" text="Modulus ">
-                                                        <graphic>
-                                                            <Circle radius="5.0" stroke="BLACK" strokeType="INSIDE" />
-                                                        </graphic>
-                                                        <font>
-                                                            <Font size="15.0" />
-                                                        </font>
-                                                        <padding>
-                                                            <Insets left="15.0" />
-                                                        </padding>
-                                                    </Label>
-                                                    <HBox>
-                                                        <children>
-                                                            <TextField fx:id="modTF" editable="false" prefColumnCount="50" promptText="123456789101112131415123456789101112131415123456789101112131415123456789101112131415123456789101112131415123456789101112131415.">
-                                                                <HBox.margin>
-                                                                    <Insets left="60.0" />
-                                                                </HBox.margin>
-                                                   <tooltip>
-                                                      <Tooltip fx:id="modTooltip" wrapText="true">
-                                                         <font>
-                                                            <Font size="10.0" />
-                                                         </font>
-                                                      </Tooltip>
-                                                   </tooltip>
-                                                            </TextField>
-                                                        </children>
-                                                    </HBox>
-                                                </children>
-                                            </VBox>
-                                            <VBox alignment="CENTER_LEFT" spacing="5.0" GridPane.rowIndex="3">
-                                                <children>
-                                                    <Label graphicTextGap="15.0" text="Alice's">
-                                                        <graphic>
-                                                            <Circle radius="5.0" stroke="BLACK" strokeType="INSIDE" />
-                                                        </graphic>
-                                                        <font>
-                                                            <Font size="15.0" />
-                                                        </font>
-                                                        <padding>
-                                                            <Insets left="15.0" />
-                                                        </padding>
-                                                    </Label>
-                                                    <HBox alignment="CENTER_LEFT" spacing="5.0">
-                                                        <children>
-                                                            <Label graphicTextGap="10.0" text="Public Key: ">
-                                                                <font>
-                                                                    <Font size="13.0" />
-                                                                </font>
-                                                                <graphic>
-                                                                    <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
-                                                                </graphic>
-                                                            </Label>
-                                                            <TextField fx:id="pubKeyATF" editable="false" prefColumnCount="45" promptText="Public Key">
-                                                   <tooltip>
-                                                      <Tooltip fx:id="pubKeyATooltip" wrapText="true">
-                                                         <font>
-                                                            <Font size="10.0" />
-                                                         </font>
-                                                      </Tooltip>
-                                                   </tooltip></TextField>
-                                                        </children>
-                                                        <padding>
-                                                            <Insets left="60.0" />
-                                                        </padding>
-                                                    </HBox>
-                                                    <HBox alignment="CENTER_LEFT" spacing="5.0">
-                                                        <children>
-                                                            <Label graphicTextGap="10.0" text="Private Key: ">
-                                                                <font>
-                                                                    <Font size="13.0" />
-                                                                </font>
-                                                                <graphic>
-                                                                    <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
-                                                                </graphic>
-                                                            </Label>
-                                                            <PasswordField fx:id="privKeyAPF" editable="false" prefColumnCount="45" promptText="Private Key" />
-                                                        </children>
-                                                        <padding>
-                                                            <Insets left="60.0" />
-                                                        </padding>
-                                                    </HBox>
-                                                </children>
-                                            </VBox>
-                                            <VBox layoutX="10.0" layoutY="338.0" spacing="5.0" GridPane.rowIndex="4">
-                                                <children>
-                                                    <Label graphicTextGap="10.0" text="Bob's">
-                                                        <graphic>
-                                                            <Circle radius="5.0" stroke="BLACK" strokeType="INSIDE" />
-                                                        </graphic>
-                                                        <font>
-                                                            <Font size="15.0" />
-                                                        </font>
-                                                        <padding>
-                                                            <Insets left="15.0" />
-                                                        </padding>
-                                                    </Label>
-                                                    <HBox alignment="CENTER_LEFT" spacing="5.0">
-                                                        <children>
-                                                            <Label graphicTextGap="10.0" text="Public Key: ">
-                                                                <font>
-                                                                    <Font size="13.0" />
-                                                                </font>
-                                                                <graphic>
-                                                                    <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
-                                                                </graphic>
-                                                            </Label>
-                                                            <TextField fx:id="pubKeyBTF" editable="false" prefColumnCount="45" promptText="Public Key">
-                                                   <tooltip>
-                                                      <Tooltip fx:id="pubKeyBTooltip" wrapText="true">
-                                                         <font>
-                                                            <Font size="10.0" />
-                                                         </font>
-                                                      </Tooltip>
-                                                   </tooltip></TextField>
-                                                        </children>
-                                                        <VBox.margin>
-                                                            <Insets />
-                                                        </VBox.margin>
-                                                        <padding>
-                                                            <Insets left="60.0" />
-                                                        </padding>
-                                                    </HBox>
-                                                    <HBox alignment="CENTER_LEFT" spacing="5.0">
-                                                        <children>
-                                                            <Label graphicTextGap="10.0" text="Private Key: ">
-                                                                <font>
-                                                                    <Font size="13.0" />
-                                                                </font>
-                                                                <graphic>
-                                                                    <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
-                                                                </graphic>
-                                                            </Label>
-                                                            <PasswordField fx:id="privKeyBPF" editable="false" prefColumnCount="45" promptText="Private Key" />
-                                                        </children>
-                                                        <padding>
-                                                            <Insets left="60.0" />
-                                                        </padding>
-                                                    </HBox>
-                                                </children>
-                                            </VBox>
-                                            <VBox layoutX="10.0" layoutY="312.0" spacing="5.0" GridPane.rowIndex="5">
-                                                <children>
-                                                    <Label graphicTextGap="10.0" text="Shared Secret Key">
-                                                        <graphic>
-                                                            <Circle radius="5.0" stroke="BLACK" strokeType="INSIDE" />
-                                                        </graphic>
-                                                        <font>
-                                                            <Font size="15.0" />
-                                                        </font>
-                                                        <padding>
-                                                            <Insets left="15.0" />
-                                                        </padding>
-                                                    </Label>
-                                                    <HBox alignment="CENTER_LEFT" spacing="5.0">
-                                                        <children>
-                                                            <Label graphicTextGap="10.0" text="Alice's Secret Key: ">
-                                                                <font>
-                                                                    <Font size="13.0" />
-                                                                </font>
-                                                                <graphic>
-                                                                    <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
-                                                                </graphic>
-                                                            </Label>
-                                                            <PasswordField fx:id="secKeyAPF" editable="false" prefColumnCount="45" promptText="Secret Key A">
-                                                   <tooltip>
-                                                      <Tooltip fx:id="secretKeyATooltip" wrapText="true" />
-                                                   </tooltip></PasswordField>
-                                                        </children>
-                                                        <VBox.margin>
-                                                            <Insets />
-                                                        </VBox.margin>
-                                                        <padding>
-                                                            <Insets left="60.0" />
-                                                        </padding>
-                                                    </HBox>
-                                                    <HBox alignment="CENTER_LEFT" spacing="5.0">
-                                                        <children>
-                                                            <Label graphicTextGap="10.0" text="Bob's Secret Key: ">
-                                                                <font>
-                                                                    <Font size="13.0" />
-                                                                </font>
-                                                                <graphic>
-                                                                    <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
-                                                                </graphic>
-                                                            </Label>
-                                                            <PasswordField fx:id="secKeyBPF" editable="false" prefColumnCount="45" promptText="Secret Key B" />
-                                                        </children>
-                                                        <padding>
-                                                            <Insets left="60.0" />
-                                                        </padding>
-                                                    </HBox>
-                                                </children>
-                                            </VBox>
-                                        <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" spacing="15.0" GridPane.rowIndex="6">
-                                            <children>
-                                                <Button fx:id="genBtn" mnemonicParsing="false" onAction="#generateParameters" prefHeight="30.0" prefWidth="170.0" text="Generate Parameters" />
-                                                <Label fx:id="messageLabel" maxWidth="1.7976931348623157E308" prefHeight="30.0" text="Message" visible="false">
-                                                    <graphic>
-                                                        <ProgressIndicator fx:id="progressIndicator" prefHeight="25.0" progress="0.0" />
-                                                    </graphic>
-                                                </Label>
-                                            </children>
-                                        </HBox>
-                                        </children>
-                                    </GridPane>
-                           </content>
-                        </TitledPane>
-                      <TitledPane text="DES Parameters">
-                           <content>
-                              <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="5.0">
-                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                                 <children>
-                                    <VBox alignment="CENTER_LEFT" spacing="15.0">
-                                       <children>
-                                          <Label graphicTextGap="15.0" text="Cipher Modes">
-                                             <graphic>
-                                                <Circle radius="5.0" stroke="BLACK" strokeType="INSIDE" />
-                                             </graphic>
-                                             <font>
-                                                <Font size="15.0" />
-                                             </font>
-                                             <padding>
-                                                <Insets left="15.0" />
-                                             </padding>
-                                          </Label>
-                                          <HBox alignment="CENTER_LEFT" prefHeight="200.0" spacing="15.0">
-                                             <children>
-                                                <RadioButton fx:id="rbECB" contentDisplay="RIGHT" graphicTextGap="12.0" mnemonicParsing="false" text="Electronic Code Book (ECB)" />
-                                                <ImageView pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../images/ecb.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </children>
-                                             <padding>
-                                                <Insets left="60.0" />
-                                             </padding>
-                                          </HBox>
-                                          <HBox alignment="CENTER_LEFT" prefHeight="200.0" spacing="15.0">
-                                             <children>
-                                                <RadioButton fx:id="rbCBC" contentDisplay="RIGHT" graphicTextGap="10.0" mnemonicParsing="false" text="Cipher Block Chaining (CBC)" />
-                                                <ImageView pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../images/cbc.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </children>
-                                             <padding>
-                                                <Insets left="60.0" />
-                                             </padding>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </GridPane>
-                           </content>
-                        </TitledPane>
-                    </panes>
-                  </Accordion>
-               </center>
-                </BorderPane>
-            </children>
-        </GridPane>
-    </center>
-    <left>
-        <BorderPane BorderPane.alignment="CENTER">
-            <top>
-                  <ToolBar prefHeight="50.0">
-               <items>
-                        <Button fx:id="openBtn" mnemonicParsing="false" onAction="#openImage" prefHeight="30.0" prefWidth="125.0" text="Open Image" />
-               </items>
-                  </ToolBar>
-            </top>
-         <center>
-            <SplitPane fx:id="splitPane" dividerPositions="0.66" orientation="VERTICAL" prefWidth="200.0" BorderPane.alignment="CENTER">
-              <items>
-                  <BorderPane fx:id="imagePane">
+                  <BorderPane fx:id="imagePane" prefWidth="250.0">
                      <center>
                         <ScrollPane prefViewportHeight="350.0" BorderPane.alignment="CENTER">
                            <content>
@@ -421,110 +59,474 @@
                         </ScrollPane>
                      </center>
                   </BorderPane>
-                  <TextArea editable="false" maxHeight="150.0" wrapText="true" />
-              </items>
-            </SplitPane>
-         </center>
-        </BorderPane>
-    </left>
+               </center>
+              </BorderPane>
+              <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                  <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="5.0" minWidth="0.0" prefWidth="0.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                  <children>
+                      <BorderPane>
+                     <center>
+                        <Accordion maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+                          <panes>
+                              <TitledPane text="Diffie-Hellman Parameters">
+                                 <content>
+                                          <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="5.0">
+                                              <columnConstraints>
+                                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                              </columnConstraints>
+                                              <rowConstraints>
+                                                  <RowConstraints maxHeight="65.0" minHeight="10.0" vgrow="SOMETIMES" />
+                                                  <RowConstraints maxHeight="65.0" minHeight="10.0" vgrow="SOMETIMES" />
+                                                  <RowConstraints maxHeight="65.0" minHeight="10.0" vgrow="SOMETIMES" />
+                                                  <RowConstraints minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
+                                                  <RowConstraints minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
+                                                  <RowConstraints minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                              </rowConstraints>
+                                              <children>
+                                                  <VBox layoutX="10.0" layoutY="135.0" spacing="10.0">
+                                                      <children>
+                                                          <Label graphicTextGap="10.0" text="Bit Length">
+                                                              <graphic>
+                                                                  <Circle radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                                              </graphic>
+                                                              <font>
+                                                                  <Font size="15.0" />
+                                                              </font>
+                                                              <padding>
+                                                                  <Insets left="15.0" />
+                                                              </padding>
+                                                          </Label>
+                                                          <HBox spacing="20.0">
+                                                              <children>
+                                                                  <RadioButton fx:id="rb512" mnemonicParsing="false" text="512" />
+                                                                  <RadioButton fx:id="rb1024" mnemonicParsing="false" text="1024" />
+                                                              </children>
+                                                              <padding>
+                                                                  <Insets left="60.0" />
+                                                              </padding>
+                                                          </HBox>
+                                                      </children>
+                                                  </VBox>
+                                                  <VBox spacing="3.0" GridPane.rowIndex="1">
+                                                      <children>
+                                                          <Label graphicTextGap="10.0" text="Base">
+                                                              <graphic>
+                                                                  <Circle radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                                              </graphic>
+                                                              <font>
+                                                                  <Font size="15.0" />
+                                                              </font>
+                                                              <padding>
+                                                                  <Insets left="15.0" />
+                                                              </padding>
+                                                          </Label>
+                                                          <HBox>
+                                                              <children>
+                                                                  <TextField fx:id="baseTF" editable="false" prefColumnCount="50" promptText="123456789101112131415123456789101112131415123456789101112131415123456789101112131415123456789101112131415123456789101112131415.">
+                                                                      <HBox.margin>
+                                                                          <Insets left="60.0" />
+                                                                      </HBox.margin>
+                                                         <tooltip>
+                                                            <Tooltip fx:id="baseTooltip" wrapText="true">
+                                                               <font>
+                                                                  <Font size="10.0" />
+                                                               </font>
+                                                            </Tooltip>
+                                                         </tooltip>
+                                                                  </TextField>
+                                                              </children>
+                                                          </HBox>
+                                                      </children>
+                                                  </VBox>
+                                                  <VBox spacing="3.0" GridPane.rowIndex="2">
+                                                      <children>
+                                                          <Label graphicTextGap="10.0" text="Modulus ">
+                                                              <graphic>
+                                                                  <Circle radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                                              </graphic>
+                                                              <font>
+                                                                  <Font size="15.0" />
+                                                              </font>
+                                                              <padding>
+                                                                  <Insets left="15.0" />
+                                                              </padding>
+                                                          </Label>
+                                                          <HBox>
+                                                              <children>
+                                                                  <TextField fx:id="modTF" editable="false" prefColumnCount="50" promptText="123456789101112131415123456789101112131415123456789101112131415123456789101112131415123456789101112131415123456789101112131415.">
+                                                                      <HBox.margin>
+                                                                          <Insets left="60.0" />
+                                                                      </HBox.margin>
+                                                         <tooltip>
+                                                            <Tooltip fx:id="modTooltip" wrapText="true">
+                                                               <font>
+                                                                  <Font size="10.0" />
+                                                               </font>
+                                                            </Tooltip>
+                                                         </tooltip>
+                                                                  </TextField>
+                                                              </children>
+                                                          </HBox>
+                                                      </children>
+                                                  </VBox>
+                                                  <VBox alignment="CENTER_LEFT" spacing="5.0" GridPane.rowIndex="3">
+                                                      <children>
+                                                          <Label graphicTextGap="15.0" text="Alice's">
+                                                              <graphic>
+                                                                  <Circle radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                                              </graphic>
+                                                              <font>
+                                                                  <Font size="15.0" />
+                                                              </font>
+                                                              <padding>
+                                                                  <Insets left="15.0" />
+                                                              </padding>
+                                                          </Label>
+                                                          <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                                              <children>
+                                                                  <Label graphicTextGap="10.0" text="Public Key: ">
+                                                                      <font>
+                                                                          <Font size="13.0" />
+                                                                      </font>
+                                                                      <graphic>
+                                                                          <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
+                                                                      </graphic>
+                                                                  </Label>
+                                                                  <TextField fx:id="pubKeyATF" editable="false" prefColumnCount="45" promptText="Public Key">
+                                                         <tooltip>
+                                                            <Tooltip fx:id="pubKeyATooltip" wrapText="true">
+                                                               <font>
+                                                                  <Font size="10.0" />
+                                                               </font>
+                                                            </Tooltip>
+                                                         </tooltip>
+                                                      </TextField>
+                                                              </children>
+                                                              <padding>
+                                                                  <Insets left="60.0" />
+                                                              </padding>
+                                                          </HBox>
+                                                          <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                                              <children>
+                                                                  <Label graphicTextGap="10.0" text="Private Key: ">
+                                                                      <font>
+                                                                          <Font size="13.0" />
+                                                                      </font>
+                                                                      <graphic>
+                                                                          <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
+                                                                      </graphic>
+                                                                  </Label>
+                                                                  <PasswordField fx:id="privKeyAPF" editable="false" prefColumnCount="45" promptText="Private Key" />
+                                                              </children>
+                                                              <padding>
+                                                                  <Insets left="60.0" />
+                                                              </padding>
+                                                          </HBox>
+                                                      </children>
+                                                  </VBox>
+                                                  <VBox layoutX="10.0" layoutY="338.0" spacing="5.0" GridPane.rowIndex="4">
+                                                      <children>
+                                                          <Label graphicTextGap="10.0" text="Bob's">
+                                                              <graphic>
+                                                                  <Circle radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                                              </graphic>
+                                                              <font>
+                                                                  <Font size="15.0" />
+                                                              </font>
+                                                              <padding>
+                                                                  <Insets left="15.0" />
+                                                              </padding>
+                                                          </Label>
+                                                          <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                                              <children>
+                                                                  <Label graphicTextGap="10.0" text="Public Key: ">
+                                                                      <font>
+                                                                          <Font size="13.0" />
+                                                                      </font>
+                                                                      <graphic>
+                                                                          <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
+                                                                      </graphic>
+                                                                  </Label>
+                                                                  <TextField fx:id="pubKeyBTF" editable="false" prefColumnCount="45" promptText="Public Key">
+                                                         <tooltip>
+                                                            <Tooltip fx:id="pubKeyBTooltip" wrapText="true">
+                                                               <font>
+                                                                  <Font size="10.0" />
+                                                               </font>
+                                                            </Tooltip>
+                                                         </tooltip>
+                                                      </TextField>
+                                                              </children>
+                                                              <VBox.margin>
+                                                                  <Insets />
+                                                              </VBox.margin>
+                                                              <padding>
+                                                                  <Insets left="60.0" />
+                                                              </padding>
+                                                          </HBox>
+                                                          <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                                              <children>
+                                                                  <Label graphicTextGap="10.0" text="Private Key: ">
+                                                                      <font>
+                                                                          <Font size="13.0" />
+                                                                      </font>
+                                                                      <graphic>
+                                                                          <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
+                                                                      </graphic>
+                                                                  </Label>
+                                                                  <PasswordField fx:id="privKeyBPF" editable="false" prefColumnCount="45" promptText="Private Key" />
+                                                              </children>
+                                                              <padding>
+                                                                  <Insets left="60.0" />
+                                                              </padding>
+                                                          </HBox>
+                                                      </children>
+                                                  </VBox>
+                                                  <VBox layoutX="10.0" layoutY="312.0" spacing="5.0" GridPane.rowIndex="5">
+                                                      <children>
+                                                          <Label graphicTextGap="10.0" text="Shared Secret Key">
+                                                              <graphic>
+                                                                  <Circle radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                                              </graphic>
+                                                              <font>
+                                                                  <Font size="15.0" />
+                                                              </font>
+                                                              <padding>
+                                                                  <Insets left="15.0" />
+                                                              </padding>
+                                                          </Label>
+                                                          <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                                              <children>
+                                                                  <Label graphicTextGap="10.0" text="Alice's Secret Key: ">
+                                                                      <font>
+                                                                          <Font size="13.0" />
+                                                                      </font>
+                                                                      <graphic>
+                                                                          <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
+                                                                      </graphic>
+                                                                  </Label>
+                                                                  <PasswordField fx:id="secKeyAPF" editable="false" prefColumnCount="45" promptText="Secret Key A">
+                                                         <tooltip>
+                                                            <Tooltip fx:id="secretKeyATooltip" wrapText="true" />
+                                                         </tooltip>
+                                                      </PasswordField>
+                                                              </children>
+                                                              <VBox.margin>
+                                                                  <Insets />
+                                                              </VBox.margin>
+                                                              <padding>
+                                                                  <Insets left="60.0" />
+                                                              </padding>
+                                                          </HBox>
+                                                          <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                                              <children>
+                                                                  <Label graphicTextGap="10.0" text="Bob's Secret Key: ">
+                                                                      <font>
+                                                                          <Font size="13.0" />
+                                                                      </font>
+                                                                      <graphic>
+                                                                          <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
+                                                                      </graphic>
+                                                                  </Label>
+                                                                  <PasswordField fx:id="secKeyBPF" editable="false" prefColumnCount="45" promptText="Secret Key B" />
+                                                              </children>
+                                                              <padding>
+                                                                  <Insets left="60.0" />
+                                                              </padding>
+                                                          </HBox>
+                                                      </children>
+                                                  </VBox>
+                                              <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" spacing="15.0" GridPane.rowIndex="6">
+                                                  <children>
+                                                      <Button fx:id="genBtn" mnemonicParsing="false" onAction="#generateParameters" prefHeight="30.0" prefWidth="170.0" text="Generate Parameters" />
+                                                      <Label fx:id="messageLabel" maxWidth="1.7976931348623157E308" prefHeight="30.0" visible="false">
+                                                          <graphic>
+                                                              <ProgressIndicator fx:id="progressIndicator" prefHeight="25.0" progress="0.0" />
+                                                          </graphic>
+                                                      </Label>
+                                                  </children>
+                                              </HBox>
+                                              </children>
+                                          </GridPane>
+                                 </content>
+                              </TitledPane>
+                            <TitledPane text="DES Parameters">
+                                 <content>
+                                    <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="5.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <VBox alignment="CENTER_LEFT" spacing="15.0">
+                                             <children>
+                                                <Label graphicTextGap="15.0" text="Cipher Modes">
+                                                   <graphic>
+                                                      <Circle radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                                                   </graphic>
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                   <padding>
+                                                      <Insets left="15.0" />
+                                                   </padding>
+                                                </Label>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="200.0" spacing="15.0">
+                                                   <children>
+                                                      <RadioButton fx:id="rbECB" contentDisplay="RIGHT" graphicTextGap="12.0" mnemonicParsing="false" text="Electronic Code Book (ECB)" />
+                                                      <ImageView pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../images/ecb.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="60.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="200.0" spacing="15.0">
+                                                   <children>
+                                                      <RadioButton fx:id="rbCBC" contentDisplay="RIGHT" graphicTextGap="10.0" mnemonicParsing="false" text="Cipher Block Chaining (CBC)" />
+                                                      <ImageView pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../images/cbc.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="60.0" />
+                                                   </padding>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </GridPane>
+                                 </content>
+                              </TitledPane>
+                          </panes>
+                        </Accordion>
+                     </center>
+                      </BorderPane>
+                  </children>
+              </GridPane>
+            <BorderPane fx:id="encDecPane" maxHeight="1.7976931348623157E308">
+               <center>
+                  <TitledPane maxHeight="1.7976931348623157E308" text="Encryption/Decryption" BorderPane.alignment="CENTER">
+                     <content>
+                        <SplitPane dividerPositions="0.5" maxHeight="1.7976931348623157E308" orientation="VERTICAL">
+                           <items>
+                              <BorderPane maxHeight="1.7976931348623157E308">
+                                 <top>
+                                    <ToolBar BorderPane.alignment="CENTER_LEFT">
+                                       <BorderPane.margin>
+                                          <Insets />
+                                       </BorderPane.margin>
+                                       <items>
+                                          <Label contentDisplay="RIGHT" graphicTextGap="15.0" text="Alice">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                             <graphic>
+                                                <Button fx:id="encryptBtn" mnemonicParsing="false" onAction="#encryptImage" prefWidth="100.0" text="Encrypt" />
+                                             </graphic>
+                                          </Label>
+                                          <Label fx:id="encMessageLabel" graphicTextGap="5.0">
+                                             <graphic>
+                                                <ProgressBar fx:id="encProgressBar" prefWidth="125.0" progress="0.0" />
+                                             </graphic>
+                                          </Label>
+                                       </items>
+                                    </ToolBar>
+                                 </top>
+                                 <center>
+                                    <SplitPane dividerPositions="0.5" BorderPane.alignment="CENTER">
+                                       <items>
+                                          <ScrollPane prefViewportHeight="175.0" prefWidth="200.0">
+                                             <content>
+                                                <ImageView fx:id="origImageView" pickOnBounds="true" preserveRatio="true">
+                                                   <viewport>
+                                                      <Rectangle2D />
+                                                   </viewport>
+                                                </ImageView>
+                                             </content>
+                                          </ScrollPane>
+                                          <ScrollPane prefViewportHeight="175.0" prefWidth="200.0">
+                                             <content>
+                                                <ImageView fx:id="encImageView" pickOnBounds="true" preserveRatio="true">
+                                                   <viewport>
+                                                      <Rectangle2D />
+                                                   </viewport>
+                                                </ImageView>
+                                             </content>
+                                          </ScrollPane>
+                                       </items>
+                                    </SplitPane>
+                                 </center>
+                              </BorderPane>
+                              <BorderPane>
+                                 <center>
+                                    <SplitPane dividerPositions="0.5">
+                                       <items>
+                                          <ScrollPane prefViewportHeight="175.0" prefWidth="200.0">
+                                             <content>
+                                                <ImageView pickOnBounds="true" preserveRatio="true">
+                                                   <viewport>
+                                                      <Rectangle2D />
+                                                   </viewport>
+                                                </ImageView>
+                                             </content>
+                                          </ScrollPane>
+                                          <ScrollPane prefViewportHeight="175.0" prefWidth="200.0">
+                                             <content>
+                                                <ImageView fx:id="decImageView" pickOnBounds="true" preserveRatio="true">
+                                                   <viewport>
+                                                      <Rectangle2D />
+                                                   </viewport>
+                                                </ImageView>
+                                             </content>
+                                          </ScrollPane>
+                                       </items>
+                                    </SplitPane>
+                                 </center>
+                                 <top>
+                                    <ToolBar BorderPane.alignment="CENTER_LEFT">
+                                       <items>
+                                          <Label contentDisplay="RIGHT" graphicTextGap="15.0" text="Bob">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                             <graphic>
+                                                <Button fx:id="decryptBtn" mnemonicParsing="false" onAction="#decryptImage" prefWidth="100.0" text="Decrypt" />
+                                             </graphic>
+                                          </Label>
+                                          <Label fx:id="decMessageLabel" graphicTextGap="5.0">
+                                             <graphic>
+                                                <ProgressBar fx:id="decProgressBar" prefWidth="125.0" progress="0.0" />
+                                             </graphic>
+                                          </Label>
+                                       </items>
+                                    </ToolBar>
+                                 </top>
+                              </BorderPane>
+                           </items>
+                        </SplitPane>
+                     </content>
+                  </TitledPane>
+               </center>
+            </BorderPane>
+         </items>
+      </SplitPane>
+    </center>
     <bottom>
         <ToolBar prefHeight="30.0" BorderPane.alignment="CENTER" />
     </bottom>
-   <right>
-      <BorderPane fx:id="cipherPane" maxHeight="1.7976931348623157E308">
-         <center>
-            <TitledPane maxHeight="1.7976931348623157E308" text="Encryption/Decryption" BorderPane.alignment="CENTER">
-               <content>
-                  <SplitPane dividerPositions="0.5" maxHeight="1.7976931348623157E308" orientation="VERTICAL">
-                     <items>
-                        <BorderPane maxHeight="1.7976931348623157E308">
-                           <top>
-                              <ToolBar BorderPane.alignment="CENTER_LEFT">
-                                 <BorderPane.margin>
-                                    <Insets />
-                                 </BorderPane.margin>
-                                 <items>
-                                    <Label contentDisplay="RIGHT" graphicTextGap="15.0" text="Alice">
-                                       <font>
-                                          <Font size="15.0" />
-                                       </font>
-                                       <graphic>
-                                          <Button fx:id="encryptBtn" mnemonicParsing="false" onAction="#encryptImage" prefHeight="30.0" prefWidth="125.0" text="Encrypt" />
-                                       </graphic>
-                                    </Label>
-                                 </items>
-                              </ToolBar>
-                           </top>
-                           <center>
-                              <SplitPane dividerPositions="0.5" BorderPane.alignment="CENTER">
-                                 <items>
-                                    <ScrollPane prefViewportHeight="175.0" prefWidth="200.0">
-                                       <content>
-                                          <ImageView fx:id="origImageView" pickOnBounds="true" preserveRatio="true">
-                                             <viewport>
-                                                <Rectangle2D />
-                                             </viewport>
-                                          </ImageView>
-                                       </content>
-                                    </ScrollPane>
-                                    <ScrollPane prefViewportHeight="175.0" prefWidth="200.0">
-                                       <content>
-                                          <ImageView fx:id="encImageView" pickOnBounds="true" preserveRatio="true">
-                                             <viewport>
-                                                <Rectangle2D />
-                                             </viewport>
-                                          </ImageView>
-                                       </content>
-                                    </ScrollPane>
-                                 </items>
-                              </SplitPane>
-                           </center>
-                        </BorderPane>
-                        <BorderPane>
-                           <center>
-                              <SplitPane dividerPositions="0.5">
-                                 <items>
-                                    <ScrollPane prefViewportHeight="175.0" prefWidth="200.0">
-                                       <content>
-                                          <ImageView pickOnBounds="true" preserveRatio="true">
-                                             <viewport>
-                                                <Rectangle2D height="218.0" width="133.0" />
-                                             </viewport>
-                                          </ImageView>
-                                       </content>
-                                    </ScrollPane>
-                                    <ScrollPane prefViewportHeight="175.0" prefWidth="200.0">
-                                       <content>
-                                          <ImageView pickOnBounds="true" preserveRatio="true">
-                                             <viewport>
-                                                <Rectangle2D height="218.0" width="133.0" />
-                                             </viewport>
-                                          </ImageView>
-                                       </content>
-                                    </ScrollPane>
-                                 </items>
-                              </SplitPane>
-                           </center>
-                           <top>
-                              <ToolBar BorderPane.alignment="CENTER_LEFT">
-                                 <items>
-                                    <Label contentDisplay="RIGHT" graphicTextGap="15.0" text="Bob">
-                                       <font>
-                                          <Font size="15.0" />
-                                       </font>
-                                       <graphic>
-                                          <Button fx:id="decryptBtn" mnemonicParsing="false" onAction="#decryptImage" prefHeight="30.0" prefWidth="125.0" text="Decrypt" />
-                                       </graphic>
-                                    </Label>
-                                 </items>
-                              </ToolBar>
-                           </top>
-                        </BorderPane>
-                     </items>
-                  </SplitPane>
-               </content>
-            </TitledPane>
-         </center>
-      </BorderPane>
-   </right>
 </BorderPane>

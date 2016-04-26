@@ -35,7 +35,6 @@ public class DESBaseECB extends DESBase {
         }
     }
 
-    @Override
     public boolean encryptImage(File imageFile, File outputFile, SecretKey key) {
         try {
 
@@ -52,7 +51,6 @@ public class DESBaseECB extends DESBase {
         }
     }
 
-    @Override
     public boolean decryptImage(File imageFile, File outputFile, SecretKey key) {
 
         try {
@@ -71,7 +69,6 @@ public class DESBaseECB extends DESBase {
 
     }
 
-    @Override
     public byte[] getCipherText(byte[] plaintext, SecretKey key) {
         try {
 
@@ -87,7 +84,6 @@ public class DESBaseECB extends DESBase {
         }
     }
 
-    @Override
     public byte[] getPlainText(byte[] ciphertext, SecretKey key) {
         try {
 
