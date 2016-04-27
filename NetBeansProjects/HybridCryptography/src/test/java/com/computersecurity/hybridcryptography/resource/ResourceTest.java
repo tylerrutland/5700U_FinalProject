@@ -27,7 +27,15 @@ public class ResourceTest {
 
     @Test
     public void testFile2() {
-        File file = new File(path + "fxml/DH.fxml");
+        File file = new File(path + "fxml/DES.fxml");
+        boolean expected = true;
+        boolean result = file.exists();
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testFile3() {
+        File file = new File(path + "fxml/VEA.fxml");
         boolean expected = true;
         boolean result = file.exists();
         assertEquals(expected, result);
@@ -35,14 +43,6 @@ public class ResourceTest {
 
     @Test
     public void testImage() {
-        File file = new File(path + "images/palmTree.bmp");
-        boolean expected = true;
-        boolean result = file.exists();
-        assertEquals(expected, result);
-    }
-
-    @Test
-    public void testImage2() {
         File file = new File(path + "images/palmTree.png");
         boolean expected = true;
         boolean result = file.exists();
@@ -50,7 +50,7 @@ public class ResourceTest {
     }
 
     @Test
-    public void testImage3() {
+    public void testImage2() {
         File file = new File(path + "images/ecb.png");
         boolean expected = true;
         boolean result = file.exists();
@@ -58,7 +58,7 @@ public class ResourceTest {
     }
 
     @Test
-    public void testImage4() {
+    public void testImage3() {
         File file = new File(path + "images/cbc.png");
         boolean expected = true;
         boolean result = file.exists();

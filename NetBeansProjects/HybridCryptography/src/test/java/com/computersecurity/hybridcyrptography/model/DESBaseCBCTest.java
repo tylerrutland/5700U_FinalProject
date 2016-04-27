@@ -38,7 +38,7 @@ public class DESBaseCBCTest {
     public void testEncryptionAndDecryptionForImagePath() throws IOException {
         DESBaseCBC cbc = new DESBaseCBC();
 
-        File file = new File(path + "images/palmTree.bmp");
+        File file = new File(path + "images/palmTree.png");
         byte[] fileBytePath = Files.readAllBytes(file.toPath());
         byte[] cipherText = cbc.getCipherText(fileBytePath, cbc.getDESKeyA());
         byte[] recovered = cbc.getPlainText(cipherText, cbc.getDESKeyB());
@@ -52,9 +52,9 @@ public class DESBaseCBCTest {
     public void testImageEncryptionAndDecryption() throws Exception {
         DESBaseCBC cbc = new DESBaseCBC();
 
-        File origFile = new File(path + "images/palmTree.bmp");
-        File encryptedFile = new File(path + "images/cipherPalmTree.bmp");
-        File recoveredFile = new File(path + "images/recovPalmTree.bmp");
+        File origFile = new File(path + "images/palmTree.png");
+        File encryptedFile = new File(path + "images/cipherPalmTree.png");
+        File recoveredFile = new File(path + "images/recovPalmTree.png");
 
         boolean expected = true;
         boolean isEncrypted = cbc.encryptImage(origFile, encryptedFile, cbc.getDESKeyA());

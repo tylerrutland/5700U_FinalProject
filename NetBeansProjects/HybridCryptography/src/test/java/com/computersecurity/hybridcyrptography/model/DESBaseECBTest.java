@@ -39,7 +39,7 @@ public class DESBaseECBTest {
     public void testEncryptionAndDecryptionForImagePath() throws IOException {
         DESBaseECB ecb = new DESBaseECB();
 
-        File file = new File(path + "images/palmTree.bmp");
+        File file = new File(path + "images/palmTree.png");
         byte[] fileBytePath = Files.readAllBytes(file.toPath());
         byte[] cipherText = ecb.getCipherText(fileBytePath, ecb.getDESKeyA());
         byte[] recovered = ecb.getPlainText(cipherText, ecb.getDESKeyB());
@@ -53,8 +53,8 @@ public class DESBaseECBTest {
     public void testImageEncryptionAndDecryption() throws Exception {
         DESBaseECB ecb = new DESBaseECB();
 
-        File origFile = new File(path + "images/palmTree.bmp");
-        File encryptedFile = new File(path + "images/cipherPalmTree.bmp");
+        File origFile = new File(path + "images/palmTree.png");
+        File encryptedFile = new File(path + "images/cipherPalmTree.png");
         File recoveredFile = new File(path + "images/recovPalmTree.jpg");
 
         boolean expected = true;

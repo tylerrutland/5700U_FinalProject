@@ -5,13 +5,10 @@
  */
 package com.computersecurity.hybridcryptography.model;
 
-import java.security.AlgorithmParameterGenerator;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import javax.crypto.KeyAgreement;
 import javax.crypto.SecretKey;
-import javax.crypto.spec.DHParameterSpec;
 
 /**
  *
@@ -19,10 +16,7 @@ import javax.crypto.spec.DHParameterSpec;
  */
 public class VEABase extends DHKeyAgreement2 {
 
-    private int size;
     private static final String ALGORITHM = "Blowfish";
-    private DHParameterSpec dhParamSpec;
-    private AlgorithmParameterGenerator paramGen;
     private SecretKey keyA, keyB;
 
     public VEABase() {
@@ -60,13 +54,4 @@ public class VEABase extends DHKeyAgreement2 {
         return keyB;
     }
 
-    public void printA() {
-        System.out.println(Arrays.toString(keyA.getEncoded()));
-        System.out.println(keyA.getAlgorithm());
-    }
-
-    public void printB() {
-        System.out.println(Arrays.toString(keyB.getEncoded()));
-        System.out.println(keyB.getAlgorithm());
-    }
 }

@@ -23,9 +23,9 @@ public class DESBaseCBCServiceTest {
         DESBaseCBC cbc = new DESBaseCBC();
         DESBaseCBCService cbcService = new DESBaseCBCService(cbc);
 
-        File origFile = new File(path + "images/palmTree.bmp");
-        File encryptedFile = new File(path + "images/cipherPalmTree.bmp");
-        File recoveredFile = new File(path + "images/recovPalmTree.bmp");
+        File origFile = new File(path + "images/palmTree.png");
+        File encryptedFile = new File(path + "images/cipherPalmTree.png");
+        File recoveredFile = new File(path + "images/recovPalmTree.png");
 
         boolean expected = true;
 

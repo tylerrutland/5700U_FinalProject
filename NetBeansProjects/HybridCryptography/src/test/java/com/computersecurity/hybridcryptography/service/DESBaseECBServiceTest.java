@@ -15,17 +15,17 @@ import org.junit.Test;
  * @author sm6668
  */
 public class DESBaseECBServiceTest {
-    
-        private final String path = "src/test/resources/";
+
+    private final String path = "src/test/resources/";
 
     @Test
     public void testDESBaseECBServiceEncryptionAndDecryption() {
         DESBaseECB ecb = new DESBaseECB();
         DESBaseECBService ecbService = new DESBaseECBService(ecb);
 
-        File origFile = new File(path + "images/palmTree.bmp");
-        File encryptedFile = new File(path + "images/cipherPalmTree.bmp");
-        File recoveredFile = new File(path + "images/recovPalmTree.bmp");
+        File origFile = new File(path + "images/palmTree.png");
+        File encryptedFile = new File(path + "images/cipherPalmTree.png");
+        File recoveredFile = new File(path + "images/recovPalmTree.png");
 
         boolean expected = true;
 
@@ -36,5 +36,5 @@ public class DESBaseECBServiceTest {
         assertEquals("Image encrypted and decrypted successfully! ", expected, result);
 
     }
-    
+
 }
