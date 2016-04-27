@@ -48,7 +48,7 @@
                     <center>
                         <BorderPane fx:id="imagePane" prefWidth="250.0">
                             <center>
-                                <ScrollPane prefViewportHeight="350.0" BorderPane.alignment="CENTER">
+                                <ScrollPane pannable="true" prefViewportHeight="350.0" BorderPane.alignment="CENTER">
                                     <content>
                                         <ImageView fx:id="origImageView" pickOnBounds="true" preserveRatio="true">
                                             <viewport>
@@ -190,7 +190,7 @@
                                                                         <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
                                                                     </graphic>
                                                                 </Label>
-                                                                <TextField fx:id="pubKeyATF" editable="false" prefColumnCount="45" promptText="Public Key"/>
+                                                                <TextField fx:id="pubKeyATF" editable="false" prefColumnCount="45" promptText="Public Key" />
                                                             </children>
                                                             <padding>
                                                                 <Insets left="60.0" />
@@ -237,7 +237,7 @@
                                                                         <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
                                                                     </graphic>
                                                                 </Label>
-                                                                <TextField fx:id="pubKeyBTF" editable="false" prefColumnCount="45" promptText="Public Key"/>
+                                                                <TextField fx:id="pubKeyBTF" editable="false" prefColumnCount="45" promptText="Public Key" />
                                                             </children>
                                                             <VBox.margin>
                                                                 <Insets />

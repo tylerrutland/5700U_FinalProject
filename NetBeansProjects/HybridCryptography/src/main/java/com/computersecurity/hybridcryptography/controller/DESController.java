@@ -13,6 +13,7 @@ import com.computersecurity.hybridcryptography.model.DESBase;
 import com.computersecurity.hybridcryptography.model.DESBaseCBC;
 import com.computersecurity.hybridcryptography.model.DESBaseECB;
 import com.computersecurity.hybridcryptography.model.DHKeyAgreement2;
+import com.computersecurity.hybridcryptography.util.CryptoUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -164,10 +165,15 @@ public class DESController implements Initializable {
 
     @FXML
     private void generateParameters(ActionEvent event) {
-        int bitLength = (Integer) bitLengthGroup.getSelectedToggle().getUserData();
-        dhGenService.setDHKeyAgreement2(new DHKeyAgreement2(bitLength));
-        dhGenService.start();
-        event.consume();
+        if (imageFile != null) {
+            int bitLength = (Integer) bitLengthGroup.getSelectedToggle().getUserData();
+            dhGenService.setDHKeyAgreement2(new DHKeyAgreement2(bitLength));
+            dhGenService.start();
+            event.consume();
+        } else {
+
+            //User needs to choose an image first
+        }
     }
 
     @FXML
