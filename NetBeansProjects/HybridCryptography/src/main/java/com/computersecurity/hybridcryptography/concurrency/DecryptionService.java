@@ -56,13 +56,13 @@ public class DecryptionService extends Service<Boolean> {
                 Thread.sleep(2000);
                 if (desBase instanceof DESBaseECB) {
                     Thread.sleep(1500);
-                    updateMessage("Encryption Successful");
+                    updateMessage("Decryption Successful");
                     return new DESBaseECBService((DESBaseECB) desBase)
                             .decryptImage(imageFile, outputFile);
 
                 } else {
                     Thread.sleep(1500);
-                    updateMessage("Encryption Successful");
+                    updateMessage("Decryption Successful");
                     return new DESBaseCBCService((DESBaseCBC) desBase)
                             .decryptImage(imageFile, outputFile);
                 }

@@ -180,10 +180,12 @@ public class DHController implements Initializable {
         if (imageFile != null) {
             DESBase desBase = (DESBase) modeGroup.getSelectedToggle().getUserData();
             File outputFile = fileChooser.showSaveDialog(null);
-            encService.setDESBase(desBase);
-            encService.setImageFile(imageFile);
-            encService.setOutputFile(outputFile);
-            encService.start();
+            if (outputFile != null) {
+                encService.setDESBase(desBase);
+                encService.setImageFile(imageFile);
+                encService.setOutputFile(outputFile);
+                encService.start();
+            }
         } else {
 
             //User hasn't opened image
@@ -196,10 +198,12 @@ public class DHController implements Initializable {
         if (imageFile != null && encService.getOutputFile().exists()) {
             DESBase desBase = (DESBase) modeGroup.getSelectedToggle().getUserData();
             File outputFile = fileChooser.showSaveDialog(null);
-            decService.setDESBase(desBase);
-            decService.setImageFile(encService.getOutputFile());
-            decService.setOutputFile(outputFile);
-            decService.start();
+            if (outputFile != null) {
+                decService.setDESBase(desBase);
+                decService.setImageFile(encService.getOutputFile());
+                decService.setOutputFile(outputFile);
+                decService.start();
+            }
         } else {
 
             //User hasn't opened image or encrypted the opened image
