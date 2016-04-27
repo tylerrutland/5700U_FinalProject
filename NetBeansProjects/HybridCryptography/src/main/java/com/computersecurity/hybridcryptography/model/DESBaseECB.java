@@ -5,6 +5,7 @@
  */
 package com.computersecurity.hybridcryptography.model;
 
+import static com.computersecurity.hybridcryptography.util.CryptoUtils.write;
 import java.io.File;
 import java.io.IOException;
 import java.security.InvalidKeyException;
@@ -19,7 +20,7 @@ import javax.crypto.SecretKey;
  *
  * @author sm6668
  */
-public class DESBaseECB extends DESBase {
+public class DESBaseECB extends DESBase implements Cryptable {
 
     private static final String ALGORITHM = "DES/ECB/PKCS5Padding";
     private Cipher cipher;
@@ -35,6 +36,7 @@ public class DESBaseECB extends DESBase {
         }
     }
 
+    @Override
     public boolean encryptImage(File imageFile, File outputFile, SecretKey key) {
         try {
 
@@ -51,6 +53,7 @@ public class DESBaseECB extends DESBase {
         }
     }
 
+    @Override
     public boolean decryptImage(File imageFile, File outputFile, SecretKey key) {
 
         try {
@@ -69,6 +72,7 @@ public class DESBaseECB extends DESBase {
 
     }
 
+    @Override
     public byte[] getCipherText(byte[] plaintext, SecretKey key) {
         try {
 
@@ -84,6 +88,7 @@ public class DESBaseECB extends DESBase {
         }
     }
 
+    @Override
     public byte[] getPlainText(byte[] ciphertext, SecretKey key) {
         try {
 

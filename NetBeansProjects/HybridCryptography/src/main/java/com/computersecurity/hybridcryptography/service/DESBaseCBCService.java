@@ -21,11 +21,13 @@ public class DESBaseCBCService {
     }
 
     public boolean encryptImage(File imageFile, File outputFile) {
-        return cbc.encryptImage(imageFile, outputFile, cbc.getDESKeyA());
+//        return cbc.encryptImage(imageFile, outputFile, cbc.getDESKeyA());
+        return false;
     }
 
     public boolean decryptImage(File imageFile, File outputFile) {
-        return cbc.decryptImage(imageFile, outputFile, cbc.getDESKeyB());
+//        return cbc.decryptImage(imageFile, outputFile, cbc.getDESKeyB());
+        return false;
     }
 
 }
