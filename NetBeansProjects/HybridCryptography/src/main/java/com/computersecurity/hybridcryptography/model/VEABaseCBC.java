@@ -22,6 +22,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
  */
 public class VEABaseCBC extends VEABase implements Cryptable {
 
+    private int rounds;
     private static final String ALGORITHM = "Blowfish";
     private static final String PROVIDER = "BC";
     private Cipher cipher;
@@ -29,7 +30,6 @@ public class VEABaseCBC extends VEABase implements Cryptable {
     private IvParameterSpec ivParamSpec;
 
     public VEABaseCBC() {
-
         try {
             Security.addProvider(new BouncyCastleProvider());
             cipher = Cipher.getInstance(ALGORITHM, PROVIDER);

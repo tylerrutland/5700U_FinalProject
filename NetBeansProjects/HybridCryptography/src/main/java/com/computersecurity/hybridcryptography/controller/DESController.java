@@ -92,7 +92,7 @@ public class DESController implements Initializable {
     private Tooltip baseTooltip, modTooltip;
 
     @FXML
-    private Tooltip pubKeyATooltip, pubKeyBTooltip, secretKeyATooltip;
+    private Tooltip secretKeyATooltip;
 
     @FXML
     private Label messageLabel;
@@ -247,10 +247,8 @@ public class DESController implements Initializable {
             }
 
             pubKeyATF.setText(pubKeyA);
-            pubKeyATooltip.setText("Public Key Length: " + pubKeyA.length());
             privKeyAPF.setText(Arrays.toString(((PrivateKey) items[5]).getEncoded()));
             pubKeyBTF.setText(pubKeyB);
-            pubKeyBTooltip.setText("Public Key Length: " + pubKeyB.length());
             privKeyBPF.setText(Arrays.toString(((PrivateKey) items[7]).getEncoded()));
 
             dhGenService.reset();

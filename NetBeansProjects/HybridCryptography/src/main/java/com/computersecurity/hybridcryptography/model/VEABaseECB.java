@@ -25,7 +25,6 @@ public class VEABaseECB extends VEABase implements Cryptable {
     private Cipher cipher;
 
     public VEABaseECB() {
-
         try {
             Security.addProvider(new BouncyCastleProvider());
             cipher = Cipher.getInstance(ALGORITHM, PROVIDER);

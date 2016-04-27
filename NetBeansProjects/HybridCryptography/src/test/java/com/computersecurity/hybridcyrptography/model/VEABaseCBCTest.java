@@ -5,6 +5,9 @@
  */
 package com.computersecurity.hybridcyrptography.model;
 
+import com.computersecurity.hybridcryptography.model.DESBase;
+import com.computersecurity.hybridcryptography.model.VEABase;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
@@ -15,6 +18,13 @@ public class VEABaseCBCTest {
 
     @Test
     public void testSecretKeyForEncryptionAndDecryption() {
+                DESBase base2 = new DESBase();
 
+        VEABase base = new VEABase();
+
+        base.printA();
+        base2.printA();
+
+        assertTrue(true);
     }
 }
