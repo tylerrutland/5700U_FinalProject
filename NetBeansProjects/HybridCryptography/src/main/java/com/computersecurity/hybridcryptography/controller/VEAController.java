@@ -6,6 +6,7 @@
 package com.computersecurity.hybridcryptography.controller;
 
 import com.computersecurity.hybridcryptography.model.moduleVEA.Polynomial;
+import com.computersecurity.hybridcryptography.model.moduleVEA.Term;
 import static com.computersecurity.hybridcryptography.util.CryptoUtils.getImage;
 import java.io.File;
 import java.net.URL;
@@ -36,7 +37,8 @@ public class VEAController implements Initializable {
     private int count;
     private int submittedUsers;
 
-    private Polynomial groupPolynomial = new Polynomial(0, 0);
+    private Polynomial groupPolynomial = new Polynomial(1000, 0);
+    private final ArrayList<Term> terms = new ArrayList(4);
     private final ArrayList<Polynomial> monomials = new ArrayList(4);
 
     private final SimpleDoubleProperty widthProperty = new SimpleDoubleProperty();
@@ -55,7 +57,7 @@ public class VEAController implements Initializable {
     private File imageFile;
 
     @FXML
-    private RadioButton rb2Users, rb3Users;
+    private RadioButton rb2Users, rb3Users, rb4Users;
 
     @FXML
     private Button setUsersBtn, resetBtn;
@@ -64,7 +66,7 @@ public class VEAController implements Initializable {
     private ImageView origImageView;
 
     @FXML
-    private Button openImageBtn, addUserCoordBtn, genPolyBtn;
+    private Button openImageBtn, addUserCoordBtn, clearTextBtn, genPolyBtn;
 
     @FXML
     private Label widthLabel, heightLabel;
@@ -93,6 +95,9 @@ public class VEAController implements Initializable {
         rb3Users.setUserData(3);
         rb3Users.setToggleGroup(userGroup);
 
+        rb4Users.setUserData(4);
+        rb4Users.setToggleGroup(userGroup);
+
         countProperty.set(count = 0);
         maxDegreeProperty.set(0);
         submittedUsersProperty.set(submittedUsers = 0);
@@ -108,7 +113,7 @@ public class VEAController implements Initializable {
         resetBtn.disableProperty().bind(setUsersBtn.disableProperty().not());
         openImageBtn.disableProperty().bind(areUsersSetProperty.not());
         addUserCoordBtn.disableProperty().bind(isAllSubmittedProperty.not());
-        genPolyBtn.disableProperty().bind(addUserCoordBtn.disableProperty().not().or(isAllSubmittedProperty.not()));
+//        genPolyBtn.disableProperty(); Need to disable this on initialization
         widthLabel.textProperty().bindBidirectional(widthProperty, new NumberStringConverter());
         heightLabel.textProperty().bindBidirectional(heightProperty, new NumberStringConverter());
 
@@ -120,7 +125,8 @@ public class VEAController implements Initializable {
 
     /*
      The max degree of the polynomial is determined from the number of users
-     Example: For 3 users, ax^3 + bx^2 + cx^1 + d
+     Example: For 3 users, ax^3 + bx^2 + cx^1 + d, the button disables itself
+     after first call 
      */
     @FXML
     private void setUsers(ActionEvent event) {
@@ -135,8 +141,8 @@ public class VEAController implements Initializable {
     @FXML
     private void reset(ActionEvent event) {
         maxDegreeProperty.set(0);
-        countProperty.set(0);
-        submittedUsersProperty.set(0);
+        countProperty.set(count = 0);
+        submittedUsersProperty.set(submittedUsers = 0);
         widthProperty.set(0);
         heightProperty.set(0);
         origImageView.setImage(null);
@@ -177,6 +183,9 @@ public class VEAController implements Initializable {
      */
     @FXML
     private void addUserCoordinate(ActionEvent event) {
+        if (!coordTextArea.getText().isEmpty()) {
+            coordTextArea.clear();
+        }
         countProperty.set(count++);
         submittedUsersProperty.set(++submittedUsers);
         addTerm();
@@ -194,7 +203,7 @@ public class VEAController implements Initializable {
      */
     @FXML
     private void generatePolynomial(ActionEvent event) {
-        coordTextArea.setText(getFinalPolynomial().toString());
+        coordTextArea.setText("Group Base Polynomial:\t" + getFinalPolynomial().toString());
         resetBtn.fire();
     }
 
@@ -205,7 +214,14 @@ public class VEAController implements Initializable {
     private void addTerm() {
         int coef = widthProperty.intValue() * heightProperty.intValue();
         int deg = degreeProperty.get();
-        monomials.add(new Polynomial(coef, deg));
+        Polynomial monomial = new Polynomial(coef, deg);
+        monomials.add(monomial);
+
+        coordTextArea.setText(coordTextArea.getText()
+                .concat("User " + submittedUsers + ":\t")
+                .concat(monomial.toString())
+                .concat("\n"));
+
     }
 
     /*
@@ -213,10 +229,8 @@ public class VEAController implements Initializable {
      individual monomials together
      */
     private Polynomial getFinalPolynomial() {
-        monomials.stream().forEach((monomial) -> {
-            groupPolynomial = groupPolynomial.plus(monomial);
-        });
-
+        monomials.stream().forEach((monomial)
+                -> groupPolynomial = groupPolynomial.plus(monomial));
         return groupPolynomial;
     }
 }
