@@ -3,45 +3,38 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.computersecurity.hybridcryptography.model;
+package com.computersecurity.hybridcryptography.model.moduleDES;
 
+import com.computersecurity.hybridcryptography.model.Cryptable;
 import static com.computersecurity.hybridcryptography.util.CryptoUtils.write;
 import java.io.File;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.Security;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 /**
  *
- * @author Steve
+ * @author sm6668
  */
-public class VEABaseECB extends VEABase implements Cryptable {
+public class DESBaseECB extends DESBase implements Cryptable {
 
-    private static final String ALGORITHM = "Blowfish/ECB/PKCS5Padding";
-    private static final String PROVIDER = "BC";
+    private static final String ALGORITHM = "DES/ECB/PKCS5Padding";
     private Cipher cipher;
 
-    public VEABaseECB() {
+    public DESBaseECB() {
         try {
-            Security.addProvider(new BouncyCastleProvider());
-            cipher = Cipher.getInstance(ALGORITHM, PROVIDER);
-
+            cipher = Cipher.getInstance(ALGORITHM);
         } catch (NoSuchAlgorithmException |
-                NoSuchProviderException |
                 NoSuchPaddingException ex) {
 
             System.out.println(ex);
 
         }
-
     }
 
     @Override

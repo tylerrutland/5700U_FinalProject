@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.computersecurity.hybridcryptography.model;
+package com.computersecurity.hybridcryptography.model.moduleRSA;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;

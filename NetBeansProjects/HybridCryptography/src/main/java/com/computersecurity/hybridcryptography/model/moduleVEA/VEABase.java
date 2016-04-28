@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.computersecurity.hybridcryptography.model;
+package com.computersecurity.hybridcryptography.model.moduleVEA;
 
+import com.computersecurity.hybridcryptography.model.DHKeyAgreement2;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import javax.crypto.KeyAgreement;

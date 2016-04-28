@@ -5,7 +5,7 @@
  */
 package com.computersecurity.hybridcyrptography.model;
 
-import com.computersecurity.hybridcryptography.model.Polynomial;
+import com.computersecurity.hybridcryptography.model.moduleVEA.Polynomial;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 

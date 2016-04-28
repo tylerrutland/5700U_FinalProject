@@ -5,7 +5,7 @@
  */
 package com.computersecurity.hybridcyrptography.model;
 
-import com.computersecurity.hybridcryptography.model.VEABaseECB;
+import com.computersecurity.hybridcryptography.model.moduleVEA.VEABaseECB;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;

@@ -9,14 +9,12 @@ import com.computersecurity.hybridcryptography.concurrency.AppExecutorService;
 import com.computersecurity.hybridcryptography.concurrency.DHGeneratorService;
 import com.computersecurity.hybridcryptography.concurrency.DESDecryptionService;
 import com.computersecurity.hybridcryptography.concurrency.DESEncryptionService;
-import com.computersecurity.hybridcryptography.model.DESBase;
-import com.computersecurity.hybridcryptography.model.DESBaseCBC;
-import com.computersecurity.hybridcryptography.model.DESBaseECB;
+import com.computersecurity.hybridcryptography.model.moduleDES.DESBase;
+import com.computersecurity.hybridcryptography.model.moduleDES.DESBaseCBC;
+import com.computersecurity.hybridcryptography.model.moduleDES.DESBaseECB;
 import com.computersecurity.hybridcryptography.model.DHKeyAgreement2;
-import com.computersecurity.hybridcryptography.util.CryptoUtils;
+import static com.computersecurity.hybridcryptography.util.CryptoUtils.getImage;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.math.BigInteger;
 import java.net.URL;
 import java.security.PrivateKey;
@@ -36,7 +34,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
@@ -48,14 +45,14 @@ import javafx.stage.FileChooser.ExtensionFilter;
  */
 public class DESController implements Initializable {
 
-    private final ToggleGroup bitLengthGroup = new ToggleGroup();
-    private final ToggleGroup modeGroup = new ToggleGroup();
-    private final FileChooser fileChooser = new FileChooser();
-
     //Service Classes
     private final DESEncryptionService encService = new DESEncryptionService();
     private final DESDecryptionService decService = new DESDecryptionService();
     private final DHGeneratorService dhGenService = new DHGeneratorService();
+
+    private final ToggleGroup bitLengthGroup = new ToggleGroup();
+    private final ToggleGroup modeGroup = new ToggleGroup();
+    private final FileChooser fileChooser = new FileChooser();
 
     private File imageFile;
 
@@ -280,11 +277,4 @@ public class DESController implements Initializable {
         decService.reset();
     }
 
-    private Image getImage(File imageFile) {
-        try {
-            return new Image(new FileInputStream(imageFile));
-        } catch (FileNotFoundException ex) {
-            return null;
-        }
-    }
 }

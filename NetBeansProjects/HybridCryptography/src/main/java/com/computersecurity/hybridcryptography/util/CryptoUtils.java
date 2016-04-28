@@ -5,19 +5,16 @@
  */
 package com.computersecurity.hybridcryptography.util;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.security.InvalidKeyException;
-import java.security.SecureRandom;
+import javafx.scene.image.Image;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.SecretKey;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.FileImageInputStream;
 import javax.imageio.stream.FileImageOutputStream;
@@ -27,6 +24,14 @@ import javax.imageio.stream.FileImageOutputStream;
  * @author sm6668
  */
 public class CryptoUtils {
+
+    public static Image getImage(File imageFile) {
+        try {
+            return new Image(new FileInputStream(imageFile));
+        } catch (FileNotFoundException ex) {
+            return null;
+        }
+    }
 
     public static void write(Cipher cipher, File imageFile, File outputFile)
             throws IOException, IllegalBlockSizeException, BadPaddingException {

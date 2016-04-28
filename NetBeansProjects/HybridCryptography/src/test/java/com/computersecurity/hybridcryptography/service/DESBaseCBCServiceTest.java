@@ -5,7 +5,7 @@
  */
 package com.computersecurity.hybridcryptography.service;
 
-import com.computersecurity.hybridcryptography.model.DESBaseCBC;
+import com.computersecurity.hybridcryptography.model.moduleDES.DESBaseCBC;
 import java.io.File;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;

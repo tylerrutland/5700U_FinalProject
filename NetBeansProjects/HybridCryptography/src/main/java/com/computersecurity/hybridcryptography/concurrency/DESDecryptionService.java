@@ -5,9 +5,9 @@
  */
 package com.computersecurity.hybridcryptography.concurrency;
 
-import com.computersecurity.hybridcryptography.model.DESBase;
-import com.computersecurity.hybridcryptography.model.DESBaseCBC;
-import com.computersecurity.hybridcryptography.model.DESBaseECB;
+import com.computersecurity.hybridcryptography.model.moduleDES.DESBase;
+import com.computersecurity.hybridcryptography.model.moduleDES.DESBaseCBC;
+import com.computersecurity.hybridcryptography.model.moduleDES.DESBaseECB;
 import com.computersecurity.hybridcryptography.service.DESBaseCBCService;
 import com.computersecurity.hybridcryptography.service.DESBaseECBService;
 import java.io.File;

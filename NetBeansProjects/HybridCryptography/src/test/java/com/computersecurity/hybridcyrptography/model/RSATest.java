@@ -5,7 +5,7 @@
  */
 package com.computersecurity.hybridcyrptography.model;
 
-import com.computersecurity.hybridcryptography.model.RSA;
+import com.computersecurity.hybridcryptography.model.moduleRSA.RSA;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 

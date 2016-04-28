@@ -5,7 +5,7 @@
  */
 package com.computersecurity.hybridcyrptography.model;
 
-import com.computersecurity.hybridcryptography.model.DESBaseCBC;
+import com.computersecurity.hybridcryptography.model.moduleDES.DESBaseCBC;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
