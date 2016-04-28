@@ -19,7 +19,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -57,13 +59,25 @@ public class VEAController implements Initializable {
     private RadioButton rb2Users, rb3Users;
 
     @FXML
+    private Button setUsersBtn, resetBtn;
+
+    @FXML
     private ImageView origImageView;
 
     @FXML
-    private Button openImageBtn, addUserCoordBtn;
+    private Button openImageBtn, addUserCoordBtn, genPolyBtn;
 
     @FXML
     private Label widthLabel, heightLabel;
+
+    @FXML
+    private TextArea coordTextArea;
+
+    @FXML
+    private Label messageLabel;
+
+    @FXML
+    private ProgressIndicator progressIndicator;
 
     /**
      * Initializes the controller class.
@@ -92,8 +106,10 @@ public class VEAController implements Initializable {
                 submittedUsersProperty.lessThan(maxDegreeProperty)).and(origImageView.visibleProperty()));
 
         //UI Bindings
+        resetBtn.disableProperty().bind(setUsersBtn.disableProperty().not());
         openImageBtn.disableProperty().bind(areUsersSetProperty.not());
         addUserCoordBtn.disableProperty().bind(isAllSubmittedProperty.not());
+        genPolyBtn.disableProperty().bind(areUsersSetProperty.not().and(isAllSubmittedProperty.not()));
         widthLabel.textProperty().bindBidirectional(widthProperty, new NumberStringConverter());
         heightLabel.textProperty().bindBidirectional(heightProperty, new NumberStringConverter());
 
@@ -104,15 +120,14 @@ public class VEAController implements Initializable {
     }
 
     /*
-     The degree of the polynomial is determined from the number of users
+     The max degree of the polynomial is determined from the number of users
      Example: For 3 users, ax^3 + bx^2 + cx^1 + d
      */
     @FXML
     private void setUsers(ActionEvent event) {
         int users = (Integer) userGroup.getSelectedToggle().getUserData();
         maxDegreeProperty.set(users);
-
-        //Disables until reset
+        setUsersBtn.setDisable(true);
     }
 
     /*
@@ -120,7 +135,16 @@ public class VEAController implements Initializable {
      */
     @FXML
     private void reset(ActionEvent event) {
-
+        maxDegreeProperty.set(0);
+        countProperty.set(0);
+        submittedUsersProperty.set(0);
+        widthProperty.set(0);
+        heightProperty.set(0);
+        origImageView.setImage(null);
+        origImageView.setVisible(false);
+        monomials.clear();
+        coordTextArea.clear();
+        setUsersBtn.setDisable(false);
     }
 
     @FXML
@@ -161,6 +185,11 @@ public class VEAController implements Initializable {
         event.consume();
     }
 
+    @FXML
+    private void generatePolynomial(ActionEvent event) {
+        coordTextArea.setText(getPolynomial().toString());
+    }
+
     /*
      Computes the coefficent for the term and sets the degree
      of the monomial term
@@ -169,15 +198,13 @@ public class VEAController implements Initializable {
         int coef = widthProperty.intValue() * heightProperty.intValue();
         int deg = degreeProperty.get();
         monomials.add(new Polynomial(coef, deg));
-
-        getPolynomial();
     }
 
-    private void getPolynomial() {
+    private Polynomial getPolynomial() {
         monomials.stream().forEach((monomial) -> {
             groupPolynomial = groupPolynomial.plus(monomial);
         });
 
-        System.out.println(groupPolynomial);
+        return groupPolynomial;
     }
 }

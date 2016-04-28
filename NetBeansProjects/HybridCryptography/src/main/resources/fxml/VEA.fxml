@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -18,9 +23,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.computersecurity.hybridcryptography.controller.VEAController">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.computersecurity.hybridcryptography.controller.VEAController">
     <top>
-        <Label maxWidth="1.7976931348623157E308" text="VEA and Diffie-Hellman Key Exchange Protocol" BorderPane.alignment="CENTER">
+        <Label maxWidth="1.7976931348623157E308" text="VEA " BorderPane.alignment="CENTER">
             <font>
                 <Font size="25.0" />
             </font>
@@ -31,101 +36,121 @@
     </bottom>
     <center>
         <SplitPane BorderPane.alignment="CENTER">
-         <items>
-            <Accordion>
-              <panes>
-                <TitledPane text="Users">
-                     <content>
-                        <GridPane alignment="CENTER_LEFT">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                              <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                          </rowConstraints>
-                           <children>
-                              <Label text="The setting generates a polynomial of degree &quot;m&quot; based from the number of uers" />
-                              <RadioButton fx:id="rb2Users" mnemonicParsing="false" text="2 Users" GridPane.rowIndex="1" />
-                              <RadioButton fx:id="rb3Users" mnemonicParsing="false" text="3 Users" GridPane.rowIndex="2" />
-                              <HBox alignment="CENTER_LEFT" spacing="15.0" GridPane.rowIndex="3">
-                                 <children>
-                                    <Button mnemonicParsing="false" onAction="#setUsers" prefWidth="100.0" text="Set Users" />
-                                    <Button layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#reset" prefWidth="100.0" text="Reset " />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </GridPane>
-                     </content>
-                  </TitledPane>
-                      <TitledPane text="Visual Secret Sharing">
-                          <content>
-                              <SplitPane dividerPositions="0.7" orientation="VERTICAL">
-                                  <items>
-                                      <BorderPane>
-                                          <center>
-                                              <ScrollPane pannable="true">
-                                                  <content>
-                                                      <ImageView fx:id="origImageView" focusTraversable="true" onMouseClicked="#setCoordinates" pickOnBounds="true" preserveRatio="true" visible="false" />
-                                                  </content>
-                                              </ScrollPane>
-                                          </center>
-                                          <top>
-                                              <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                  <items>
-                                                      <Button fx:id="openImageBtn" mnemonicParsing="false" onAction="#openImage" prefWidth="125.0" text="Open Image" />
-                                                  </items>
-                                              </ToolBar>
-                                          </top>
-                                          <bottom>
-                                              <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                  <items>
-                                                      <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <items>
+                <Accordion>
+                    <panes>
+                        <TitledPane text="Users">
+                            <content>
+                                <GridPane alignment="CENTER_LEFT">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label text="The setting generates a polynomial of degree &quot;m&quot; based from the number of uers" />
+                                        <RadioButton fx:id="rb2Users" mnemonicParsing="false" text="2 Users" GridPane.rowIndex="1" />
+                                        <RadioButton fx:id="rb3Users" mnemonicParsing="false" text="3 Users" GridPane.rowIndex="2" />
+                                        <HBox alignment="CENTER_LEFT" spacing="15.0" GridPane.rowIndex="3">
+                                            <children>
+                                                <Button fx:id="setUsersBtn" mnemonicParsing="false" onAction="#setUsers" prefWidth="100.0" text="Set Users" />
+                                                <Button fx:id="resetBtn" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#reset" prefWidth="100.0" text="Reset " />
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                            </content>
+                        </TitledPane>
+                        <TitledPane text="Visual Secret Sharing">
+                            <content>
+                                <SplitPane dividerPositions="0.7" orientation="VERTICAL">
+                                    <items>
+                                        <BorderPane>
+                                            <center>
+                                                <ScrollPane pannable="true">
+                                                    <content>
+                                                        <ImageView fx:id="origImageView" focusTraversable="true" onMouseClicked="#setCoordinates" pickOnBounds="true" preserveRatio="true" visible="false" />
+                                                    </content>
+                                                </ScrollPane>
+                                            </center>
+                                            <top>
+                                                <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                    <items>
+                                                        <Button fx:id="openImageBtn" mnemonicParsing="false" onAction="#openImage" prefWidth="125.0" text="Open Image" />
+                                                    </items>
+                                                </ToolBar>
+                                            </top>
+                                            <bottom>
+                                                <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                    <items>
+                                                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                                            <children>
+                                                                <Button fx:id="addUserCoordBtn" mnemonicParsing="false" onAction="#addUserCoordinate" text="Add User Coordinate" />
+                                                                <Label text="Pixel Coordinates:">
+                                                                    <font>
+                                                                        <Font size="15.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="15.0" />
+                                                                <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                                                    <children>
+                                                                        <Label contentDisplay="RIGHT" text="Width">
+                                                                            <graphic>
+                                                                                <Label fx:id="widthLabel" prefWidth="50.0" />
+                                                                            </graphic>
+                                                                            <font>
+                                                                                <Font size="15.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                        <Region prefWidth="25.0" />
+                                                                        <Label contentDisplay="RIGHT" text="Height">
+                                                                            <graphic>
+                                                                                <Label fx:id="heightLabel" prefWidth="50.0" />
+                                                                            </graphic>
+                                                                            <font>
+                                                                                <Font size="15.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                    </children>
+                                                                </HBox>
+                                                            </children>
+                                                        </HBox>
+                                                    </items>
+                                                </ToolBar>
+                                            </bottom>
+                                        </BorderPane>
+                                        <BorderPane>
+                                            <center>
+                                                <TextArea fx:id="coordTextArea" editable="false" BorderPane.alignment="CENTER" />
+                                            </center>
+                                            <bottom>
+                                    <ToolBar GridPane.rowIndex="6">
+                                       <items>
+                                                      <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" spacing="15.0">
                                                           <children>
-                                                <Button fx:id="addUserCoordBtn" mnemonicParsing="false" onAction="#addUserCoordinate" text="Add User Coordinate" />
-                                                              <Label text="Pixel Coordinates:">
-                                                                  <font>
-                                                                      <Font size="15.0" />
-                                                                  </font>
+                                                              <Button fx:id="genPolyBtn" mnemonicParsing="false" onAction="#generatePolynomial" prefWidth="170.0" text="Generate Polynomial" />
+                                                              <Label fx:id="messageLabel" maxWidth="1.7976931348623157E308" prefHeight="30.0" visible="false">
+                                                                  <graphic>
+                                                                      <ProgressIndicator fx:id="progressIndicator" prefHeight="25.0" progress="0.0" />
+                                                                  </graphic>
                                                               </Label>
-                                                              <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="15.0" />
-                                                              <HBox alignment="CENTER_LEFT" spacing="15.0">
-                                                                  <children>
-                                                                      <Label contentDisplay="RIGHT" text="Width">
-                                                                          <graphic>
-                                                                              <Label fx:id="widthLabel" prefWidth="50.0" />
-                                                                          </graphic>
-                                                                          <font>
-                                                                              <Font size="15.0" />
-                                                                          </font>
-                                                                      </Label>
-                                                                      <Region prefWidth="25.0" />
-                                                                      <Label contentDisplay="RIGHT" text="Height">
-                                                                          <graphic>
-                                                                              <Label fx:id="heightLabel" prefWidth="50.0" />
-                                                                          </graphic>
-                                                                          <font>
-                                                                              <Font size="15.0" />
-                                                                          </font>
-                                                                      </Label>
-                                                                  </children>
-                                                              </HBox>
                                                           </children>
                                                       </HBox>
-                                                  </items>
-                                              </ToolBar>
-                                          </bottom>
-                                      </BorderPane>
-                                      <BorderPane />
-                                  </items>
-                              </SplitPane>
-                          </content>
-                      </TitledPane>
-              </panes>
-            </Accordion>
-         </items>
+                                       </items>
+                                    </ToolBar>
+                                            </bottom>
+                                        </BorderPane>
+                                    </items>
+                                </SplitPane>
+                            </content>
+                        </TitledPane>
+                    </panes>
+                </Accordion>
+            </items>
         </SplitPane>
     </center>
 </BorderPane>
