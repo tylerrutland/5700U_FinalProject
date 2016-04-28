@@ -9,7 +9,6 @@ import com.computersecurity.hybridcryptography.model.Cryptable;
 import static com.computersecurity.hybridcryptography.util.CryptoUtils.write;
 import java.io.File;
 import java.io.IOException;
-import java.security.AlgorithmParameters;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -25,8 +24,9 @@ import javax.crypto.spec.IvParameterSpec;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 /**
- *
- * @author sm6668
+ * This class uses DES algorithm and a Cipher Block Chaining mode to encrypt and
+ * decrypt a plaintext or image file the initialization vector is generated
+ * using a pseudorandom number generator of the algorithm "SHA1PRNG"
  */
 public class DESBaseCBC extends DESBase implements Cryptable {
 
@@ -97,10 +97,11 @@ public class DESBaseCBC extends DESBase implements Cryptable {
     public byte[] getCipherText(byte[] plaintext, SecretKey key) {
         try {
 
-            cipher.init(Cipher.ENCRYPT_MODE, key);
+            cipher.init(Cipher.ENCRYPT_MODE, key, ivParamSpec);
             return cipher.doFinal(plaintext);
 
         } catch (InvalidKeyException |
+                InvalidAlgorithmParameterException |
                 IllegalBlockSizeException |
                 BadPaddingException ex) {
 
@@ -113,15 +114,10 @@ public class DESBaseCBC extends DESBase implements Cryptable {
     public byte[] getPlainText(byte[] ciphertext, SecretKey key) {
         try {
 
-            byte[] encodedParams = cipher.getParameters().getEncoded();
-            AlgorithmParameters params = AlgorithmParameters.getInstance("DES");
-            params.init(encodedParams);
-
-            cipher.init(Cipher.DECRYPT_MODE, key, params);
+            cipher.init(Cipher.DECRYPT_MODE, key, ivParamSpec);
             return cipher.doFinal(ciphertext);
 
-        } catch (IOException | NoSuchAlgorithmException |
-                InvalidKeyException |
+        } catch (InvalidKeyException |
                 InvalidAlgorithmParameterException |
                 IllegalBlockSizeException |
                 BadPaddingException ex) {

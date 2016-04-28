@@ -5,6 +5,12 @@
  */
 package com.computersecurity.hybridcryptography.model.moduleVEA;
 
+
+/*
+ * This is a helper class to generate a polynomial base function
+ * where "n" users share the same function for generating an output "y" base
+ * base from a choosen "x" value by the user or generated
+ */
 public class Polynomial {
 
     private final int[] coef;  // coefficients
@@ -150,11 +156,11 @@ public class Polynomial {
         Polynomial p2 = new Polynomial(3, 2);
         Polynomial p3 = new Polynomial(1, 0);
         Polynomial p4 = new Polynomial(2, 1);
-        Polynomial p = p1.plus(p2).plus(p3).plus(p4);   
+        Polynomial p = p1.plus(p2).plus(p3).plus(p4);
 
         Polynomial q1 = new Polynomial(3, 2);
         Polynomial q2 = new Polynomial(5, 0);
-        Polynomial q = q1.plus(q2);                     
+        Polynomial q = q1.plus(q2);
 
         Polynomial r = p.plus(q);
         Polynomial s = p.times(q);

@@ -18,8 +18,9 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 
 /**
- *
- * @author sm6668
+ * This class uses DES algorithm and an Electronic Code Book mode to encrypt and
+ * decrypt a plaintext or image file the initialization vector is generated
+ * using a pseudorandom number generator of the algorithm "SHA1PRNG"
  */
 public class DESBaseECB extends DESBase implements Cryptable {
 

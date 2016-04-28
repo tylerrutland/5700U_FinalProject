@@ -11,8 +11,8 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 
 /**
- *
- * @author sm6668
+ * This class services the specified DHKeyAgreement2 object with the desired
+ * methods for the presentation layer of the application
  */
 public class DHKeyAgreement2Service {
 

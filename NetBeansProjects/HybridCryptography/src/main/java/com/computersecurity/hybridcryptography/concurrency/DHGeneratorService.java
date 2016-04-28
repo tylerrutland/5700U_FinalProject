@@ -11,8 +11,9 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
 /**
- *
- * @author sm6668
+ * This class is a "worker class" that uses a thread to perform complex tasks in
+ * the background of the application. This class specifically performs a
+ * generation of Diffie-Hellman parameters
  */
 public class DHGeneratorService extends Service<Object[]> {
 
@@ -33,6 +34,10 @@ public class DHGeneratorService extends Service<Object[]> {
 
     }
 
+    /*
+     Creates a single task for the thread to execute in the background
+     and calls an Object[] array "on succeeded" when the task is completed
+     */
     @Override
     protected Task createTask() {
         return new Task<Object[]>() {

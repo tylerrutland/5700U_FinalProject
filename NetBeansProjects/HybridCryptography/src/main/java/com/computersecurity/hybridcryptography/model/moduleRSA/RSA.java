@@ -10,8 +10,9 @@ import java.security.SecureRandom;
 import java.util.Random;
 
 /**
- *
- * @author sm6668
+ * This class encapsulates the RSA encryption and decryption which uses key
+ * lengths of 1024, 2048, and 3072 bits. The increase in bit key corresponds to
+ * the lifetime of data
  */
 public class RSA {
 
@@ -20,7 +21,7 @@ public class RSA {
     private int size;
 
     public RSA() {
-        size = 512;
+        size = 1024;
         r = new SecureRandom();
         p = BigInteger.probablePrime(size, r);
         q = BigInteger.probablePrime(size, r);

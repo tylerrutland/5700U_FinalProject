@@ -23,8 +23,11 @@ import javax.crypto.spec.DHParameterSpec;
 import static org.bouncycastle.pqc.math.linearalgebra.ByteUtils.toHexString;
 
 /**
+ * This class encapsulates Diffie-Hellman key exchange protocol between two
+ * parties by using a parameter generator of the Diffie-Hellman algorithm and a
+ * parameter specification of the Diffie-Hellman. The bit length will be a value
+ * of 512 or 1024 for the parameter generation of the modulus and base
  *
- * @author Steve
  */
 public class DHKeyAgreement2 {
 
@@ -133,6 +136,9 @@ public class DHKeyAgreement2 {
         }
     }
 
+    /*
+     User A generates a key pair (public & private key)
+     */
     private byte[] publicKeyEncodedA() throws InvalidAlgorithmParameterException, InvalidKeyException, NoSuchAlgorithmException {
         KeyPairGenerator kpg = KeyPairGenerator.getInstance(ALGORITHM);
         kpg.initialize(dhParamSpec);
@@ -142,6 +148,9 @@ public class DHKeyAgreement2 {
         return kp.getPublic().getEncoded();
     }
 
+    /*
+     User A sends his or her public key through an insecure channel
+     */
     private DHParameterSpec sendPublicKeyEncoded(byte[] pke) throws NoSuchAlgorithmException, InvalidKeySpecException {
         KeyFactory kf = KeyFactory.getInstance(ALGORITHM);
         x509KeySpec = new X509EncodedKeySpec(pke);
@@ -149,6 +158,10 @@ public class DHKeyAgreement2 {
         return ((DHPublicKey) publicKeyA).getParams();
     }
 
+    /*
+     User B generates a public key based from the recieved public key from A using
+     Diffie-Hellman parameter specifications
+     */
     private byte[] publicKeyEncodedB(DHParameterSpec dhps) throws InvalidAlgorithmParameterException, InvalidKeyException, NoSuchAlgorithmException {
         KeyPairGenerator kpg = KeyPairGenerator.getInstance(ALGORITHM);
         kpg.initialize(dhps);

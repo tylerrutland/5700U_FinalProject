@@ -15,8 +15,10 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
 /**
- *
- * @author Steve
+ * This class is a "worker class" that uses a thread to perform complex tasks in
+ * the background of the application. This class specifically performs a DES
+ * encryption of the imageFile and outputs the encrypted file to a chosen
+ * location
  */
 public class DESEncryptionService extends Service<Boolean> {
 
@@ -46,6 +48,10 @@ public class DESEncryptionService extends Service<Boolean> {
         this.outputFile = outputFile;
     }
 
+    /*
+     Creates a single task for the thread to execute in the background
+     and calls a Boolean value "on succeeded" when the task is completed
+     */
     @Override
     protected Task createTask() {
         return new Task<Boolean>() {

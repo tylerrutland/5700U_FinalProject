@@ -49,7 +49,7 @@ public class CryptoUtils {
         fos.close();
 
     }
-
+    
     public static boolean encryptImage(File imageFile, File outputFile) {
         try {
 //            //The imageFile's path is going to be used as the plaintext for random seed

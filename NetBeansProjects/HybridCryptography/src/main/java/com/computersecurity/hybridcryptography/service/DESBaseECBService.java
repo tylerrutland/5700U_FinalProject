@@ -9,8 +9,8 @@ import com.computersecurity.hybridcryptography.model.moduleDES.DESBaseECB;
 import java.io.File;
 
 /**
- *
- * @author sm6668
+ * This class services the specified DESBaseECB object with 
+ * the desired methods for the presentation layer of the application
  */
 public class DESBaseECBService {
 

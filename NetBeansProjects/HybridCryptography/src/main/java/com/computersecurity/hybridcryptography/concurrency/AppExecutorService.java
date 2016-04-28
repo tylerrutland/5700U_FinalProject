@@ -9,12 +9,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- *
- * @author sm6668
+ * Sets the number of threads that the application is going to utilize
  */
 public class AppExecutorService {
 
-    public static final ExecutorService pool 
+    public static final ExecutorService pool
             = Executors.newSingleThreadExecutor();
 
 }

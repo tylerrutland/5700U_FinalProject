@@ -40,8 +40,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
 /**
- *
- * @author Steve
+ * This class controls the model(s) and view of its associated fxml file
  */
 public class DESController implements Initializable {
 
@@ -160,6 +159,11 @@ public class DESController implements Initializable {
         event.consume();
     }
 
+    /*
+     Generates all the Diffie-Hellman parameters: key pair, Diffie-Hellman
+     parameter specifications (modulus, base, and choosen bit length value), and 
+     shared secret key for both parties
+     */
     @FXML
     private void generateParameters(ActionEvent event) {
         if (imageFile != null) {
@@ -173,6 +177,9 @@ public class DESController implements Initializable {
         }
     }
 
+    /*
+     Encrypts an image using the DES Algorithm
+     */
     @FXML
     private void encryptImage(ActionEvent event) {
         if (imageFile != null) {
@@ -191,6 +198,9 @@ public class DESController implements Initializable {
         event.consume();
     }
 
+    /*
+     Decrypts an image using the DES Algorithm
+     */
     @FXML
     private void decryptImage(ActionEvent event) {
         if (imageFile != null && encService.getOutputFile().exists()) {

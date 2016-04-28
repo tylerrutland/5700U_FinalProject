@@ -12,8 +12,9 @@ import javax.crypto.KeyAgreement;
 import javax.crypto.SecretKey;
 
 /**
- *
- * @author sm6668
+ * This class gets the key agreements between the two parties and then generates
+ * a secret key using a Blowfish algorithm which takes a variable-length key, 
+ * from 32 bits to 448 bits
  */
 public class VEABase extends DHKeyAgreement2 {
 

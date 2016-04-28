@@ -8,15 +8,14 @@ package com.computersecurity.hybridcryptography.model.moduleDES;
 import com.computersecurity.hybridcryptography.model.DHKeyAgreement2;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import javax.crypto.KeyAgreement;
 import javax.crypto.SecretKey;
 
 /**
- *
- * @author sm6668
+ * This class gets the key agreements between the two parties and then generates
+ * a secret key using a DES algorithm which has a key length of 56 bits
  */
-public class DESBase extends DHKeyAgreement2{
+public class DESBase extends DHKeyAgreement2 {
 
     private static final String ALGORITHM = "DES";
     private SecretKey keyA, keyB;
@@ -53,16 +52,6 @@ public class DESBase extends DHKeyAgreement2{
 
     public SecretKey getDESKeyB() {
         return keyB;
-    }
-
-    public void printA() {
-        System.out.println(Arrays.toString(keyA.getEncoded()));
-        System.out.println(keyA.getAlgorithm());
-    }
-
-    public void printB() {
-        System.out.println(Arrays.toString(keyB.getEncoded()));
-        System.out.println(keyB.getAlgorithm());
     }
 
 }

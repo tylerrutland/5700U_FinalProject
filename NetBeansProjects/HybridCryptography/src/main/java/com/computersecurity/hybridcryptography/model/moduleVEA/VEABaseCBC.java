@@ -24,8 +24,9 @@ import javax.crypto.spec.IvParameterSpec;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 /**
- *
- * @author Steve
+ * This class uses Blowfish algorithm and a Cipher Block Chaining mode to
+ * encrypt and decrypt a plaintext or image file the initialization vector is
+ * generated using a pseudorandom number generator of the algorithm "SHA1PRNG"
  */
 public class VEABaseCBC extends VEABase implements Cryptable {
 

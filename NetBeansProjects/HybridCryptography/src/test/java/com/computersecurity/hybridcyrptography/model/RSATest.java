@@ -17,7 +17,7 @@ public class RSATest {
 
     @Test
     public void testRSA() {
-        RSA rsa = new RSA(512);
+        RSA rsa = new RSA(1024);
         String initialMessage = "This is a test string for encryption and decryption";
         byte[] encrypted = rsa.encrypt(initialMessage.getBytes());
 

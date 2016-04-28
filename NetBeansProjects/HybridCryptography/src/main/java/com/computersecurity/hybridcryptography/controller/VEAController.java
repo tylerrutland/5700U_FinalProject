@@ -29,8 +29,7 @@ import javafx.stage.FileChooser;
 import javafx.util.converter.NumberStringConverter;
 
 /**
- *
- * @author sm6668
+ * This class controls the model(s) and view of its associated fxml file
  */
 public class VEAController implements Initializable {
 
@@ -109,7 +108,7 @@ public class VEAController implements Initializable {
         resetBtn.disableProperty().bind(setUsersBtn.disableProperty().not());
         openImageBtn.disableProperty().bind(areUsersSetProperty.not());
         addUserCoordBtn.disableProperty().bind(isAllSubmittedProperty.not());
-        genPolyBtn.disableProperty().bind(areUsersSetProperty.not().and(isAllSubmittedProperty.not()));
+        genPolyBtn.disableProperty().bind(addUserCoordBtn.disableProperty().not().or(isAllSubmittedProperty.not()));
         widthLabel.textProperty().bindBidirectional(widthProperty, new NumberStringConverter());
         heightLabel.textProperty().bindBidirectional(heightProperty, new NumberStringConverter());
 
@@ -143,7 +142,6 @@ public class VEAController implements Initializable {
         origImageView.setImage(null);
         origImageView.setVisible(false);
         monomials.clear();
-        coordTextArea.clear();
         setUsersBtn.setDisable(false);
     }
 
@@ -186,8 +184,18 @@ public class VEAController implements Initializable {
     }
 
     @FXML
+    private void clearText(ActionEvent event) {
+        coordTextArea.clear();
+    }
+
+    /*
+     Computes the y value based from the generated x value and uses the x value 
+     of the polynomial function in which the y value is the private key of the user
+     */
+    @FXML
     private void generatePolynomial(ActionEvent event) {
-        coordTextArea.setText(getPolynomial().toString());
+        coordTextArea.setText(getFinalPolynomial().toString());
+        resetBtn.fire();
     }
 
     /*
@@ -200,7 +208,11 @@ public class VEAController implements Initializable {
         monomials.add(new Polynomial(coef, deg));
     }
 
-    private Polynomial getPolynomial() {
+    /*
+     Generates the final polynomial by simple adding all the 
+     individual monomials together
+     */
+    private Polynomial getFinalPolynomial() {
         monomials.stream().forEach((monomial) -> {
             groupPolynomial = groupPolynomial.plus(monomial);
         });

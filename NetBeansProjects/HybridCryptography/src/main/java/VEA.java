@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +27,7 @@ public class VEA {
         // Encrypt
         for (int i = 0; i < rounds; i++) {
             encrypt = ecipher.doFinal(str);
+            System.out.println(encrypt);
         }
         return encrypt;
     }

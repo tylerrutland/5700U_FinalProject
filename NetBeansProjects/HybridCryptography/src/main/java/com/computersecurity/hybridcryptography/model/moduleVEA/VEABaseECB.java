@@ -21,8 +21,9 @@ import javax.crypto.SecretKey;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 /**
- *
- * @author Steve
+ * This class uses Blowfish algorithm and an Electronic Code Book mode to
+ * encrypt and decrypt a plaintext or image file the initialization vector is
+ * generated using a pseudorandom number generator of the algorithm "SHA1PRNG"
  */
 public class VEABaseECB extends VEABase implements Cryptable {
 
