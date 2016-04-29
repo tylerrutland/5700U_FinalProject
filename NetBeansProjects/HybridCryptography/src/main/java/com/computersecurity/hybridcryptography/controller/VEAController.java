@@ -10,7 +10,10 @@ import com.computersecurity.hybridcryptography.model.moduleVEA.Term;
 import static com.computersecurity.hybridcryptography.util.CryptoUtils.getImage;
 import java.io.File;
 import java.net.URL;
+import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -36,14 +39,14 @@ public class VEAController implements Initializable {
 
     private int count;
     private int submittedUsers;
+    private final ArrayList<String> usersInfo = new ArrayList(4);
 
-    private Polynomial groupPolynomial = new Polynomial(1000, 0);
+    private Polynomial groupPolynomial = new Polynomial(0, 0);
     private final ArrayList<Term> terms = new ArrayList(4);
     private final ArrayList<Polynomial> monomials = new ArrayList(4);
 
     private final SimpleDoubleProperty widthProperty = new SimpleDoubleProperty();
     private final SimpleDoubleProperty heightProperty = new SimpleDoubleProperty();
-
     private final SimpleIntegerProperty countProperty = new SimpleIntegerProperty();
     private final SimpleIntegerProperty degreeProperty = new SimpleIntegerProperty();
     private final SimpleIntegerProperty maxDegreeProperty = new SimpleIntegerProperty();
@@ -72,7 +75,7 @@ public class VEAController implements Initializable {
     private Label widthLabel, heightLabel;
 
     @FXML
-    private TextArea coordTextArea;
+    private TextArea vssTextArea;
 
     @FXML
     private Label messageLabel;
@@ -113,7 +116,7 @@ public class VEAController implements Initializable {
         resetBtn.disableProperty().bind(setUsersBtn.disableProperty().not());
         openImageBtn.disableProperty().bind(areUsersSetProperty.not());
         addUserCoordBtn.disableProperty().bind(isAllSubmittedProperty.not());
-//        genPolyBtn.disableProperty(); Need to disable this on initialization
+        genPolyBtn.disableProperty().bind(addUserCoordBtn.disableProperty().not());
         widthLabel.textProperty().bindBidirectional(widthProperty, new NumberStringConverter());
         heightLabel.textProperty().bindBidirectional(heightProperty, new NumberStringConverter());
 
@@ -183,18 +186,21 @@ public class VEAController implements Initializable {
      */
     @FXML
     private void addUserCoordinate(ActionEvent event) {
-        if (!coordTextArea.getText().isEmpty()) {
-            coordTextArea.clear();
+        if (!vssTextArea.getText().isEmpty()) {
+            vssTextArea.clear();
         }
+
         countProperty.set(count++);
         submittedUsersProperty.set(++submittedUsers);
-        addTerm();
+        addUserMonomialAndTerm();
         event.consume();
     }
 
     @FXML
     private void clearText(ActionEvent event) {
-        coordTextArea.clear();
+        if (!vssTextArea.getText().isEmpty()) {
+            vssTextArea.clear();
+        }
     }
 
     /*
@@ -203,25 +209,36 @@ public class VEAController implements Initializable {
      */
     @FXML
     private void generatePolynomial(ActionEvent event) {
-        coordTextArea.setText("Group Base Polynomial:\t" + getFinalPolynomial().toString());
+        vssTextArea.setText("Group Base Polynomial:\t" + getFinalPolynomial().toString());
+        terms.clear();
+        usersInfo.clear();
         resetBtn.fire();
     }
 
     /*
-     Computes the coefficent for the term and sets the degree
-     of the monomial term
+     Computes the coefficent for the nonomial term, sets the degree
+     of the monomial term and generates a random x value
      */
-    private void addTerm() {
-        int coef = widthProperty.intValue() * heightProperty.intValue();
+    private void addUserMonomialAndTerm() {
+        int width = widthProperty.intValue();
+        int height = heightProperty.intValue();
+        int coef = width * height;
         int deg = degreeProperty.get();
+
+        //Add single monomial from user
         Polynomial monomial = new Polynomial(coef, deg);
         monomials.add(monomial);
 
-        coordTextArea.setText(coordTextArea.getText()
-                .concat("User " + submittedUsers + ":\t")
-                .concat(monomial.toString())
-                .concat("\n"));
+        //Compute Term
+        Random rand = new SecureRandom();
+        int x = rand.nextInt((width > height) ? width : height);
+        Term term = new Term(coef, deg, x);
+        terms.add(term);
 
+        //Set the text area with the user information
+        String userInfo = "\nUser " + submittedUsers + ":\t" + monomial.toString();
+        usersInfo.add(userInfo + "\t| x = " + x + "\t->\t" + term.getTermValue() + "\n");
+        vssTextArea.setText(Arrays.toString(usersInfo.toArray()));
     }
 
     /*
@@ -229,8 +246,8 @@ public class VEAController implements Initializable {
      individual monomials together
      */
     private Polynomial getFinalPolynomial() {
-        monomials.stream().forEach((monomial)
-                -> groupPolynomial = groupPolynomial.plus(monomial));
+        groupPolynomial = new Polynomial(new SecureRandom().nextInt(), 0);//Resets polynomial
+        monomials.stream().forEach((monomial) -> groupPolynomial = groupPolynomial.plus(monomial));
         return groupPolynomial;
     }
 }

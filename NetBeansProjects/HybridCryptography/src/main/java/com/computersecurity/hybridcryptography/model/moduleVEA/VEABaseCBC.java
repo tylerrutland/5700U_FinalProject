@@ -30,6 +30,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
  */
 public class VEABaseCBC extends VEABase implements Cryptable {
 
+    private int rounds;
     private static final String ALGORITHM = "Blowfish/CBC/PKCS5Padding";
     private static final String PROVIDER = "BC";
     private Cipher cipher;

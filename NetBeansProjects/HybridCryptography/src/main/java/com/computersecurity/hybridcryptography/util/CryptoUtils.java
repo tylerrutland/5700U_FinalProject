@@ -45,11 +45,15 @@ public class CryptoUtils {
             fos.write(cipher.update(buffer, 0, len));
             fos.flush();
         }
-        fos.write(cipher.doFinal());
+        
+        for (int i = 0; i < 5; i++) {//Rounds later
+            fos.write(cipher.doFinal());
+        }
+        
         fos.close();
 
     }
-    
+
     public static boolean encryptImage(File imageFile, File outputFile) {
         try {
 //            //The imageFile's path is going to be used as the plaintext for random seed

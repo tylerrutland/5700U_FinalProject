@@ -30,6 +30,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
  */
 public class DESBaseCBC extends DESBase implements Cryptable {
 
+    private int rounds;
     private static final String ALGORITHM = "DES/CBC/PKCS7Padding";
     private static final String PROVIDER = "BC";
     private Cipher cipher;

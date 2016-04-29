@@ -22,6 +22,7 @@ import java.security.PublicKey;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executor;
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,6 +33,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
@@ -83,19 +85,22 @@ public class DESController implements Initializable {
     private PasswordField secKeyAPF, secKeyBPF;
 
     @FXML
-    private Button openBtn, genBtn;
+    private Button openImageBtn, dhGenBtn;
 
     @FXML
     private Tooltip baseTooltip, modTooltip;
 
     @FXML
-    private Tooltip secretKeyATooltip;
+    private Tooltip dhGenBtnTooltip;
 
     @FXML
     private Label messageLabel;
 
     @FXML
     private Label encMessageLabel, decMessageLabel;
+
+    @FXML
+    private Label encModeLabel, decModeLabel;
 
     @FXML
     private ProgressIndicator progressIndicator;
@@ -124,10 +129,18 @@ public class DESController implements Initializable {
         rb1024.setUserData(1024);
         rb1024.setToggleGroup(bitLengthGroup);
 
+        encModeLabel.setText("ECB");
+        decModeLabel.setText("ECB");
+
+        dhGenBtnTooltip.setText(getText());
+
+        modeGroup.selectedToggleProperty().addListener(modeToggleListener());
+
+        //UI Bindings
         imagePane.disableProperty().bind(dhGenService.runningProperty());
         encDecPane.disableProperty().bind(dhGenService.runningProperty());
-        openBtn.disableProperty().bind(dhGenService.runningProperty());
-        genBtn.disableProperty().bind(dhGenService.runningProperty());
+        openImageBtn.disableProperty().bind(dhGenService.runningProperty());
+        dhGenBtn.disableProperty().bind(dhGenService.runningProperty());
         messageLabel.textProperty().bind(dhGenService.messageProperty());
         messageLabel.visibleProperty().bind(dhGenService.runningProperty());
         progressIndicator.progressProperty().bind(dhGenService.progressProperty());
@@ -199,7 +212,8 @@ public class DESController implements Initializable {
     }
 
     /*
-     Decrypts an image using the DES Algorithm
+     Decrypts an image using the DES Algorithm from the encrypted 
+     image file
      */
     @FXML
     private void decryptImage(ActionEvent event) {
@@ -219,12 +233,18 @@ public class DESController implements Initializable {
         event.consume();
     }
 
+    /*
+     Sets the worker objects to utilize a single thread
+     */
     private void setExecutor(Executor exe) {
         encService.setExecutor(exe);
         decService.setExecutor(exe);
         dhGenService.setExecutor(exe);
     }
 
+    /*
+     A method that is called after the task(s) is successfully completed
+     */
     private void dhSucceeded() {
         Object[] items = dhGenService.getValue();
 
@@ -234,7 +254,6 @@ public class DESController implements Initializable {
 
             secKeyAPF.setText(secKeyA);
             secKeyBPF.setText(secKeyB);
-            secretKeyATooltip.setText("Secret Keys Are Equal: " + secKeyA.contains(secKeyB));
 
             String base = ((BigInteger) items[2]).toString();
             String mod = ((BigInteger) items[3]).toString();
@@ -273,6 +292,9 @@ public class DESController implements Initializable {
         }
     }
 
+    /*
+     A method that is called after the task(s) is successfully completed
+     */
     private void encSucceeded() {
         /*
          Currently no way to visualize an encrypted image file
@@ -282,9 +304,38 @@ public class DESController implements Initializable {
         encService.reset();
     }
 
+    /*
+     A method that is called after the task(s) is successfully completed
+     */
     private void decSucceeded() {
         decImageView.setImage(getImage(decService.getOutputFile()));
         decService.reset();
     }
 
+    /*
+     A listener for showing the encryptiom modes to the user
+     */
+    private ChangeListener<Toggle> modeToggleListener() {
+        return (observ, oldVal, newVal) -> {
+            if (newVal != null) {
+                DESBase desBase = (DESBase) newVal.getUserData();
+                if (desBase instanceof DESBaseECB) {
+                    encModeLabel.setText("ECB");
+                    decModeLabel.setText("ECB");
+                } else {
+                    encModeLabel.setText("CBC");
+                    decModeLabel.setText("CBC");
+                }
+            }
+        };
+    }
+
+    /*
+     Tooltip information 
+     */
+    private String getText() {
+        return "The secret key generated from the Diffie-Hellman Algorithm will be used to encrypt\n"
+                + "and decrypt the image file. If no parameters are generated, then there will be a\n"
+                + "secret key generated in the background to encrypt and decrypt the image";
+    }
 }

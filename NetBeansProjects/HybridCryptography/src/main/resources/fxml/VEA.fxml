@@ -139,14 +139,14 @@
                                         </BorderPane>
                                         <BorderPane>
                                             <center>
-                                                <TextArea fx:id="coordTextArea" editable="false" BorderPane.alignment="CENTER" />
+                                                <TextArea fx:id="vssTextArea" editable="false" promptText="Polynomial Generation" BorderPane.alignment="CENTER" />
                                             </center>
                                             <bottom>
                                                 <ToolBar GridPane.rowIndex="6">
                                                     <items>
                                                         <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" spacing="15.0">
                                                             <children>
-                                                                <Button fx:id ="clearTextBtn" mnemonicParsing="false" onAction="#clearText" text="Clear Text" />
+                                                                <Button fx:id="clearTextBtn" mnemonicParsing="false" onAction="#clearText" text="Clear Text" />
                                                                 <Button fx:id="genPolyBtn" mnemonicParsing="false" onAction="#generatePolynomial" prefWidth="170.0" text="Generate Polynomial" />
                                                                 <Label fx:id="messageLabel" maxWidth="1.7976931348623157E308" prefHeight="30.0" visible="false">
                                                                     <graphic>

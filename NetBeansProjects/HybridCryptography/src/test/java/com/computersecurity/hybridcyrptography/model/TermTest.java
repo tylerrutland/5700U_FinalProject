@@ -25,4 +25,23 @@ public class TermTest {
         assertEquals("Is Correct ", expected, result);
     }
 
+    @Test
+    public void testTerm1() {
+        Term term = new Term(0, 2, 4);
+
+        int expected = 0;
+        int result = term.getTermValue();
+
+        assertEquals("Is Correct ", expected, result);
+    }
+
+    @Test
+    public void testTerm2() {
+        Term term = new Term(5, 0, 10);
+
+        int expected = 5;
+        int result = term.getTermValue();
+
+        assertEquals("Is Correct ", expected, result);
+    }
 }

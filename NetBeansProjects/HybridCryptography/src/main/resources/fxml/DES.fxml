@@ -41,7 +41,7 @@
                     <top>
                         <ToolBar>
                             <items>
-                                <Button fx:id="openBtn" mnemonicParsing="false" onAction="#openImage" prefWidth="125.0" text="Open Image" />
+                                <Button fx:id="openImageBtn" mnemonicParsing="false" onAction="#openImage" prefWidth="125.0" text="Open Image" />
                             </items>
                         </ToolBar>
                     </top>
@@ -287,11 +287,7 @@
                                                                         <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
                                                                     </graphic>
                                                                 </Label>
-                                                                <PasswordField fx:id="secKeyAPF" editable="false" prefColumnCount="45" promptText="Secret Key A">
-                                                                    <tooltip>
-                                                                        <Tooltip fx:id="secretKeyATooltip" wrapText="true" />
-                                                                    </tooltip>
-                                                                </PasswordField>
+                                                                <PasswordField fx:id="secKeyAPF" editable="false" prefColumnCount="45" promptText="Secret Key A"/>
                                                             </children>
                                                             <VBox.margin>
                                                                 <Insets />
@@ -320,7 +316,11 @@
                                                 </VBox>
                                                 <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" spacing="15.0" GridPane.rowIndex="6">
                                                     <children>
-                                                        <Button fx:id="genBtn" mnemonicParsing="false" onAction="#generateParameters" prefHeight="30.0" prefWidth="170.0" text="Generate Parameters" />
+                                                        <Button fx:id="dhGenBtn" mnemonicParsing="false" onAction="#generateParameters" prefHeight="30.0" prefWidth="170.0" text="Generate Parameters" >
+                                                            <tooltip>
+                                                                <Tooltip fx:id="dhGenBtnTooltip" wrapText="true" />
+                                                            </tooltip>
+                                                        </Button>
                                                         <Label fx:id="messageLabel" maxWidth="1.7976931348623157E308" prefHeight="30.0" visible="false">
                                                             <graphic>
                                                                 <ProgressIndicator fx:id="progressIndicator" prefHeight="25.0" progress="0.0" />
@@ -437,19 +437,20 @@
                                                             </content>
                                                         </ScrollPane>
                                                     </center>
+                                                    <bottom>
+                                                        <ToolBar BorderPane.alignment="CENTER_LEFT">
+                                                            <items>
+                                                                <HBox spacing="15.0">
+                                                                    <children>
+                                                                        <Label text="Cipher Mode" />
+                                                                        <Label fx:id="encModeLabel" />
+                                                                    </children>
+                                                                </HBox>
+                                                            </items>
+                                                        </ToolBar>
+                                                    </bottom>
                                                 </BorderPane>
                                                 <BorderPane>
-                                                    <center>
-                                                        <ScrollPane pannable="true" prefViewportHeight="175.0" prefWidth="200.0">
-                                                            <content>
-                                                                <ImageView fx:id="decImageView" pickOnBounds="true" preserveRatio="true">
-                                                                    <viewport>
-                                                                        <Rectangle2D />
-                                                                    </viewport>
-                                                                </ImageView>
-                                                            </content>
-                                                        </ScrollPane>
-                                                    </center>
                                                     <top>
                                                         <ToolBar BorderPane.alignment="CENTER_LEFT">
                                                             <items>
@@ -473,6 +474,29 @@
                                                             </items>
                                                         </ToolBar>
                                                     </top>
+                                                    <center>
+                                                        <ScrollPane pannable="true" prefViewportHeight="175.0" prefWidth="200.0">
+                                                            <content>
+                                                                <ImageView fx:id="decImageView" pickOnBounds="true" preserveRatio="true">
+                                                                    <viewport>
+                                                                        <Rectangle2D />
+                                                                    </viewport>
+                                                                </ImageView>
+                                                            </content>
+                                                        </ScrollPane>
+                                                    </center>
+                                                    <bottom>
+                                                        <ToolBar BorderPane.alignment="CENTER_LEFT">
+                                                            <items>
+                                                                <HBox spacing="15.0">
+                                                                    <children>
+                                                                        <Label text="Cipher Mode" />
+                                                                        <Label fx:id="decModeLabel" />
+                                                                    </children>
+                                                                </HBox>
+                                                            </items>
+                                                        </ToolBar>
+                                                    </bottom>
                                                 </BorderPane>
                                             </items>
                                         </SplitPane>
