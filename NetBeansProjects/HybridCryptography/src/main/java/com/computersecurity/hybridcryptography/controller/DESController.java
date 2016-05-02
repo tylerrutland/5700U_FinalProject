@@ -64,7 +64,7 @@ public class DESController implements Initializable {
     private ImageView origImageView;
 
     @FXML
-    private ImageView encImageView, decImageView;
+    private ImageView decImageView;
 
     @FXML
     private RadioButton rbECB, rbCBC;
@@ -101,6 +101,9 @@ public class DESController implements Initializable {
 
     @FXML
     private Label encModeLabel, decModeLabel;
+
+    @FXML
+    private Label invalidLabel;
 
     @FXML
     private ProgressIndicator progressIndicator;
@@ -164,6 +167,8 @@ public class DESController implements Initializable {
         imageFile = fileChooser.showOpenDialog(null);
         if (imageFile != null) {
             origImageView.setImage(getImage(imageFile));
+            decImageView.setImage(null);
+            invalidLabel.setVisible(false);
         } else {
 
             //User closes file chooser
@@ -194,7 +199,7 @@ public class DESController implements Initializable {
      Encrypts an image using the DES Algorithm
      */
     @FXML
-    private void encryptImage(ActionEvent event) {
+    private void encryptImageFile(ActionEvent event) {
         if (imageFile != null) {
             DESBase desBase = (DESBase) modeGroup.getSelectedToggle().getUserData();
             File outputFile = fileChooser.showSaveDialog(null);
@@ -216,7 +221,7 @@ public class DESController implements Initializable {
      image file
      */
     @FXML
-    private void decryptImage(ActionEvent event) {
+    private void decryptImageFile(ActionEvent event) {
         if (imageFile != null && encService.getOutputFile().exists()) {
             DESBase desBase = (DESBase) modeGroup.getSelectedToggle().getUserData();
             File outputFile = fileChooser.showSaveDialog(null);
@@ -298,9 +303,8 @@ public class DESController implements Initializable {
     private void encSucceeded() {
         /*
          Currently no way to visualize an encrypted image file
-         Image View is blank
          */
-        encImageView.setImage(getImage(encService.getOutputFile()));
+        invalidLabel.setVisible(true);
         encService.reset();
     }
 

@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Accordion?>
@@ -26,7 +33,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.computersecurity.hybridcryptography.controller.DESController">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.computersecurity.hybridcryptography.controller.DESController">
     <top>
         <Label maxWidth="1.7976931348623157E308" text="DES and Diffie-Hellman Key Exchange Protocol" BorderPane.alignment="CENTER">
             <font>
@@ -287,7 +294,7 @@
                                                                         <Circle radius="3.0" stroke="BLACK" strokeType="INSIDE" />
                                                                     </graphic>
                                                                 </Label>
-                                                                <PasswordField fx:id="secKeyAPF" editable="false" prefColumnCount="45" promptText="Secret Key A"/>
+                                                                <PasswordField fx:id="secKeyAPF" editable="false" prefColumnCount="45" promptText="Secret Key A" />
                                                             </children>
                                                             <VBox.margin>
                                                                 <Insets />
@@ -316,7 +323,7 @@
                                                 </VBox>
                                                 <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" spacing="15.0" GridPane.rowIndex="6">
                                                     <children>
-                                                        <Button fx:id="dhGenBtn" mnemonicParsing="false" onAction="#generateParameters" prefHeight="30.0" prefWidth="170.0" text="Generate Parameters" >
+                                                        <Button fx:id="dhGenBtn" mnemonicParsing="false" onAction="#generateParameters" prefHeight="30.0" prefWidth="170.0" text="Generate Parameters">
                                                             <tooltip>
                                                                 <Tooltip fx:id="dhGenBtnTooltip" wrapText="true" />
                                                             </tooltip>
@@ -411,7 +418,7 @@
                                                                         <Font size="13.0" />
                                                                     </font>
                                                                     <graphic>
-                                                                        <Button mnemonicParsing="false" onAction="#encryptImage" prefWidth="100.0" text="Encrypt To A File">
+                                                                        <Button mnemonicParsing="false" onAction="#encryptImageFile" prefWidth="100.0" text="Encrypt To A File">
                                                                             <font>
                                                                                 <Font size="10.0" />
                                                                             </font>
@@ -426,17 +433,6 @@
                                                             </items>
                                                         </ToolBar>
                                                     </top>
-                                                    <center>
-                                                        <ScrollPane pannable="true" prefViewportHeight="175.0" prefWidth="200.0">
-                                                            <content>
-                                                                <ImageView fx:id="encImageView" pickOnBounds="true" preserveRatio="true">
-                                                                    <viewport>
-                                                                        <Rectangle2D />
-                                                                    </viewport>
-                                                                </ImageView>
-                                                            </content>
-                                                        </ScrollPane>
-                                                    </center>
                                                     <bottom>
                                                         <ToolBar BorderPane.alignment="CENTER_LEFT">
                                                             <items>
@@ -449,6 +445,9 @@
                                                             </items>
                                                         </ToolBar>
                                                     </bottom>
+                                       <center>
+                                          <Label fx:id="invalidLabel" text="Can't Open Encrypted File" textFill="#eb0c0c" visible="false" BorderPane.alignment="CENTER" />
+                                       </center>
                                                 </BorderPane>
                                                 <BorderPane>
                                                     <top>
@@ -459,7 +458,7 @@
                                                                         <Font size="13.0" />
                                                                     </font>
                                                                     <graphic>
-                                                                        <Button mnemonicParsing="false" onAction="#decryptImage" prefWidth="100.0" text="Decrypt To A File">
+                                                                        <Button mnemonicParsing="false" onAction="#decryptImageFile" prefWidth="100.0" text="Decrypt To A File">
                                                                             <font>
                                                                                 <Font size="10.0" />
                                                                             </font>

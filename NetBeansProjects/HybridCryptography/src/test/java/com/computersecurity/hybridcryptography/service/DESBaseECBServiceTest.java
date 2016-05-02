@@ -29,8 +29,8 @@ public class DESBaseECBServiceTest {
 
         boolean expected = true;
 
-        boolean isEncrypted = ecbService.encryptImage(origFile, encryptedFile);
-        boolean isDecrypted = ecbService.decryptImage(encryptedFile, recoveredFile);
+        boolean isEncrypted = ecbService.encryptImageFile(origFile, encryptedFile);
+        boolean isDecrypted = ecbService.decryptImageFile(encryptedFile, recoveredFile);
 
         boolean result = (isEncrypted && isDecrypted);
         assertEquals("Image encrypted and decrypted successfully! ", expected, result);

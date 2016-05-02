@@ -64,12 +64,12 @@ public class DESEncryptionService extends Service<Boolean> {
                     updateMessage("Encryption Successful");
                     Thread.sleep(1500);
                     return new DESBaseECBService((DESBaseECB) desBase)
-                            .encryptImage(imageFile, outputFile);
+                            .encryptImageFile(imageFile, outputFile);
                 } else {
                     updateMessage("Encryption Successful");
                     Thread.sleep(1500);
                     return new DESBaseCBCService((DESBaseCBC) desBase)
-                            .encryptImage(imageFile, outputFile);
+                            .encryptImageFile(imageFile, outputFile);
                 }
             }
         };

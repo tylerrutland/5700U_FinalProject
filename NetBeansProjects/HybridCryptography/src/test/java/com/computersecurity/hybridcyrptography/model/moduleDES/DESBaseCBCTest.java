@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.computersecurity.hybridcyrptography.model;
+package com.computersecurity.hybridcyrptography.model.moduleDES;
 
 import com.computersecurity.hybridcryptography.model.moduleDES.DESBaseCBC;
 import java.io.File;
@@ -29,6 +29,10 @@ public class DESBaseCBCTest {
         byte[] ciphertext = cbc.getCipherText(plaintext, cbc.getDESKeyA());
         byte[] recovered = cbc.getPlainText(ciphertext, cbc.getDESKeyB());
 
+//        System.out.println(Arrays.toString(plaintext));
+//        System.out.println(Arrays.toString(ciphertext));
+//        System.out.println(Arrays.toString(recovered));
+
         boolean expected = true;
         boolean result = Arrays.equals(plaintext, recovered);
         assertEquals("Plain text is the same as recovered text", expected, result);
@@ -40,8 +44,12 @@ public class DESBaseCBCTest {
 
         File file = new File(path + "images/palmTree.png");
         byte[] fileBytePath = Files.readAllBytes(file.toPath());
-        byte[] cipherText = cbc.getCipherText(fileBytePath, cbc.getDESKeyA());
-        byte[] recovered = cbc.getPlainText(cipherText, cbc.getDESKeyB());
+        byte[] ciphertext = cbc.getCipherText(fileBytePath, cbc.getDESKeyA());
+        byte[] recovered = cbc.getPlainText(ciphertext, cbc.getDESKeyB());
+
+//        System.out.println(Arrays.toString(fileBytePath));
+//        System.out.println(Arrays.toString(ciphertext));
+//        System.out.println(Arrays.toString(recovered));
 
         boolean expected = true;
         boolean result = Arrays.equals(fileBytePath, recovered);
@@ -53,12 +61,12 @@ public class DESBaseCBCTest {
         DESBaseCBC cbc = new DESBaseCBC();
 
         File origFile = new File(path + "images/palmTree.png");
-        File encryptedFile = new File(path + "images/cipherPalmTree.png");
-        File recoveredFile = new File(path + "images/recovPalmTree.png");
+        File encryptedFile = new File(path + "images/testoutput/cipherPalmTree_DES_CBC.png");
+        File recoveredFile = new File(path + "images/testoutput/recovPalmTree_DES_CBC.png");
 
         boolean expected = true;
-        boolean isEncrypted = cbc.encryptImage(origFile, encryptedFile, cbc.getDESKeyA());
-        boolean isDecrypted = cbc.decryptImage(encryptedFile, recoveredFile, cbc.getDESKeyB());
+        boolean isEncrypted = cbc.encryptImageFile(origFile, encryptedFile, cbc.getDESKeyA());
+        boolean isDecrypted = cbc.decryptImageFile(encryptedFile, recoveredFile, cbc.getDESKeyB());
 
         boolean result = (isEncrypted && isDecrypted);
         assertEquals("Image encrypted and decrypted successfully! ", expected, result);

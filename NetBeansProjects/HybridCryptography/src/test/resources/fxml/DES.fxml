@@ -411,7 +411,7 @@
                                                                         <Font size="13.0" />
                                                                     </font>
                                                                     <graphic>
-                                                                        <Button mnemonicParsing="false" onAction="#encryptImage" prefWidth="100.0" text="Encrypt To A File">
+                                                                        <Button mnemonicParsing="false" onAction="#encryptImageFile" prefWidth="100.0" text="Encrypt To A File">
                                                                             <font>
                                                                                 <Font size="10.0" />
                                                                             </font>
@@ -426,17 +426,6 @@
                                                             </items>
                                                         </ToolBar>
                                                     </top>
-                                                    <center>
-                                                        <ScrollPane pannable="true" prefViewportHeight="175.0" prefWidth="200.0">
-                                                            <content>
-                                                                <ImageView fx:id="encImageView" pickOnBounds="true" preserveRatio="true">
-                                                                    <viewport>
-                                                                        <Rectangle2D />
-                                                                    </viewport>
-                                                                </ImageView>
-                                                            </content>
-                                                        </ScrollPane>
-                                                    </center>
                                                 </BorderPane>
                                                 <BorderPane>
                                                     <center>
@@ -458,7 +447,7 @@
                                                                         <Font size="13.0" />
                                                                     </font>
                                                                     <graphic>
-                                                                        <Button mnemonicParsing="false" onAction="#decryptImage" prefWidth="100.0" text="Decrypt To A File">
+                                                                        <Button mnemonicParsing="false" onAction="#decryptImageFile" prefWidth="100.0" text="Decrypt To A File">
                                                                             <font>
                                                                                 <Font size="10.0" />
                                                                             </font>

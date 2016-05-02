@@ -5,7 +5,6 @@
  */
 package com.computersecurity.hybridcryptography.model.moduleDES;
 
-import com.computersecurity.hybridcryptography.model.Cryptable;
 import static com.computersecurity.hybridcryptography.util.CryptoUtils.write;
 import java.io.File;
 import java.io.IOException;
@@ -19,16 +18,17 @@ import javax.crypto.SecretKey;
 
 /**
  * This class uses DES algorithm and an Electronic Code Book mode to encrypt and
- * decrypt a plaintext or image file the initialization vector is generated
- * using a pseudorandom number generator of the algorithm "SHA1PRNG"
+ * decrypt a plaintext or image file
  */
-public class DESBaseECB extends DESBase implements Cryptable {
+public class DESBaseECB extends DESBase {
 
+    private int rounds;
     private static final String ALGORITHM = "DES/ECB/PKCS5Padding";
     private Cipher cipher;
 
     public DESBaseECB() {
         try {
+            rounds = 0;
             cipher = Cipher.getInstance(ALGORITHM);
         } catch (NoSuchAlgorithmException |
                 NoSuchPaddingException ex) {
@@ -38,8 +38,27 @@ public class DESBaseECB extends DESBase implements Cryptable {
         }
     }
 
-    @Override
-    public boolean encryptImage(File imageFile, File outputFile, SecretKey key) {
+    public DESBaseECB(int rounds) {
+        try {
+            this.rounds = rounds;
+            cipher = Cipher.getInstance(ALGORITHM);
+        } catch (NoSuchAlgorithmException |
+                NoSuchPaddingException ex) {
+
+            System.out.println(ex);
+
+        }
+    }
+
+    public int getRounds() {
+        return rounds;
+    }
+
+    public void setRounds(int rounds) {
+        this.rounds = rounds;
+    }
+
+    public boolean encryptImageFile(File imageFile, File outputFile, SecretKey key) {
         try {
 
             cipher.init(Cipher.ENCRYPT_MODE, key);
@@ -51,12 +70,12 @@ public class DESBaseECB extends DESBase implements Cryptable {
                 IllegalBlockSizeException |
                 BadPaddingException ex) {
 
+            System.out.println(ex);
             return false;
         }
     }
 
-    @Override
-    public boolean decryptImage(File imageFile, File outputFile, SecretKey key) {
+    public boolean decryptImageFile(File imageFile, File outputFile, SecretKey key) {
 
         try {
 
@@ -69,12 +88,12 @@ public class DESBaseECB extends DESBase implements Cryptable {
                 IllegalBlockSizeException |
                 BadPaddingException ex) {
 
+            System.out.println(ex);
             return false;
         }
 
     }
 
-    @Override
     public byte[] getCipherText(byte[] plaintext, SecretKey key) {
         try {
 
@@ -90,7 +109,6 @@ public class DESBaseECB extends DESBase implements Cryptable {
         }
     }
 
-    @Override
     public byte[] getPlainText(byte[] ciphertext, SecretKey key) {
         try {
 

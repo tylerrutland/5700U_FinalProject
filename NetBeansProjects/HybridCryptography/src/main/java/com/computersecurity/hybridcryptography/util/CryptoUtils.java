@@ -5,12 +5,15 @@
  */
 package com.computersecurity.hybridcryptography.util;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.security.SecureRandom;
 import javafx.scene.image.Image;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -45,45 +48,41 @@ public class CryptoUtils {
             fos.write(cipher.update(buffer, 0, len));
             fos.flush();
         }
-        
-        for (int i = 0; i < 5; i++) {//Rounds later
-            fos.write(cipher.doFinal());
-        }
-        
+
+        fos.write(cipher.doFinal());
         fos.close();
 
     }
 
-    public static boolean encryptImage(File imageFile, File outputFile) {
-        try {
-//            //The imageFile's path is going to be used as the plaintext for random seed
-//            byte[] imageFileBytePath = Files.readAllBytes(imageFile.toPath());
-//
-//            //Use the cipherInputFileBytePath as a seed for reproducible results for decryption
-//            SecureRandom sr = new SecureRandom("SHA1PRNG");
-//            sr.setSeed(300);
+    public static boolean writeImage(Cipher cipher, int rounds, File imageFile, File outputFile)
+            throws IOException, IllegalBlockSizeException, BadPaddingException {
 
-            BufferedImage bufImg = ImageIO.read(new FileImageInputStream(imageFile));
+        byte[] imageFileBytePath = Files.readAllBytes(imageFile.toPath());
+        byte[] xORKey = new byte[imageFileBytePath.length];
 
-//            //Randomize the pixels of the image file
-//            for (int w = 0; w < bufImg.getWidth(); w++) {
-//                for (int h = 0; h < bufImg.getHeight(); h++) {
-//                    Color color = new Color(bufImg.getRGB(w, h));
-//
-//                    int randRed = color.getRed() ^ sr.nextInt(255);
-//                    int randGreen = color.getGreen() ^ sr.nextInt(255);
-//                    int randBlue = color.getBlue() ^ sr.nextInt(255);
-//
-//                    //Set random pixel color at location (w, h)
-//                    bufImg.setRGB(w, h, (new Color(randRed, randBlue, randGreen)).getRGB());
-//                }
-//
-//            }
-            //Save to a bmp file
-            return ImageIO.write(bufImg, "bmp", new FileImageOutputStream(outputFile));
-
-        } catch (Exception ex) {
-            return false;
+        for (int i = 0; i < rounds; i++) {
+            xORKey = cipher.doFinal(imageFileBytePath);
         }
+
+        SecureRandom random = new SecureRandom();
+        random.nextBytes(xORKey);
+
+        BufferedImage bufImg = ImageIO.read(new FileImageInputStream(imageFile));
+        for (int w = 0; w < bufImg.getWidth(); w++) {
+            for (int h = 0; h < bufImg.getHeight(); h++) {
+                Color color = new Color(bufImg.getRGB(w, h));
+
+                int randRed = color.getRed() ^ random.nextInt(255);
+                int randGreen = color.getGreen() ^ random.nextInt(255);
+                int randBlue = color.getBlue() ^ random.nextInt(255);
+
+                //Set random pixel color at location (w, h)
+                bufImg.setRGB(w, h, (new Color(randRed, randBlue, randGreen)).getRGB());
+            }
+
+        }
+        //Save to a bmp file
+        return ImageIO.write(bufImg, "jpg", new FileImageOutputStream(outputFile));
+
     }
 }

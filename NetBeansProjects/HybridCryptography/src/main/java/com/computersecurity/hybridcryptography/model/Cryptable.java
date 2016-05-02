@@ -14,9 +14,9 @@ import javax.crypto.SecretKey;
  */
 public interface Cryptable {
 
-    public boolean encryptImage(File imageFile, File outputFile, SecretKey key);
+    public boolean encryptImageFile(File imageFile, File outputFile, SecretKey key);
 
-    public boolean decryptImage(File imageFile, File outputFile, SecretKey key);
+    public boolean decryptImageFile(File imageFile, File outputFile, SecretKey key);
 
     public byte[] getCipherText(byte[] plaintext, SecretKey key);
 

@@ -5,60 +5,66 @@
  */
 package com.computersecurity.hybridcryptography.model.moduleVEA;
 
+import java.math.BigInteger;
+
 /**
  *
  * @author sm6668
  */
 public class Term {
 
-    private int coef;
-    private int deg;
-    private int x;
+    private BigInteger coef;
+    private BigInteger deg;
+    private BigInteger x;
 
     public Term() {
 
     }
 
-    public Term(int coef, int deg, int x) {
+    public Term(BigInteger coef, BigInteger deg, BigInteger x) {
         this.coef = coef;
         this.deg = deg;
         this.x = x;
     }
 
-    public int getCoefficient() {
+    public BigInteger getCoefficient() {
         return coef;
     }
 
-    public void setCoefficient(int coef) {
+    public void setCoefficient(BigInteger coef) {
         this.coef = coef;
     }
 
-    public int getDegree() {
+    public BigInteger getDegree() {
         return deg;
     }
 
-    public void setDegree(int deg) {
+    public void setDegree(BigInteger deg) {
         this.deg = deg;
     }
 
-    public int getX() {
+    public BigInteger getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(BigInteger x) {
         this.x = x;
     }
 
-    public int getTermValue() {
-        return (int) (coef * Math.pow(x, deg));
+    public BigInteger getTermValue() {
+        for (int i = 0; i < deg.intValue(); i++) {
+            x = x.multiply(x);
+        }
+        
+        return x.multiply(coef);
     }
 
     @Override
     public String toString() {
-        return "Coefficient: " + coef + "\n"
-                + "Degree: " + deg + "\n"
-                + "X: " + x + "\n"
-                + "Value: " + getTermValue();
+        return "Coefficient: " + coef.intValue() + "\n"
+                + "Degree: " + deg.intValue() + "\n"
+                + "X: " + x.intValue() + "\n"
+                + "Value: " + getTermValue().intValue();
     }
 
 }

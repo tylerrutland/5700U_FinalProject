@@ -9,11 +9,11 @@ import com.computersecurity.hybridcryptography.model.moduleVEA.Polynomial;
 import com.computersecurity.hybridcryptography.model.moduleVEA.Term;
 import static com.computersecurity.hybridcryptography.util.CryptoUtils.getImage;
 import java.io.File;
+import java.math.BigInteger;
 import java.net.URL;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -26,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -61,6 +62,9 @@ public class VEAController implements Initializable {
 
     @FXML
     private RadioButton rb2Users, rb3Users, rb4Users;
+
+    @FXML
+    private TextField xValueTF;
 
     @FXML
     private Button setUsersBtn, resetBtn;
@@ -101,6 +105,9 @@ public class VEAController implements Initializable {
         rb4Users.setUserData(4);
         rb4Users.setToggleGroup(userGroup);
 
+        xValueTF.setText(Integer.toString(new SecureRandom().nextInt()));
+
+        //Field Settings
         countProperty.set(count = 0);
         maxDegreeProperty.set(0);
         submittedUsersProperty.set(submittedUsers = 0);
@@ -230,14 +237,12 @@ public class VEAController implements Initializable {
         monomials.add(monomial);
 
         //Compute Term
-        Random rand = new SecureRandom();
-        int x = rand.nextInt((width > height) ? width : height);
-        Term term = new Term(coef, deg, x);
+        Term term = new Term(BigInteger.ONE, BigInteger.ONE, BigInteger.ONE);
         terms.add(term);
 
         //Set the text area with the user information
         String userInfo = "\nUser " + submittedUsers + ":\t" + monomial.toString();
-        usersInfo.add(userInfo + "\t| x = " + x + "\t->\t" + term.getTermValue() + "\n");
+        usersInfo.add(userInfo + "\t| x = " + xValueTF.getText() + "\t->\t" + term.getTermValue() + "\n");
         vssTextArea.setText(Arrays.toString(usersInfo.toArray()));
     }
 

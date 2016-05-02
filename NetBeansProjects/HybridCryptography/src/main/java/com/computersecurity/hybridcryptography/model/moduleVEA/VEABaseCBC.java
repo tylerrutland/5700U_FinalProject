@@ -5,10 +5,13 @@
  */
 package com.computersecurity.hybridcryptography.model.moduleVEA;
 
-import com.computersecurity.hybridcryptography.model.Cryptable;
 import static com.computersecurity.hybridcryptography.util.CryptoUtils.write;
+import static com.computersecurity.hybridcryptography.util.CryptoUtils.writeImage;
+import java.awt.image.BufferedImage;
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -21,6 +24,9 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
+import javax.imageio.ImageIO;
+import javax.imageio.stream.FileImageInputStream;
+import javax.imageio.stream.FileImageOutputStream;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 /**
@@ -28,7 +34,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
  * encrypt and decrypt a plaintext or image file the initialization vector is
  * generated using a pseudorandom number generator of the algorithm "SHA1PRNG"
  */
-public class VEABaseCBC extends VEABase implements Cryptable {
+public class VEABaseCBC extends VEABase {
 
     private int rounds;
     private static final String ALGORITHM = "Blowfish/CBC/PKCS5Padding";
@@ -40,6 +46,7 @@ public class VEABaseCBC extends VEABase implements Cryptable {
     public VEABaseCBC() {
         try {
             Security.addProvider(new BouncyCastleProvider());
+            rounds = 16;
             cipher = Cipher.getInstance(ALGORITHM, PROVIDER);
             secureRand = SecureRandom.getInstance("SHA1PRNG");
             secureRand.nextBytes(new byte[cipher.getBlockSize()]);
@@ -55,13 +62,38 @@ public class VEABaseCBC extends VEABase implements Cryptable {
 
     }
 
-    @Override
+    public VEABaseCBC(int rounds) {
+        try {
+            Security.addProvider(new BouncyCastleProvider());
+            this.rounds = rounds;
+            cipher = Cipher.getInstance(ALGORITHM, PROVIDER);
+            secureRand = SecureRandom.getInstance("SHA1PRNG");
+            secureRand.nextBytes(new byte[cipher.getBlockSize()]);
+            ivParamSpec = new IvParameterSpec(new byte[cipher.getBlockSize()]);
+
+        } catch (NoSuchAlgorithmException |
+                NoSuchProviderException |
+                NoSuchPaddingException ex) {
+
+            System.out.println(ex);
+
+        }
+
+    }
+
+    public int getRounds() {
+        return rounds;
+    }
+
+    public void setRounds(int rounds) {
+        this.rounds = rounds;
+    }
+
     public boolean encryptImage(File imageFile, File outputFile, SecretKey key) {
         try {
 
             cipher.init(Cipher.ENCRYPT_MODE, key, ivParamSpec);
-            write(cipher, imageFile, outputFile);
-            return true;
+            return writeImage(cipher, rounds, imageFile, outputFile);
 
         } catch (InvalidKeyException |
                 InvalidAlgorithmParameterException |
@@ -69,18 +101,16 @@ public class VEABaseCBC extends VEABase implements Cryptable {
                 IllegalBlockSizeException |
                 BadPaddingException ex) {
 
+            System.out.println(ex);
             return false;
         }
     }
 
-    @Override
     public boolean decryptImage(File imageFile, File outputFile, SecretKey key) {
-
         try {
 
             cipher.init(Cipher.DECRYPT_MODE, key, ivParamSpec);
-            write(cipher, imageFile, outputFile);
-            return true;
+            return writeImage(cipher, rounds, imageFile, outputFile);
 
         } catch (InvalidKeyException |
                 InvalidAlgorithmParameterException |
@@ -88,44 +118,47 @@ public class VEABaseCBC extends VEABase implements Cryptable {
                 IllegalBlockSizeException |
                 BadPaddingException ex) {
 
+            System.out.println(ex);
             return false;
         }
-
     }
 
-    @Override
-    public byte[] getCipherText(byte[] plaintext, SecretKey key) {
+    public boolean encryptImageFile(File imageFile, File outputFile, SecretKey key) {
         try {
 
             cipher.init(Cipher.ENCRYPT_MODE, key, ivParamSpec);
-            return cipher.doFinal(plaintext);
+            write(cipher, imageFile, outputFile);
+            return true;
 
         } catch (InvalidKeyException |
                 InvalidAlgorithmParameterException |
+                IOException |
                 IllegalBlockSizeException |
                 BadPaddingException ex) {
 
             System.out.println(ex);
-            return null;
+            return false;
         }
     }
 
-    @Override
-    public byte[] getPlainText(byte[] ciphertext, SecretKey key) {
+    public boolean decryptImageFile(File imageFile, File outputFile, SecretKey key) {
+
         try {
 
             cipher.init(Cipher.DECRYPT_MODE, key, ivParamSpec);
-            return cipher.doFinal(ciphertext);
+            write(cipher, imageFile, outputFile);
+            return true;
 
         } catch (InvalidKeyException |
                 InvalidAlgorithmParameterException |
+                IOException |
                 IllegalBlockSizeException |
                 BadPaddingException ex) {
 
             System.out.println(ex);
-            return null;
-
+            return false;
         }
+
     }
 
 }

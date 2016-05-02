@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.computersecurity.hybridcyrptography.model;
+package com.computersecurity.hybridcyrptography.model.moduleVEA;
 
 import com.computersecurity.hybridcryptography.model.moduleVEA.VEABaseCBC;
 import java.io.File;
@@ -24,9 +24,8 @@ public class VEABaseCBCTest {
     private final String path = "src/test/resources/";
 
     /*
-     For the Blowfish to encrypt the application needs 
-     the this code in the setUpBeforeClass() method
-     this is probably a code hack
+     For the Blowfish algorithm to encrypt in the application, it needs 
+     this code in the setUpBeforeClass() method. This is probably a code hack
      */
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
@@ -45,30 +44,19 @@ public class VEABaseCBCTest {
     }
 
     @Test
-    public void testSecretKeyForEncryptionAndDecryption() {
+    public void testImageFileEncryptionAndDecryption() throws Exception {
         VEABaseCBC cbc = new VEABaseCBC();
 
-        byte[] plaintext = "This is just an example".getBytes();
-        byte[] ciphertext = cbc.getCipherText(plaintext, cbc.getVEAKeyA());
-        byte[] recovered = cbc.getPlainText(ciphertext, cbc.getVEAKeyB());
+        File origFile = new File(path + "images/palmTree.png");
+        File encryptedFile = new File(path + "images/testoutput/cipherPalmTree_VEA_CBC.png");
+        File recoveredFile = new File(path + "images/testoutput/recovPalmTree_VEA_CBC.png");
 
         boolean expected = true;
-        boolean result = Arrays.equals(plaintext, recovered);
-        assertEquals("Plain text is the same as recovered text", expected, result);
-    }
+        boolean isEncrypted = cbc.encryptImageFile(origFile, encryptedFile, cbc.getVEAKeyA());
+        boolean isDecrypted = cbc.decryptImageFile(encryptedFile, recoveredFile, cbc.getVEAKeyB());
 
-    @Test
-    public void testEncryptionAndDecryptionForImagePath() throws IOException {
-        VEABaseCBC cbc = new VEABaseCBC();
-
-        File file = new File(path + "images/palmTree.png");
-        byte[] fileBytePath = Files.readAllBytes(file.toPath());
-        byte[] cipherText = cbc.getCipherText(fileBytePath, cbc.getVEAKeyA());
-        byte[] recovered = cbc.getPlainText(cipherText, cbc.getVEAKeyB());
-
-        boolean expected = true;
-        boolean result = Arrays.equals(fileBytePath, recovered);
-        assertEquals("File Byte Path is same as recovered path", expected, result);
+        boolean result = (isEncrypted && isDecrypted);
+        assertEquals("Image encrypted and decrypted successfully! ", expected, result);
     }
 
     @Test
@@ -76,12 +64,12 @@ public class VEABaseCBCTest {
         VEABaseCBC cbc = new VEABaseCBC();
 
         File origFile = new File(path + "images/palmTree.png");
-        File encryptedFile = new File(path + "images/cipherPalmTree.png");
-        File recoveredFile = new File(path + "images/recovPalmTree.png");
+        File encryptedFile = new File(path + "images/testoutput/visualCipherPalmTree_VEA_CBC.png");
+        File recoveredFile = new File(path + "images/testoutput/visualRecovPalmTree_VEA_CBC.png");
 
         boolean expected = true;
         boolean isEncrypted = cbc.encryptImage(origFile, encryptedFile, cbc.getVEAKeyA());
-        boolean isDecrypted = cbc.decryptImage(encryptedFile, recoveredFile, cbc.getVEAKeyB());
+        boolean isDecrypted = cbc.encryptImage(encryptedFile, recoveredFile, cbc.getVEAKeyB());
 
         boolean result = (isEncrypted && isDecrypted);
         assertEquals("Image encrypted and decrypted successfully! ", expected, result);

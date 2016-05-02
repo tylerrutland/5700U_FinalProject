@@ -29,8 +29,8 @@ public class DESBaseCBCServiceTest {
 
         boolean expected = true;
 
-        boolean isEncrypted = cbcService.encryptImage(origFile, encryptedFile);
-        boolean isDecrypted = cbcService.decryptImage(encryptedFile, recoveredFile);
+        boolean isEncrypted = cbcService.encryptImageFile(origFile, encryptedFile);
+        boolean isDecrypted = cbcService.decryptImageFile(encryptedFile, recoveredFile);
 
         boolean result = (isEncrypted && isDecrypted);
         assertEquals("Image encrypted and decrypted successfully! ", expected, result);
