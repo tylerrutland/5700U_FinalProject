@@ -35,9 +35,9 @@ public class MainViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         addPage("fxml/DES.fxml");
-        addPage("fxml/VEA.fxml");
+        //addPage("fxml/VEA.fxml");
         pagination.setCurrentPageIndex(0);
-        pagination.setPageCount(2);
+        pagination.setPageCount(1);
         pagination.setPageFactory((Integer pageIndex) -> pages.get(pageIndex));
         pagination.getStyleClass().add(Pagination.STYLE_CLASS_BULLET);
     }

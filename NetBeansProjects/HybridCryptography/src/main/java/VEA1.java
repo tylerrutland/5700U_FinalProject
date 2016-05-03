@@ -1443,8 +1443,4 @@ public class VEA1 {
 
         return sbuf.toString();
     }
-    
-    public static void main(String[] args) {        
-        System.out.println(veaECB.selfTest());
-        }
 }
