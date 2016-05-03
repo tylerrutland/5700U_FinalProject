@@ -14,7 +14,7 @@ import java.io.File;
  */
 public class DESBaseCBCService {
 
-    public DESBaseCBC cbc;
+    private final DESBaseCBC cbc;
 
     public DESBaseCBCService(DESBaseCBC cbc) {
         this.cbc = cbc;

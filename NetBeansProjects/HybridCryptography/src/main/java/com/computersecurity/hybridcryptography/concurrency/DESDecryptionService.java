@@ -22,6 +22,7 @@ import javafx.concurrent.Task;
  */
 public class DESDecryptionService extends Service<Boolean> {
 
+    private int rounds;
     private DESBase desBase;
     private File imageFile, outputFile;
 
@@ -48,6 +49,14 @@ public class DESDecryptionService extends Service<Boolean> {
         this.outputFile = outputFile;
     }
 
+    public int getRounds() {
+        return rounds;
+    }
+
+    public void setRounds(int rounds) {
+        this.rounds = rounds;
+    }
+
     /*
      Creates a single task for the thread to execute in the background
      and calls a Boolean value "on succeeded" when the task is completed
@@ -58,18 +67,26 @@ public class DESDecryptionService extends Service<Boolean> {
 
             @Override
             public Boolean call() throws InterruptedException {
-                updateMessage("Decrypting Image . . . . .");
+                updateMessage("Decrypting Image DES . . . . .");
                 Thread.sleep(2000);
                 if (desBase instanceof DESBaseECB) {
                     updateMessage("Decryption Successful");
                     Thread.sleep(750);
-                    return new DESBaseECBService((DESBaseECB) desBase)
+
+                    DESBaseECB ecb = (DESBaseECB) desBase;
+                    ecb.setRounds(rounds);
+
+                    return new DESBaseECBService(ecb)
                             .decryptImageFile(imageFile, outputFile);
 
                 } else {
                     updateMessage("Decryption Successful");
                     Thread.sleep(750);
-                    return new DESBaseCBCService((DESBaseCBC) desBase)
+
+                    DESBaseCBC cbc = (DESBaseCBC) desBase;
+                    cbc.setRounds(rounds);
+
+                    return new DESBaseCBCService(cbc)
                             .decryptImageFile(imageFile, outputFile);
                 }
             }

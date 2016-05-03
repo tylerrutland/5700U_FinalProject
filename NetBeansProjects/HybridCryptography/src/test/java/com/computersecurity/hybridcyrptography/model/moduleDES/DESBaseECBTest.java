@@ -43,7 +43,7 @@ public class DESBaseECBTest {
         byte[] fileBytePath = Files.readAllBytes(file.toPath());
         byte[] cipherText = ecb.getCipherText(fileBytePath, ecb.getDESKeyA());
         byte[] recovered = ecb.getPlainText(cipherText, ecb.getDESKeyB());
-        
+
         boolean expected = true;
         boolean result = Arrays.equals(fileBytePath, recovered);
         assertEquals("File Byte Path is same as recovered path", expected, result);
@@ -51,7 +51,7 @@ public class DESBaseECBTest {
 
     @Test
     public void testImageEncryptionAndDecryption() throws Exception {
-        DESBaseECB ecb = new DESBaseECB();
+        DESBaseECB ecb = new DESBaseECB(16);
 
         File origFile = new File(path + "images/palmTree.png");
         File encryptedFile = new File(path + "images/testoutput/cipherPalmTree_DES_ECB.png");

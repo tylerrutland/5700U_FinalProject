@@ -7,10 +7,7 @@ package com.computersecurity.hybridcyrptography.model.moduleVEA;
 
 import com.computersecurity.hybridcryptography.model.moduleVEA.VEABaseECB;
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Field;
-import java.nio.file.Files;
-import java.util.Arrays;
 import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;

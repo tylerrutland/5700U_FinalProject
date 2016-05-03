@@ -7,11 +7,8 @@ package com.computersecurity.hybridcryptography.model.moduleVEA;
 
 import static com.computersecurity.hybridcryptography.util.CryptoUtils.write;
 import static com.computersecurity.hybridcryptography.util.CryptoUtils.writeImage;
-import java.awt.image.BufferedImage;
-import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -24,9 +21,6 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
-import javax.imageio.ImageIO;
-import javax.imageio.stream.FileImageInputStream;
-import javax.imageio.stream.FileImageOutputStream;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 /**

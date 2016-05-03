@@ -9,12 +9,12 @@ import com.computersecurity.hybridcryptography.model.moduleDES.DESBaseECB;
 import java.io.File;
 
 /**
- * This class services the specified DESBaseECB object with 
- * the desired methods for the presentation layer of the application
+ * This class services the specified DESBaseECB object with the desired methods
+ * for the presentation layer of the application
  */
 public class DESBaseECBService {
 
-    public DESBaseECB ecb;
+    private final DESBaseECB ecb;
 
     public DESBaseECBService(DESBaseECB ecb) {
         this.ecb = ecb;

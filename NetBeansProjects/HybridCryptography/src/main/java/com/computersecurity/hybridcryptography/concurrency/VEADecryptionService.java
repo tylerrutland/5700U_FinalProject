@@ -5,32 +5,30 @@
  */
 package com.computersecurity.hybridcryptography.concurrency;
 
-import com.computersecurity.hybridcryptography.model.moduleDES.DESBase;
-import com.computersecurity.hybridcryptography.model.moduleDES.DESBaseCBC;
-import com.computersecurity.hybridcryptography.model.moduleDES.DESBaseECB;
-import com.computersecurity.hybridcryptography.service.DESBaseCBCService;
-import com.computersecurity.hybridcryptography.service.DESBaseECBService;
+import com.computersecurity.hybridcryptography.model.moduleVEA.VEABase;
+import com.computersecurity.hybridcryptography.model.moduleVEA.VEABaseCBC;
+import com.computersecurity.hybridcryptography.model.moduleVEA.VEABaseECB;
+import com.computersecurity.hybridcryptography.service.VEABaseCBCService;
+import com.computersecurity.hybridcryptography.service.VEABaseECBService;
 import java.io.File;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
 /**
- * This class is a "worker class" that uses a thread to perform complex tasks in
- * the background of the application. This class specifically performs a DES
- * encryption of the imageFile and outputs the encrypted file to a chosen
- * location
+ *
+ * @author sm6668
  */
-public class DESEncryptionService extends Service<Boolean> {
+public class VEADecryptionService extends Service<Boolean> {
 
     private int rounds;
-    private DESBase desBase;
+    private VEABase veaBase;
     private File imageFile, outputFile;
 
-    public DESEncryptionService() {
+    public VEADecryptionService() {
     }
 
-    public void setDESBase(DESBase desBase) {
-        this.desBase = desBase;
+    public void setVEABase(VEABase veaBase) {
+        this.veaBase = veaBase;
     }
 
     public File getImageFile() {
@@ -56,40 +54,39 @@ public class DESEncryptionService extends Service<Boolean> {
     public void setRounds(int rounds) {
         this.rounds = rounds;
     }
-
     /*
      Creates a single task for the thread to execute in the background
      and calls a Boolean value "on succeeded" when the task is completed
      */
+
     @Override
     protected Task createTask() {
         return new Task<Boolean>() {
 
             @Override
             public Boolean call() throws InterruptedException {
-                updateMessage("Encrypting Image DES. . . . .");
+                updateMessage("Encrypting Image VEA. . . . .");
                 Thread.sleep(2000);
-                if (desBase instanceof DESBaseECB) {
+                if (veaBase instanceof VEABaseECB) {
                     updateMessage("Encryption Successful");
                     Thread.sleep(1500);
 
-                    DESBaseECB ecb = (DESBaseECB) desBase;
+                    VEABaseECB ecb = (VEABaseECB) veaBase;
                     ecb.setRounds(rounds);
 
-                    return new DESBaseECBService(ecb)
-                            .encryptImageFile(imageFile, outputFile);
+                    return new VEABaseECBService(ecb)
+                            .decryptImageFile(imageFile, outputFile);
                 } else {
                     updateMessage("Encryption Successful");
                     Thread.sleep(1500);
 
-                    DESBaseCBC cbc = (DESBaseCBC) desBase;
+                    VEABaseCBC cbc = (VEABaseCBC) veaBase;
                     cbc.setRounds(rounds);
 
-                    return new DESBaseCBCService(cbc)
-                            .encryptImageFile(imageFile, outputFile);
+                    return new VEABaseCBCService(cbc)
+                            .decryptImageFile(imageFile, outputFile);
                 }
             }
         };
     }
-
 }

@@ -58,23 +58,23 @@ public class CryptoUtils {
             throws IOException, IllegalBlockSizeException, BadPaddingException {
 
         byte[] imageFileBytePath = Files.readAllBytes(imageFile.toPath());
-        byte[] xORKey = new byte[imageFileBytePath.length];
-
-        for (int i = 0; i < rounds; i++) {
-            xORKey = cipher.doFinal(imageFileBytePath);
-        }
-
-        SecureRandom random = new SecureRandom();
-        random.nextBytes(xORKey);
+//        byte[] xORKey = new byte[imageFileBytePath.length];
+//
+//        for (int i = 0; i < rounds; i++) {
+//            xORKey = cipher.doFinal(imageFileBytePath);
+//        }
+//
+//        SecureRandom random = new SecureRandom();
+//        random.nextBytes(xORKey);
 
         BufferedImage bufImg = ImageIO.read(new FileImageInputStream(imageFile));
         for (int w = 0; w < bufImg.getWidth(); w++) {
             for (int h = 0; h < bufImg.getHeight(); h++) {
                 Color color = new Color(bufImg.getRGB(w, h));
 
-                int randRed = color.getRed() ^ random.nextInt(255);
-                int randGreen = color.getGreen() ^ random.nextInt(255);
-                int randBlue = color.getBlue() ^ random.nextInt(255);
+                int randRed = color.getRed() ^ 10;
+                int randGreen = color.getGreen() ^ 10;
+                int randBlue = color.getBlue() ^ 10;
 
                 //Set random pixel color at location (w, h)
                 bufImg.setRGB(w, h, (new Color(randRed, randBlue, randGreen)).getRGB());

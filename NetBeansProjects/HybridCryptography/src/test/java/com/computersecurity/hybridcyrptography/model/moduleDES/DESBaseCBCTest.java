@@ -29,10 +29,6 @@ public class DESBaseCBCTest {
         byte[] ciphertext = cbc.getCipherText(plaintext, cbc.getDESKeyA());
         byte[] recovered = cbc.getPlainText(ciphertext, cbc.getDESKeyB());
 
-//        System.out.println(Arrays.toString(plaintext));
-//        System.out.println(Arrays.toString(ciphertext));
-//        System.out.println(Arrays.toString(recovered));
-
         boolean expected = true;
         boolean result = Arrays.equals(plaintext, recovered);
         assertEquals("Plain text is the same as recovered text", expected, result);
@@ -46,10 +42,6 @@ public class DESBaseCBCTest {
         byte[] fileBytePath = Files.readAllBytes(file.toPath());
         byte[] ciphertext = cbc.getCipherText(fileBytePath, cbc.getDESKeyA());
         byte[] recovered = cbc.getPlainText(ciphertext, cbc.getDESKeyB());
-
-//        System.out.println(Arrays.toString(fileBytePath));
-//        System.out.println(Arrays.toString(ciphertext));
-//        System.out.println(Arrays.toString(recovered));
 
         boolean expected = true;
         boolean result = Arrays.equals(fileBytePath, recovered);
