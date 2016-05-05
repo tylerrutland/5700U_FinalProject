@@ -52,11 +52,7 @@ public class Term {
     }
 
     public BigInteger getTermValue() {
-        for (int i = 0; i < deg.intValue(); i++) {
-            x = x.multiply(x);
-        }
-        
-        return x.multiply(coef);
+        return x.pow(deg.intValue()).multiply(coef);
     }
 
     @Override

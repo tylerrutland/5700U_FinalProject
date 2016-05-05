@@ -21,11 +21,11 @@ public class VEABaseECBService {
     }
 
     public boolean encryptImageFile(File imageFile, File outputFile) {
-        return ecb.encryptImageFile(imageFile, outputFile, ecb.getVEAKeyA());
+        return ecb.encryptImageFile(imageFile, outputFile, ecb.getVEAKey());
     }
 
     public boolean decryptImageFile(File imageFile, File outputFile) {
-        return ecb.decryptImageFile(imageFile, outputFile, ecb.getVEAKeyB());
+        return ecb.decryptImageFile(imageFile, outputFile, ecb.getVEAKey());
     }
 
 }

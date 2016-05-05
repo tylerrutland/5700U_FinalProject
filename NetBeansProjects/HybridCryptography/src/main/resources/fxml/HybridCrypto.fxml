@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Accordion?>
@@ -30,7 +37,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.computersecurity.hybridcryptography.controller.HybridCryptoController">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.computersecurity.hybridcryptography.controller.HybridCryptoController">
     <top>
         <Label maxWidth="1.7976931348623157E308" text="Hybrid Cryptography Photo Sharing" BorderPane.alignment="CENTER">
             <font>
@@ -41,154 +48,173 @@
     <center>
         <SplitPane dividerPositions="0.2, 0.7" BorderPane.alignment="CENTER">
             <items>
-                <BorderPane>
-                    <top>
-                        <ToolBar>
-                            <items>
-                                <Button fx:id="openImageBtn" mnemonicParsing="false" onAction="#openImage" prefWidth="125.0" text="Open Image" />
-                            </items>
-                        </ToolBar>
-                    </top>
-                    <center>
-                        <BorderPane fx:id="imagePane" prefWidth="250.0">
-                            <center>
-                                <ScrollPane pannable="true" prefHeight="256.0" prefViewportHeight="350.0" prefWidth="258.0" BorderPane.alignment="CENTER">
-                                    <content>
-                                        <ImageView fx:id="origImageView" pickOnBounds="true" preserveRatio="true">
-                                            <viewport>
-                                                <Rectangle2D />
-                                            </viewport>
-                                        </ImageView>
-                                    </content>
-                                </ScrollPane>
-                            </center>
-                        </BorderPane>
-                    </center>
-                    <bottom>
-                        <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                            <top>
+            <SplitPane dividerPositions="0.5" orientation="VERTICAL">
+               <items>
+                      <BorderPane>
+                          <top>
+                              <ToolBar>
+                                  <items>
+                                      <Button fx:id="openImageBtn" mnemonicParsing="false" onAction="#openImage" prefWidth="125.0" text="Open Image" />
+                                  </items>
+                              </ToolBar>
+                          </top>
+                          <center>
+                              <BorderPane fx:id="imagePane" prefWidth="250.0">
+                                  <center>
+                                      <ScrollPane pannable="true" prefHeight="256.0" prefViewportHeight="350.0" prefWidth="258.0" BorderPane.alignment="CENTER">
+                                          <content>
+                                              <ImageView fx:id="origImageView" pickOnBounds="true" preserveRatio="true">
+                                                  <viewport>
+                                                      <Rectangle2D />
+                                                  </viewport>
+                                              </ImageView>
+                                          </content>
+                                      </ScrollPane>
+                                  </center>
+                              </BorderPane>
+                          </center>
+                      </BorderPane>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <center>
                                 <Accordion prefHeight="247.0" prefWidth="258.0" BorderPane.alignment="CENTER">
                                     <panes>
                                         <TitledPane text="DES Parameters">
-                                            <content>
-                                                <AnchorPane>
-                                                    <children>
-                                                        <VBox alignment="CENTER_LEFT" layoutX="5.0" layoutY="7.0" spacing="5.0" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                            <children>
-                                                                <Label alignment="CENTER" contentDisplay="TEXT_ONLY" graphicTextGap="15.0" prefHeight="23.0" prefWidth="232.0" text="Cipher Modes" underline="true">
-                                                                    <graphic>
-                                                                        <Circle radius="5.0" stroke="BLACK" strokeType="INSIDE" />
-                                                                    </graphic>
-                                                                    <font>
-                                                                        <Font size="18.0" />
-                                                                    </font>
-                                                                </Label>
-                                                                <HBox alignment="CENTER_LEFT">
-                                                                    <children>
-                                                                        <RadioButton fx:id="rbDES_ECB" contentDisplay="RIGHT" graphicTextGap="12.0" mnemonicParsing="false" text="Electronic Code Book (ECB)">
-                                                                            <font>
-                                                                                <Font size="12.0" />
-                                                                            </font>
-                                                                        </RadioButton>
-                                                                    </children>
-                                                                </HBox>
-                                                                <HBox alignment="CENTER_LEFT">
-                                                                    <children>
-                                                                        <RadioButton fx:id="rbDES_CBC" contentDisplay="RIGHT" graphicTextGap="10.0" mnemonicParsing="false" text="Cipher Block Chaining (CBC)">
-                                                                            <font>
-                                                                                <Font size="12.0" />
-                                                                            </font>
-                                                                        </RadioButton>
-                                                                    </children>
-                                                                </HBox>
-                                                            </children>
-                                                        </VBox>
-                                                        <VBox alignment="CENTER_LEFT" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                                                            <children>
-                                                                <Label alignment="CENTER" contentDisplay="TEXT_ONLY" graphicTextGap="15.0" prefHeight="23.0" prefWidth="232.0" text="Rounds" underline="true">
-                                                                    <graphic>
-                                                                        <Circle radius="5.0" stroke="BLACK" strokeType="INSIDE" />
-                                                                    </graphic>
-                                                                    <font>
-                                                                        <Font size="18.0" />
-                                                                    </font>
-                                                                </Label>
-                                                                <HBox alignment="CENTER_LEFT">
-                                                                    <children>
-                                                                        <Slider fx:id="sliderDES" blockIncrement="2.0" majorTickUnit="2.0" max="16.0" minorTickCount="1" prefHeight="33.0" prefWidth="240.0" showTickLabels="true" snapToTicks="true" />
-                                                                    </children>
-                                                                </HBox>
-                                                            </children>
-                                                        </VBox>
-                                                    </children>
-                                                </AnchorPane>
-                                            </content>
+                                 <content>
+                                    <ScrollPane fitToHeight="true" fitToWidth="true">
+                                       <content>
+                                          <GridPane>
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="85.0" vgrow="ALWAYS" />
+                                                <RowConstraints minHeight="85.0" vgrow="ALWAYS" />
+                                                <RowConstraints minHeight="85.0" vgrow="ALWAYS" />
+                                             </rowConstraints>
+                                             <children>
+                                                <VBox alignment="CENTER_LEFT" spacing="10.0">
+                                                   <children>
+                                                      <Label alignment="CENTER" contentDisplay="TEXT_ONLY" graphicTextGap="15.0" text="Cipher Modes" underline="true">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <RadioButton fx:id="rbDES_ECB" contentDisplay="RIGHT" graphicTextGap="12.0" mnemonicParsing="false" text="Electronic Code Book (ECB)">
+                                                         <font>
+                                                            <Font size="12.0" />
+                                                         </font>
+                                                      </RadioButton>
+                                                      <RadioButton fx:id="rbDES_CBC" contentDisplay="RIGHT" graphicTextGap="10.0" mnemonicParsing="false" text="Cipher Block Chaining (CBC)">
+                                                         <font>
+                                                            <Font size="12.0" />
+                                                         </font>
+                                                      </RadioButton>
+                                                   </children>
+                                                </VBox>
+                                                <VBox alignment="CENTER_LEFT" spacing="10.0" GridPane.rowIndex="1">
+                                                   <children>
+                                                      <Label alignment="CENTER" contentDisplay="TEXT_ONLY" graphicTextGap="15.0" text="Key Size" underline="true">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Spinner />
+                                                   </children>
+                                                </VBox>
+                                                <VBox alignment="CENTER_LEFT" spacing="10.0" GridPane.rowIndex="2">
+                                                   <children>
+                                                      <Label alignment="CENTER" contentDisplay="TEXT_ONLY" graphicTextGap="15.0" text="Rounds" underline="true">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Slider fx:id="sliderDES" blockIncrement="2.0" majorTickUnit="2.0" max="16.0" minorTickCount="1" prefHeight="33.0" prefWidth="240.0" showTickLabels="true" snapToTicks="true" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </GridPane>
+                                       </content>
+                                       <padding>
+                                          <Insets left="5.0" />
+                                       </padding>
+                                    </ScrollPane>
+                                 </content>
                                         </TitledPane>
-                                        <TitledPane text="VEA">
-                                            <content>
-                                                <AnchorPane>
-                                                    <children>
-                                                        <VBox alignment="CENTER_LEFT" layoutX="5.0" layoutY="7.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
-                                                            <children>
-                                                                <Label alignment="CENTER" contentDisplay="TEXT_ONLY" graphicTextGap="15.0" prefHeight="23.0" prefWidth="232.0" text="Cipher Modes" underline="true">
-                                                                    <font>
-                                                                        <Font size="18.0" />
-                                                                    </font>
-                                                                </Label>
-                                                                <HBox alignment="CENTER_LEFT">
-                                                                    <children>
-                                                                        <RadioButton fx:id="rbVEA_ECB" contentDisplay="RIGHT" graphicTextGap="12.0" mnemonicParsing="false" text="Electronic Code Book (ECB)">
-                                                                            <font>
-                                                                                <Font size="12.0" />
-                                                                            </font>
-                                                                        </RadioButton>
-                                                                    </children>
-                                                                </HBox>
-                                                                <HBox alignment="CENTER_LEFT">
-                                                                    <children>
-                                                                        <RadioButton fx:id="rbVEA_CBC" contentDisplay="RIGHT" graphicTextGap="10.0" mnemonicParsing="false" text="Cipher Block Chaining (CBC)">
-                                                                            <font>
-                                                                                <Font size="12.0" />
-                                                                            </font>
-                                                                        </RadioButton>
-                                                                    </children>
-                                                                </HBox>
-                                                            </children>
-                                                        </VBox>
-                                                        <VBox alignment="CENTER_LEFT" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
-                                                            <children>
-                                                                <Label alignment="CENTER" contentDisplay="TEXT_ONLY" graphicTextGap="15.0" prefHeight="23.0" prefWidth="232.0" text="Rounds" underline="true">
-                                                                    <font>
-                                                                        <Font size="18.0" />
-                                                                    </font>
-                                                                </Label>
-                                                                <HBox alignment="CENTER_LEFT">
-                                                                    <children>
-                                                                        <Slider fx:id="sliderVEA" blockIncrement="2.0" majorTickUnit="2.0" max="16.0" minorTickCount="1" prefHeight="33.0" prefWidth="240.0" showTickLabels="true" snapToTicks="true" />
-                                                                    </children>
-                                                                </HBox>
-                                                            </children>
-                                                        </VBox>
-                                                        <VBox layoutY="146.0" prefHeight="192.0" prefWidth="256.0" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="145.0">
-                                                            <children>
-                                                                <Label alignment="CENTER" contentDisplay="TEXT_ONLY" graphicTextGap="15.0" prefHeight="52.0" prefWidth="232.0" text="Key Length" underline="true">
-                                                                    <font>
-                                                                        <Font size="18.0" />
-                                                                    </font>
-                                                                </Label>
-                                                                <TextField fx:id="keyLengthVEATF" text="Please Enter Key Length" />
-                                                            </children>
-                                                        </VBox>
-                                                    </children>
-                                                </AnchorPane>
-                                            </content>
+                                        <TitledPane text="VEA Parameters">
+                                 <content>
+                                    <ScrollPane fitToHeight="true" fitToWidth="true">
+                                       <content>
+                                          <GridPane>
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="85.0" vgrow="ALWAYS" />
+                                                <RowConstraints minHeight="85.0" vgrow="ALWAYS" />
+                                                <RowConstraints minHeight="85.0" vgrow="ALWAYS" />
+                                             </rowConstraints>
+                                             <children>
+                                                <VBox alignment="CENTER_LEFT" spacing="10.0">
+                                                   <children>
+                                                      <Label alignment="CENTER" contentDisplay="TEXT_ONLY" graphicTextGap="15.0" text="Cipher Modes" underline="true">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <RadioButton fx:id="rbVEA_ECB" contentDisplay="RIGHT" graphicTextGap="12.0" mnemonicParsing="false" text="Electronic Code Book (ECB)">
+                                                         <font>
+                                                            <Font size="12.0" />
+                                                         </font>
+                                                      </RadioButton>
+                                                      <RadioButton fx:id="rbVEA_CBC" contentDisplay="RIGHT" graphicTextGap="10.0" mnemonicParsing="false" text="Cipher Block Chaining (CBC)">
+                                                         <font>
+                                                            <Font size="12.0" />
+                                                         </font>
+                                                      </RadioButton>
+                                                   </children>
+                                                </VBox>
+                                                <VBox alignment="CENTER_LEFT" spacing="10.0" GridPane.rowIndex="2">
+                                                   <children>
+                                                      <Label alignment="CENTER" contentDisplay="TEXT_ONLY" graphicTextGap="15.0" text="Rounds" underline="true">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Slider fx:id="sliderVEA" blockIncrement="2.0" majorTickUnit="2.0" max="16.0" minorTickCount="1" prefHeight="33.0" prefWidth="240.0" showTickLabels="true" snapToTicks="true" />
+                                                   </children>
+                                                </VBox>
+                                                <VBox alignment="CENTER_LEFT" spacing="10.0" GridPane.rowIndex="1">
+                                                   <children>
+                                                      <Label alignment="CENTER" contentDisplay="TEXT_ONLY" graphicTextGap="15.0" text="Key Size" underline="true">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Spinner fx:id="keySizeSpinnerVEA" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </GridPane>
+                                       </content>
+                                       <padding>
+                                          <Insets left="5.0" />
+                                       </padding>
+                                    </ScrollPane>
+                                 </content>
                                         </TitledPane>
                                     </panes>
                                 </Accordion>
-                            </top>
+                     </center>
+                     <top>
+                        <ToolBar BorderPane.alignment="CENTER">
+                           <items>
+                              <Label text="Encryption  Options" />
+                           </items>
+                        </ToolBar>
+                     </top>
                         </BorderPane>
-                    </bottom>
-                </BorderPane>
+               </items>
+            </SplitPane>
                 <BorderPane>
                     <center>
                         <Accordion maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
@@ -502,135 +528,135 @@
                                         </GridPane>
                                     </content>
                                 </TitledPane>
-                                <TitledPane text="Polynomial Based Secret">
+                                <TitledPane text="Visual Secret Sharing Base on Polynomial Function">
                                     <content>
-                                        <GridPane alignment="CENTER_LEFT">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                            </columnConstraints>
-                                            <rowConstraints>
+                              <ScrollPane fitToWidth="true">
+                                 <content>
+                                    <BorderPane>
+                                       <center>
+                                                    <GridPane alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308">
+                                                        <columnConstraints>
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                            <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                                                 <RowConstraints minHeight="10.0" vgrow="ALWAYS" />
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-                                            </rowConstraints>
-                                            <children>
-                                                <Label text="Sets a polynomial of degree &quot;m&quot; based from the number of users" />
-                                                <HBox alignment="CENTER_LEFT" spacing="20.0" GridPane.rowIndex="1">
-                                                    <children>
-                                                        <RadioButton fx:id="rb2Users" mnemonicParsing="false" text="2 Users" />
-                                                        <Label text="ax^2 + bx + c" />
-                                                    </children>
-                                                </HBox>
-                                                <HBox alignment="CENTER_LEFT" spacing="20.0" GridPane.rowIndex="2">
-                                                    <children>
-                                                        <RadioButton fx:id="rb3Users" mnemonicParsing="false" text="3 Users" />
-                                                        <Label text="ax^3 + bx^2 + cx + d" />
-                                                    </children>
-                                                </HBox>
-                                                <HBox alignment="CENTER_LEFT" spacing="20.0" GridPane.rowIndex="3">
-                                                    <children>
-                                                        <RadioButton fx:id="rb4Users" mnemonicParsing="false" text="4 Users" />
-                                                        <Label text="ax^4 + bx^3 + cx^2 + dx + e" />
-                                                    </children>
-                                                </HBox>
-                                                <HBox alignment="CENTER_LEFT" spacing="15.0" GridPane.rowIndex="6">
-                                                    <children>
-                                                        <Button fx:id="setUsersBtn" mnemonicParsing="false" onAction="#setUsers" prefWidth="100.0" text="Set Users" />
-                                                        <Button fx:id="resetBtn" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#reset" prefWidth="100.0" text="Reset " />
-                                                    </children>
-                                                </HBox>
-                                                <Label layoutX="20.0" layoutY="20.0" text="The agreed upon &quot;x&quot; value for all users" GridPane.rowIndex="4" />
-                                                <TextField maxWidth="300.0" promptText="13213132314241421412421413413451354314124214123214141243124312412" GridPane.rowIndex="5" fx:id="xValueTF" />
-                                            </children>
-                                        </GridPane>
-                                    </content>
-                                </TitledPane>
-                                <TitledPane prefHeight="389.0" prefWidth="646.0" text="Visual Secret Sharing">
-                                    <content>
-                                        <SplitPane dividerPositions="0.7" orientation="VERTICAL">
-                                            <items>
-                                                <BorderPane>
-                                                    <center>
-                                                        <ScrollPane pannable="true" prefHeight="217.0" prefWidth="644.0">
-                                                            <content>
-                                                                <ImageView fx:id="vssImageView" focusTraversable="true" onMouseClicked="#setCoordinates" pickOnBounds="true" preserveRatio="true" />
-                                                            </content>
-                                                        </ScrollPane>
-                                                    </center>
-                                                    <top>
-                                                        <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                            <items>
-                                                                <Button fx:id="openVSSImageBtn" mnemonicParsing="false" onAction="#openVSSImage" prefWidth="125.0" text="Open Image" />
-                                                            </items>
-                                                        </ToolBar>
-                                                    </top>
-                                                    <bottom>
-                                                        <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                                            <items>
-                                                                <HBox alignment="CENTER_LEFT" spacing="10.0">
-                                                                    <children>
-                                                                        <Button fx:id="addUserCoordBtn" mnemonicParsing="false" onAction="#addUserCoordinate" text="Add User Coordinate" />
-                                                                        <Label text="Pixel Coordinates:">
-                                                                            <font>
-                                                                                <Font size="15.0" />
-                                                                            </font>
-                                                                        </Label>
-                                                                        <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="15.0" />
-                                                                        <HBox alignment="CENTER_LEFT" spacing="15.0">
-                                                                            <children>
-                                                                                <Label contentDisplay="RIGHT" text="Width: ">
-                                                                                    <graphic>
-                                                                                        <Label fx:id="widthLabel" prefWidth="50.0" />
-                                                                                    </graphic>
-                                                                                    <font>
-                                                                                        <Font size="15.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                                <Region prefWidth="25.0" />
-                                                                                <Label contentDisplay="RIGHT" text="Height: ">
-                                                                                    <graphic>
-                                                                                        <Label fx:id="heightLabel" prefWidth="50.0" />
-                                                                                    </graphic>
-                                                                                    <font>
-                                                                                        <Font size="15.0" />
-                                                                                    </font>
-                                                                                </Label>
-                                                                            </children>
-                                                                        </HBox>
-                                                                    </children>
-                                                                </HBox>
-                                                            </items>
-                                                        </ToolBar>
-                                                    </bottom>
-                                                </BorderPane>
-                                                <BorderPane>
-                                                    <center>
-                                                        <TextArea fx:id="vssTextArea" editable="false" promptText="Polynomial Generation" BorderPane.alignment="CENTER" />
-                                                    </center>
-                                                    <bottom>
-                                                        <ToolBar GridPane.rowIndex="6">
-                                                            <items>
-                                                                <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" spacing="15.0">
-                                                                    <children>
-                                                                        <Button fx:id="clearTextBtn" mnemonicParsing="false" onAction="#clearText" text="Clear Text" />
-                                                                        <Button fx:id="genPolyBtn" mnemonicParsing="false" onAction="#generatePolynomial" prefWidth="170.0" text="Generate Polynomial" />
-                                                                        <Label fx:id="messageLabel1" maxWidth="1.7976931348623157E308" prefHeight="30.0" visible="false">
-                                                                            <graphic>
-                                                                                <ProgressIndicator fx:id="progressIndicator1" prefHeight="25.0" progress="0.0" />
-                                                                            </graphic>
-                                                                        </Label>
-                                                                    </children>
-                                                                </HBox>
-                                                            </items>
-                                                        </ToolBar>
-                                                    </bottom>
-                                                </BorderPane>
-                                            </items>
-                                        </SplitPane>
+                                                        </rowConstraints>
+                                                        <children>
+                                                            <Label text="Sets a polynomial of degree &quot;m&quot; based from the number of users" />
+                                                            <HBox alignment="CENTER_LEFT" spacing="20.0" GridPane.rowIndex="1">
+                                                                <children>
+                                                                    <RadioButton fx:id="rb2Users" mnemonicParsing="false" text="2 Users" />
+                                                                    <Label text="ax^2 + bx + c" />
+                                                                </children>
+                                                            </HBox>
+                                                            <HBox alignment="CENTER_LEFT" spacing="20.0" GridPane.rowIndex="2">
+                                                                <children>
+                                                                    <RadioButton fx:id="rb3Users" mnemonicParsing="false" text="3 Users" />
+                                                                    <Label text="ax^3 + bx^2 + cx + d" />
+                                                                </children>
+                                                            </HBox>
+                                                            <HBox alignment="CENTER_LEFT" spacing="20.0" GridPane.rowIndex="3">
+                                                                <children>
+                                                                    <RadioButton fx:id="rb4Users" mnemonicParsing="false" text="4 Users" />
+                                                                    <Label text="ax^4 + bx^3 + cx^2 + dx + e" />
+                                                                </children>
+                                                            </HBox>
+                                                            <Label layoutX="20.0" layoutY="20.0" text="The agreed upon &quot;x&quot; value for all users" GridPane.rowIndex="4" />
+                                                            <TextField maxWidth="300.0" promptText="13213132314241421412421413413451354314124214123214141243124312412" GridPane.rowIndex="5" fx:id="xValueTF" />
+                                                            <HBox alignment="CENTER_LEFT" spacing="15.0" GridPane.rowIndex="6">
+                                                                <children>
+                                                                    <Button fx:id="setUsersBtn" mnemonicParsing="false" onAction="#setUsers" prefWidth="100.0" text="Set Users" />
+                                                                    <Button fx:id="resetBtn" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#reset" prefWidth="100.0" text="Reset " />
+                                                                </children>
+                                                            </HBox>
+                                                          <SplitPane dividerPositions="0.7" orientation="VERTICAL" GridPane.rowIndex="7">
+                                                              <items>
+                                                                  <BorderPane>
+                                                                      <center>
+                                                                          <ScrollPane pannable="true" prefHeight="217.0" prefWidth="644.0">
+                                                                              <content>
+                                                                                  <ImageView fx:id="vssImageView" focusTraversable="true" onMouseClicked="#setCoordinates" pickOnBounds="true" preserveRatio="true" />
+                                                                              </content>
+                                                                          </ScrollPane>
+                                                                      </center>
+                                                                      <top>
+                                                                          <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                                              <items>
+                                                                                  <Button fx:id="openVSSImageBtn" mnemonicParsing="false" onAction="#openVSSImage" prefWidth="125.0" text="Open Image" />
+                                                                              </items>
+                                                                          </ToolBar>
+                                                                      </top>
+                                                                      <bottom>
+                                                                          <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                                              <items>
+                                                                                  <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                                                                      <children>
+                                                                                          <Button fx:id="addUserCoordBtn" mnemonicParsing="false" onAction="#addUserCoordinate" text="Add User Coordinate" />
+                                                                                          <Label text="Pixel Coordinates:">
+                                                                                              <font>
+                                                                                                  <Font size="15.0" />
+                                                                                              </font>
+                                                                                          </Label>
+                                                                                          <Separator orientation="VERTICAL" prefHeight="30.0" prefWidth="15.0" />
+                                                                                          <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                                                                              <children>
+                                                                                                  <Label contentDisplay="RIGHT" text="Width: ">
+                                                                                                      <graphic>
+                                                                                                          <Label fx:id="widthLabel" prefWidth="50.0" />
+                                                                                                      </graphic>
+                                                                                                      <font>
+                                                                                                          <Font size="15.0" />
+                                                                                                      </font>
+                                                                                                  </Label>
+                                                                                                  <Region prefWidth="25.0" />
+                                                                                                  <Label contentDisplay="RIGHT" text="Height: ">
+                                                                                                      <graphic>
+                                                                                                          <Label fx:id="heightLabel" prefWidth="50.0" />
+                                                                                                      </graphic>
+                                                                                                      <font>
+                                                                                                          <Font size="15.0" />
+                                                                                                      </font>
+                                                                                                  </Label>
+                                                                                              </children>
+                                                                                          </HBox>
+                                                                                      </children>
+                                                                                  </HBox>
+                                                                              </items>
+                                                                          </ToolBar>
+                                                                      </bottom>
+                                                                  </BorderPane>
+                                                                  <BorderPane>
+                                                                      <center>
+                                                                          <TextArea fx:id="vssTextArea" editable="false" promptText="Polynomial Generation" BorderPane.alignment="CENTER" />
+                                                                      </center>
+                                                                      <bottom>
+                                                                          <ToolBar GridPane.rowIndex="6">
+                                                                              <items>
+                                                                                  <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" spacing="15.0">
+                                                                                      <children>
+                                                                                          <Button fx:id="clearTextBtn" mnemonicParsing="false" onAction="#clearText" text="Clear Text" />
+                                                                                          <Button fx:id="genPolyBtn" mnemonicParsing="false" onAction="#generatePolynomial" prefWidth="170.0" text="Generate Polynomial" />
+                                                                                      </children>
+                                                                                  </HBox>
+                                                                              </items>
+                                                                          </ToolBar>
+                                                                      </bottom>
+                                                                  </BorderPane>
+                                                              </items>
+                                                          </SplitPane>
+                                                        </children>
+                                                    </GridPane>
+                                       </center>
+                                    </BorderPane>
+                                 </content>
+                              </ScrollPane>
                                     </content>
                                 </TitledPane>
                             </panes>

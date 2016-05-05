@@ -31,7 +31,7 @@ public class TermTest {
     }
 
     @Test
-    public void testTerm1() {
+    public void testTerm2() {
         BigInteger coef = new BigInteger("0");
         BigInteger deg = new BigInteger("2");
         BigInteger x = new BigInteger("4");
@@ -45,7 +45,7 @@ public class TermTest {
     }
 
     @Test
-    public void testTerm2() {
+    public void testTerm3() {
         BigInteger coef = new BigInteger("5");
         BigInteger deg = new BigInteger("0");
         BigInteger x = new BigInteger("10");

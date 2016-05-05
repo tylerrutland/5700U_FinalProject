@@ -49,8 +49,8 @@ public class VEABaseECBTest {
         File recoveredFile = new File(path + "images/testoutput/recovPalmTree_VEA_ECB.png");
 
         boolean expected = true;
-        boolean isEncrypted = ecb.encryptImageFile(origFile, encryptedFile, ecb.getVEAKeyA());
-        boolean isDecrypted = ecb.decryptImageFile(encryptedFile, recoveredFile, ecb.getVEAKeyB());
+        boolean isEncrypted = ecb.encryptImageFile(origFile, encryptedFile, ecb.getVEAKey());
+        boolean isDecrypted = ecb.decryptImageFile(encryptedFile, recoveredFile, ecb.getVEAKey());
 
         boolean result = (isEncrypted && isDecrypted);
         assertEquals("Image encrypted and decrypted successfully! ", expected, result);
@@ -65,8 +65,8 @@ public class VEABaseECBTest {
         File recoveredFile = new File(path + "images/testoutput/visualRecovPalmTree_VEA_ECB.png");
 
         boolean expected = true;
-        boolean isEncrypted = cbc.encryptImage(origFile, encryptedFile, cbc.getVEAKeyA());
-        boolean isDecrypted = cbc.encryptImage(encryptedFile, recoveredFile, cbc.getVEAKeyB());
+        boolean isEncrypted = cbc.encryptImage(origFile, encryptedFile, cbc.getVEAKey());
+        boolean isDecrypted = cbc.encryptImage(encryptedFile, recoveredFile, cbc.getVEAKey());
 
         boolean result = (isEncrypted && isDecrypted);
         assertEquals("Image encrypted and decrypted successfully! ", expected, result);

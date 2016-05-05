@@ -21,11 +21,11 @@ public class VEABaseCBCService {
     }
 
     public boolean encryptImageFile(File imageFile, File outputFile) {
-        return cbc.encryptImageFile(imageFile, outputFile, cbc.getVEAKeyA());
+        return cbc.encryptImageFile(imageFile, outputFile, cbc.getVEAKey());
     }
 
     public boolean decryptImageFile(File imageFile, File outputFile) {
-        return cbc.decryptImageFile(imageFile, outputFile, cbc.getVEAKeyB());
+        return cbc.decryptImageFile(imageFile, outputFile, cbc.getVEAKey());
     }
 
 }

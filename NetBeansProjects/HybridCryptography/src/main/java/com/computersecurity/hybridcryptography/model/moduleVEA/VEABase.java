@@ -6,41 +6,27 @@
 package com.computersecurity.hybridcryptography.model.moduleVEA;
 
 import com.computersecurity.hybridcryptography.model.DHKeyAgreement2;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import javax.crypto.KeyAgreement;
+import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
 /**
  * This class gets the key agreements between the two parties and then generates
- * a secret key using a Blowfish algorithm which takes a variable-length key, 
+ * a secret key using a Blowfish algorithm which takes a variable-length key,
  * from 32 bits to 448 bits
  */
-public class VEABase extends DHKeyAgreement2 {
+public class VEABase {
 
+    private int keySize;
     private static final String ALGORITHM = "Blowfish";
-    private SecretKey keyA, keyB;
+    private SecretKey key;
 
     public VEABase() {
 
         try {
-            /*
-             Sets public key information
-             */
-            super.getSecretKeyA();
-            super.getSecretKeyB();
 
-            KeyAgreement kab = super.getKeyAgreementB();
-            kab.doPhase(super.getPublicKeyA(), true);
-            keyB = kab.generateSecret(ALGORITHM);
+            key = KeyGenerator.getInstance(ALGORITHM).generateKey();
 
-            KeyAgreement kaa = super.getKeyAgreementA();
-            kaa.doPhase(super.getPublicKeyB(), true);
-            keyA = kaa.generateSecret(ALGORITHM);
-
-        } catch (InvalidKeyException |
-                IllegalStateException |
-                NoSuchAlgorithmException ex) {
+        } catch (Exception ex) {
 
             System.out.println(ex);
 
@@ -48,12 +34,32 @@ public class VEABase extends DHKeyAgreement2 {
 
     }
 
-    public SecretKey getVEAKeyA() {
-        return keyA;
+    public VEABase(int size) {
+
+        try {
+
+            KeyGenerator kg = KeyGenerator.getInstance(ALGORITHM);
+            kg.init(keySize = size);
+            key = kg.generateKey();
+
+        } catch (Exception ex) {
+
+            System.out.println(ex);
+
+        }
+
     }
 
-    public SecretKey getVEAKeyB() {
-        return keyB;
+    public int getKeySize() {
+        return keySize;
+    }
+
+    public void setKeySize(int size) {
+        keySize = size;
+    }
+
+    public SecretKey getVEAKey() {
+        return key;
     }
 
 }

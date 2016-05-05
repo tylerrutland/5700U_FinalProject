@@ -45,6 +45,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
@@ -62,17 +63,8 @@ import javafx.util.converter.NumberStringConverter;
  */
 public class HybridCryptoController implements Initializable {
 
-    //Service Classes
-    private final DESEncryptionService encServiceDES = new DESEncryptionService();
-    private final DESDecryptionService decServiceDES = new DESDecryptionService();
-    private final VEAEncryptionService encServiceVEA = new VEAEncryptionService();
-    private final VEADecryptionService decServiceVEA = new VEADecryptionService();
-    private final DHGeneratorService dhGenService = new DHGeneratorService();
-
-    private final ToggleGroup bitLengthGroupDH = new ToggleGroup();
-    private final ToggleGroup bitLengthGroupRSA = new ToggleGroup();
-    private final ToggleGroup modeGroupAlgo = new ToggleGroup();
-    private final FileChooser fileChooser = new FileChooser();
+    private File imageFile;
+    private File imageVSSFile;
 
     private int count;
     private int submittedUsers;
@@ -80,6 +72,19 @@ public class HybridCryptoController implements Initializable {
     private Polynomial groupPolynomial = new Polynomial(0, 0);
     private final ArrayList<Term> terms = new ArrayList(4);
     private final ArrayList<Polynomial> monomials = new ArrayList(4);
+
+    //Service Classes
+    private final DESEncryptionService encServiceDES = new DESEncryptionService();
+    private final DESDecryptionService decServiceDES = new DESDecryptionService();
+    private final VEAEncryptionService encServiceVEA = new VEAEncryptionService();
+    private final VEADecryptionService decServiceVEA = new VEADecryptionService();
+    private final DHGeneratorService dhGenService = new DHGeneratorService();
+
+    private final ToggleGroup userGroup = new ToggleGroup();
+    private final ToggleGroup bitLengthGroupDH = new ToggleGroup();
+    private final ToggleGroup bitLengthGroupRSA = new ToggleGroup();
+    private final ToggleGroup modeGroupAlgo = new ToggleGroup();
+    private final FileChooser fileChooser = new FileChooser();
 
     private final SimpleDoubleProperty widthProperty = new SimpleDoubleProperty();
     private final SimpleDoubleProperty heightProperty = new SimpleDoubleProperty();
@@ -89,11 +94,6 @@ public class HybridCryptoController implements Initializable {
     private final SimpleIntegerProperty submittedUsersProperty = new SimpleIntegerProperty();
     private final SimpleBooleanProperty areUsersSetProperty = new SimpleBooleanProperty();
     private final SimpleBooleanProperty isAllSubmittedProperty = new SimpleBooleanProperty();
-
-    private final ToggleGroup userGroup = new ToggleGroup();
-
-    private File imageFile;
-    private File imageVSSFile;
 
     @FXML
     private BorderPane imagePane, encDecPane;
@@ -118,6 +118,9 @@ public class HybridCryptoController implements Initializable {
 
     @FXML
     private TextField keyLengthVEATF;
+
+    @FXML
+    private Spinner spinner;
 
     @FXML
     private RadioButton rb512, rb1024;
@@ -182,11 +185,6 @@ public class HybridCryptoController implements Initializable {
     @FXML
     private TextArea vssTextArea;
 
-    @FXML
-    private Label messageLabel1;
-    @FXML
-    private ProgressIndicator progressIndicator1;
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         rb2Users.setUserData(2);
@@ -199,7 +197,7 @@ public class HybridCryptoController implements Initializable {
         rb4Users.setUserData(4);
         rb4Users.setToggleGroup(userGroup);
 
-        xValueTF.setText(Integer.toString(new SecureRandom().nextInt()));
+        xValueTF.setText(BigInteger.valueOf(new SecureRandom().nextLong()).toString());
 
         //Field Settings
         countProperty.set(count = 0);
@@ -314,7 +312,6 @@ public class HybridCryptoController implements Initializable {
         event.consume();
     }
 
-
     /*
      The max degree of the polynomial is determined from the number of users
      Example: For 3 users, ax^3 + bx^2 + cx^1 + d, the button disables itself
@@ -325,6 +322,7 @@ public class HybridCryptoController implements Initializable {
         int users = (Integer) userGroup.getSelectedToggle().getUserData();
         maxDegreeProperty.set(users);
         setUsersBtn.setDisable(true);
+        event.consume();
     }
 
     /*
@@ -341,6 +339,7 @@ public class HybridCryptoController implements Initializable {
         origImageView.setVisible(false);
         monomials.clear();
         setUsersBtn.setDisable(false);
+        event.consume();
     }
 
     /*
@@ -374,6 +373,8 @@ public class HybridCryptoController implements Initializable {
         if (!vssTextArea.getText().isEmpty()) {
             vssTextArea.clear();
         }
+
+        event.consume();
     }
 
     /*
@@ -382,47 +383,13 @@ public class HybridCryptoController implements Initializable {
      */
     @FXML
     private void generatePolynomial(ActionEvent event) {
-        vssTextArea.setText("Group Base Polynomial:\t" + getFinalPolynomial().toString());
+        vssTextArea.setText(
+                "Group Base Polynomial:\t" + getFinalPolynomial().toString() + "\n"
+                + "Group Base Key:\t" + computeGroupKey());
         terms.clear();
         usersInfo.clear();
         resetBtn.fire();
-    }
-
-    /*
-     Computes the coefficent for the nonomial term, sets the degree
-     of the monomial term and generates a random x value
-     */
-    private void addUserMonomialAndTerm() {
-        int width = widthProperty.intValue();
-        int height = heightProperty.intValue();
-        int coef = width * height;
-        int deg = degreeProperty.get();
-
-        //Add single monomial from user
-        Polynomial monomial = new Polynomial(coef, deg);
-        monomials.add(monomial);
-
-        /*
-         Computation Incorrect
-         */
-        //Compute Term
-        Term term = new Term(BigInteger.ONE, BigInteger.ONE, BigInteger.ONE);
-        terms.add(term);
-
-        //Set the text area with the user information
-        String userInfo = "\nUser " + submittedUsers + ":\t" + monomial.toString();
-        usersInfo.add(userInfo + "\t| x = " + xValueTF.getText() + "\t->\t" + term.getTermValue() + "\n");
-        vssTextArea.setText(Arrays.toString(usersInfo.toArray()));
-    }
-
-    /*
-     Generates the final polynomial by simple adding all the 
-     individual monomials together
-     */
-    private Polynomial getFinalPolynomial() {
-        groupPolynomial = new Polynomial(new SecureRandom().nextInt(), 0);//Resets polynomial
-        monomials.stream().forEach((monomial) -> groupPolynomial = groupPolynomial.plus(monomial));
-        return groupPolynomial;
+        event.consume();
     }
 
     /*
@@ -436,11 +403,13 @@ public class HybridCryptoController implements Initializable {
             int bitLength = (Integer) bitLengthGroupDH.getSelectedToggle().getUserData();
             dhGenService.setDHKeyAgreement2(new DHKeyAgreement2(bitLength));
             dhGenService.start();
-            event.consume();
         } else {
 
             //User needs to choose an image first
         }
+
+        event.consume();
+
     }
 
     /*
@@ -547,6 +516,55 @@ public class HybridCryptoController implements Initializable {
     }
 
     /*
+     Computes the coefficent for the nonomial term, sets the degree
+     of the monomial term and generates a random x value
+     */
+    private void addUserMonomialAndTerm() {
+        int width = widthProperty.intValue();
+        int height = heightProperty.intValue();
+        int coef = width * height;
+        int deg = degreeProperty.get();
+
+        //Add single monomial from user
+        Polynomial monomial = new Polynomial(coef, deg);
+        monomials.add(monomial);
+
+        //Compute Term
+        BigInteger agreedX = BigInteger.valueOf(Long.parseLong(xValueTF.getText()));
+        Term term = new Term(
+                BigInteger.valueOf(coef),
+                BigInteger.valueOf(deg),
+                agreedX);
+        terms.add(term);
+
+        //Set the text area with the user information
+        String userInfo = "\nUser " + submittedUsers + ":\t" + monomial.toString();
+        usersInfo.add(userInfo + "\t| x = " + agreedX + "\t->\t" + term.getTermValue() + "\n");
+        vssTextArea.setText(Arrays.toString(usersInfo.toArray()));
+    }
+
+    /*
+     Generates the final polynomial by simple adding all the 
+     individual monomials together
+     */
+    private Polynomial getFinalPolynomial() {
+        groupPolynomial = new Polynomial(0, 0);//Resets polynomial
+        monomials.stream().forEach((monomial) -> groupPolynomial = groupPolynomial.plus(monomial));
+        return groupPolynomial;
+    }
+
+    /*
+    Computes the secret key from the polynomial function
+     */
+    private BigInteger computeGroupKey() {
+        BigInteger key = terms.get(0).getTermValue();
+        for (int i = 1; i < terms.size(); i++) {
+            key = key.add(terms.get(i).getTermValue());
+        }
+        return key;
+    }
+
+    /*
      A method that is called after the task(s) is successfully completed
      */
     private void dhSucceeded() {
@@ -633,7 +651,6 @@ public class HybridCryptoController implements Initializable {
         decImageView.setImage(getImage(decServiceDES.getOutputFile()));
         decServiceVEA.reset();
     }
-
 
     /*
      A listener for showing the encryptiom modes to the user
