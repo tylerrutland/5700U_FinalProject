@@ -13,8 +13,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.security.SecureRandom;
-import java.util.Arrays;
 import javafx.scene.image.Image;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -47,7 +45,7 @@ public class CryptoUtils {
         int len;
         while ((len = fis.read(buffer)) > 0) {
             fos.write(cipher.update(buffer, 0, len));
-            System.out.println(Arrays.toString(buffer));
+//            System.out.println(Arrays.toString(buffer));
             fos.flush();
         }
 

@@ -35,6 +35,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
+import javafx.concurrent.Service;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -46,6 +47,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
@@ -114,13 +116,10 @@ public class HybridCryptoController implements Initializable {
     private RadioButton rbVEA_ECB, rbVEA_CBC;
 
     @FXML
+    private Spinner<Integer> keySizeSpinnerDES, keySizeSpinnerVEA;
+
+    @FXML
     private Slider sliderDES, sliderVEA;
-
-    @FXML
-    private TextField keyLengthVEATF;
-
-    @FXML
-    private Spinner spinner;
 
     @FXML
     private RadioButton rb512, rb1024;
@@ -153,7 +152,7 @@ public class HybridCryptoController implements Initializable {
     private Label messageLabel;
 
     @FXML
-    private Label encMessageLabel, decMessageLabel;
+    private Label encDecMessageLabel;
 
     @FXML
     private Label encModeLabel, decModeLabel;
@@ -165,7 +164,7 @@ public class HybridCryptoController implements Initializable {
     private ProgressIndicator progressIndicator;
 
     @FXML
-    private ProgressBar encProgressBar, decProgressBar;
+    private ProgressBar encDecProgressBar;
 
     @FXML
     private RadioButton rb2Users, rb3Users, rb4Users;
@@ -187,6 +186,13 @@ public class HybridCryptoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        setExecutor(AppExecutorService.pool);
+        encServiceDES.setOnSucceeded(e -> encDESSucceeded());
+        decServiceDES.setOnSucceeded(e -> decDESSucceeded());
+        encServiceVEA.setOnSucceeded(e -> encVEASucceeded());
+        decServiceVEA.setOnSucceeded(e -> decVEASucceeded());
+        dhGenService.setOnSucceeded(e -> dhSucceeded());
+
         rb2Users.setUserData(2);
         rb2Users.setSelected(true);
         rb2Users.setToggleGroup(userGroup);
@@ -219,13 +225,6 @@ public class HybridCryptoController implements Initializable {
         widthLabel.textProperty().bindBidirectional(widthProperty, new NumberStringConverter());
         heightLabel.textProperty().bindBidirectional(heightProperty, new NumberStringConverter());
 
-        setExecutor(AppExecutorService.pool);
-        encServiceDES.setOnSucceeded(e -> encDESSucceeded());
-        decServiceDES.setOnSucceeded(e -> decDESSucceeded());
-        encServiceVEA.setOnSucceeded(e -> encVEASucceeded());
-        decServiceVEA.setOnSucceeded(e -> decVEASucceeded());
-        dhGenService.setOnSucceeded(e -> dhSucceeded());
-
         rbDES_ECB.setUserData(new DESBaseECB());
         rbDES_ECB.setSelected(true);
         rbDES_ECB.setToggleGroup(modeGroupAlgo);
@@ -238,6 +237,14 @@ public class HybridCryptoController implements Initializable {
 
         rbVEA_CBC.setUserData(new VEABaseCBC());
         rbVEA_CBC.setToggleGroup(modeGroupAlgo);
+
+        keySizeSpinnerDES.setValueFactory(
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(
+                        56, 56, 56, 0));
+
+        keySizeSpinnerVEA.setValueFactory(
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(
+                        32, 128, 32, 8));
 
         rb512.setUserData(512);
         rb512.setSelected(true);
@@ -257,25 +264,22 @@ public class HybridCryptoController implements Initializable {
         decModeLabel.setText("ECB");
 
         dhGenBtnTooltip.setText(getText());
-
         modeGroupAlgo.selectedToggleProperty().addListener(modeToggleListener());
 
         //UI Bindings
-        imagePane.disableProperty().bind(dhGenService.runningProperty());
-        encDecPane.disableProperty().bind(dhGenService.runningProperty());
-        openImageBtn.disableProperty().bind(dhGenService.runningProperty());
+//        imagePane.disableProperty().bind(dhGenService.runningProperty());
+//        encDecPane.disableProperty().bind(dhGenService.runningProperty());
+//        openImageBtn.disableProperty().bind(dhGenService.runningProperty());
         dhGenBtn.disableProperty().bind(dhGenService.runningProperty());
         messageLabel.textProperty().bind(dhGenService.messageProperty());
         messageLabel.visibleProperty().bind(dhGenService.runningProperty());
         progressIndicator.progressProperty().bind(dhGenService.progressProperty());
 
-        encMessageLabel.textProperty().bind(encServiceDES.messageProperty());
-        encProgressBar.visibleProperty().bind(encServiceDES.runningProperty());
-        encProgressBar.progressProperty().bind(encServiceDES.progressProperty());
+        encDecMessageLabel.textProperty().bind(encServiceDES.messageProperty());
+        encDecProgressBar.visibleProperty().bind(encServiceDES.runningProperty());
+        encDecProgressBar.progressProperty().bind(encServiceDES.progressProperty());
 
-        decMessageLabel.textProperty().bind(decServiceDES.messageProperty());
-        decProgressBar.visibleProperty().bind(decServiceDES.runningProperty());
-        decProgressBar.progressProperty().bind(decServiceDES.progressProperty());
+        invalidLabel.visibleProperty().bind(encServiceDES.runningProperty().not());
 
         fileChooser.getExtensionFilters().addAll(
                 new ExtensionFilter("BMP files (*.bmp)", "*.bmp"),
@@ -427,6 +431,8 @@ public class HybridCryptoController implements Initializable {
                  */
                 File outputFile = fileChooser.showSaveDialog(null);
                 if (outputFile != null) {
+                    unbindAll();
+                    bindAll(encServiceDES);
                     encServiceDES.setRounds((int) sliderDES.getValue());
                     encServiceDES.setDESBase((DESBase) encAlgo);
                     encServiceDES.setImageFile(imageFile);
@@ -441,8 +447,12 @@ public class HybridCryptoController implements Initializable {
                  */
                 File outputFile = fileChooser.showSaveDialog(null);
                 if (outputFile != null) {
+                    unbindAll();
+                    bindAll(encServiceVEA);
+                    VEABase veaBase = (VEABase) encAlgo;
+                    veaBase.setKeySize(keySizeSpinnerVEA.getValue());
                     encServiceVEA.setRounds((int) sliderVEA.getValue());
-                    encServiceVEA.setVEABase((VEABase) encAlgo);
+                    encServiceVEA.setVEABase(veaBase);
                     encServiceVEA.setImageFile(imageFile);
                     encServiceVEA.setOutputFile(outputFile);
                     encServiceVEA.start();
@@ -461,7 +471,8 @@ public class HybridCryptoController implements Initializable {
      */
     @FXML
     private void decryptImageFile(ActionEvent event) {
-        if (imageFile != null && (encServiceDES.getOutputFile().exists() || encServiceVEA.getOutputFile().exists())) {
+        if (imageFile != null && (encServiceDES.getOutputFile() != null
+                || encServiceVEA.getOutputFile() != null)) {
 
             Object encAlgo = modeGroupAlgo.getSelectedToggle().getUserData();
 
@@ -473,6 +484,8 @@ public class HybridCryptoController implements Initializable {
                 DESBase desBase = (DESBase) modeGroupAlgo.getSelectedToggle().getUserData();
                 File outputFile = fileChooser.showSaveDialog(null);
                 if (outputFile != null) {
+                    unbindAll();
+                    bindAll(decServiceDES);
                     decServiceDES.setRounds((int) sliderDES.getValue());
                     decServiceDES.setDESBase(desBase);
                     decServiceDES.setImageFile(encServiceDES.getOutputFile());
@@ -488,6 +501,8 @@ public class HybridCryptoController implements Initializable {
                 VEABase veaBase = (VEABase) modeGroupAlgo.getSelectedToggle().getUserData();
                 File outputFile = fileChooser.showSaveDialog(null);
                 if (outputFile != null) {
+                    unbindAll();
+                    bindAll(decServiceVEA);
                     decServiceVEA.setRounds((int) sliderVEA.getValue());
                     decServiceVEA.setVEABase(veaBase);
                     decServiceVEA.setImageFile(encServiceVEA.getOutputFile());
@@ -648,8 +663,20 @@ public class HybridCryptoController implements Initializable {
      A method that is called after the task(s) is successfully completed
      */
     private void decVEASucceeded() {
-        decImageView.setImage(getImage(decServiceDES.getOutputFile()));
+        decImageView.setImage(getImage(decServiceVEA.getOutputFile()));
         decServiceVEA.reset();
+    }
+
+    private void unbindAll() {
+        encDecMessageLabel.textProperty().unbind();
+        encDecProgressBar.visibleProperty().unbind();
+        encDecProgressBar.progressProperty().unbind();
+    }
+
+    private void bindAll(Service s) {
+        encDecMessageLabel.textProperty().bind(s.messageProperty());
+        encDecProgressBar.visibleProperty().bind(s.runningProperty());
+        encDecProgressBar.progressProperty().bind(s.progressProperty());
     }
 
     /*

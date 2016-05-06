@@ -21,10 +21,10 @@ public class DESBaseECBService {
     }
 
     public boolean encryptImageFile(File imageFile, File outputFile) {
-        return ecb.encryptImageFile(imageFile, outputFile, ecb.getDESKeyA());
+        return ecb.encryptImageFile(imageFile, outputFile, ecb.getDESKey());
     }
 
     public boolean decryptImageFile(File imageFile, File outputFile) {
-        return ecb.decryptImageFile(imageFile, outputFile, ecb.getDESKeyB());
+        return ecb.decryptImageFile(imageFile, outputFile, ecb.getDESKey());
     }
 }

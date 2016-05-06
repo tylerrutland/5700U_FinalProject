@@ -9,36 +9,27 @@ import com.computersecurity.hybridcryptography.model.DHKeyAgreement2;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import javax.crypto.KeyAgreement;
+import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
 /**
  * This class gets the key agreements between the two parties and then generates
  * a secret key using a DES algorithm which has a key length of 56 bits
  */
-public class DESBase extends DHKeyAgreement2 {
+public class DESBase {
 
+    private int keySize;
     private static final String ALGORITHM = "DES";
-    private SecretKey keyA, keyB;
+    private SecretKey key;
 
     public DESBase() {
         try {
-            /*
-             Sets public key information
-             */
-            super.getSecretKeyA();
-            super.getSecretKeyB();
 
-            KeyAgreement kab = super.getKeyAgreementB();
-            kab.doPhase(super.getPublicKeyA(), true);
-            keyB = kab.generateSecret(ALGORITHM);
+            KeyGenerator kg = KeyGenerator.getInstance(ALGORITHM);
+            kg.init(keySize = 56);
+            key = kg.generateKey();
 
-            KeyAgreement kaa = super.getKeyAgreementA();
-            kaa.doPhase(super.getPublicKeyB(), true);
-            keyA = kaa.generateSecret(ALGORITHM);
-
-        } catch (InvalidKeyException |
-                IllegalStateException |
-                NoSuchAlgorithmException ex) {
+        } catch (Exception ex) {
 
             System.out.println(ex);
 
@@ -46,12 +37,12 @@ public class DESBase extends DHKeyAgreement2 {
 
     }
 
-    public SecretKey getDESKeyA() {
-        return keyA;
+    public int getKeySize() {
+        return keySize;
     }
 
-    public SecretKey getDESKeyB() {
-        return keyB;
+    public SecretKey getDESKey() {
+        return key;
     }
 
 }

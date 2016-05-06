@@ -20,26 +20,6 @@ public class VEABaseECBTest {
 
     private final String path = "src/test/resources/";
 
-    /*
-     For the Blowfish algorithm to encrypt in the application, it needs 
-     this code in the setUpBeforeClass() method. This is probably a code hack
-     */
-    @BeforeClass
-    public static void setUpBeforeClass() throws Exception {
-        try {
-            Field field = Class.forName("javax.crypto.JceSecurity").getDeclaredField("isRestricted");
-            field.setAccessible(true);
-            field.set(null, java.lang.Boolean.FALSE);
-        } catch (ClassNotFoundException |
-                NoSuchFieldException |
-                SecurityException |
-                IllegalArgumentException |
-                IllegalAccessException ex) {
-
-            ex.printStackTrace(System.err);
-        }
-    }
-
     @Test
     public void testImageFileEncryptionAndDecryption() throws Exception {
         VEABaseECB ecb = new VEABaseECB();

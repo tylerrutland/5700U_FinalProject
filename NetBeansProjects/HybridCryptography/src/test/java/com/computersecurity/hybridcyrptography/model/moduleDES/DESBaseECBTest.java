@@ -26,8 +26,8 @@ public class DESBaseECBTest {
         DESBaseECB ecb = new DESBaseECB();
 
         byte[] plaintext = "This is just an example".getBytes();
-        byte[] ciphertext = ecb.getCipherText(plaintext, ecb.getDESKeyA());
-        byte[] recovered = ecb.getPlainText(ciphertext, ecb.getDESKeyB());
+        byte[] ciphertext = ecb.getCipherText(plaintext, ecb.getDESKey());
+        byte[] recovered = ecb.getPlainText(ciphertext, ecb.getDESKey());
 
         boolean expected = true;
         boolean result = Arrays.equals(plaintext, recovered);
@@ -41,8 +41,8 @@ public class DESBaseECBTest {
 
         File file = new File(path + "images/palmTree.png");
         byte[] fileBytePath = Files.readAllBytes(file.toPath());
-        byte[] cipherText = ecb.getCipherText(fileBytePath, ecb.getDESKeyA());
-        byte[] recovered = ecb.getPlainText(cipherText, ecb.getDESKeyB());
+        byte[] cipherText = ecb.getCipherText(fileBytePath, ecb.getDESKey());
+        byte[] recovered = ecb.getPlainText(cipherText, ecb.getDESKey());
 
         boolean expected = true;
         boolean result = Arrays.equals(fileBytePath, recovered);
@@ -58,8 +58,8 @@ public class DESBaseECBTest {
         File recoveredFile = new File(path + "images/testoutput/recovPalmTree_DES_ECB.png");
 
         boolean expected = true;
-        boolean isEncrypted = ecb.encryptImageFile(origFile, encryptedFile, ecb.getDESKeyA());
-        boolean isDecrypted = ecb.decryptImageFile(encryptedFile, recoveredFile, ecb.getDESKeyB());
+        boolean isEncrypted = ecb.encryptImageFile(origFile, encryptedFile, ecb.getDESKey());
+        boolean isDecrypted = ecb.decryptImageFile(encryptedFile, recoveredFile, ecb.getDESKey());
 
         boolean result = (isEncrypted && isDecrypted);
         assertEquals("Image encrypted and decrypted successfully! ", expected, result);
