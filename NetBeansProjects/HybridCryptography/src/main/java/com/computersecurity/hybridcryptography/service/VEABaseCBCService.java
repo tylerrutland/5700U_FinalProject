@@ -20,6 +20,14 @@ public class VEABaseCBCService {
         this.cbc = cbc;
     }
 
+    public boolean renderImage(File imageFile, File outputFile) {
+        return cbc.encryptImageFile(imageFile, outputFile, cbc.getVEAKey());
+    }
+
+    public boolean derenderImage(File imageFile, File outputFile) {
+        return cbc.decryptImageFile(imageFile, outputFile, cbc.getVEAKey());
+    }
+
     public boolean encryptImageFile(File imageFile, File outputFile) {
         return cbc.encryptImageFile(imageFile, outputFile, cbc.getVEAKey());
     }

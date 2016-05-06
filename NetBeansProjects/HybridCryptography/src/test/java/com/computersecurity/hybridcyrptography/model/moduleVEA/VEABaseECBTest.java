@@ -45,8 +45,8 @@ public class VEABaseECBTest {
         File recoveredFile = new File(path + "images/testoutput/visualRecovPalmTree_VEA_ECB.png");
 
         boolean expected = true;
-        boolean isEncrypted = cbc.encryptImage(origFile, encryptedFile, cbc.getVEAKey());
-        boolean isDecrypted = cbc.encryptImage(encryptedFile, recoveredFile, cbc.getVEAKey());
+        boolean isEncrypted = cbc.renderImage(origFile, encryptedFile, cbc.getVEAKey());
+        boolean isDecrypted = cbc.derenderImage(encryptedFile, recoveredFile, cbc.getVEAKey());
 
         boolean result = (isEncrypted && isDecrypted);
         assertEquals("Image encrypted and decrypted successfully! ", expected, result);

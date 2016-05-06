@@ -54,11 +54,11 @@ public class VEADecryptionService extends Service<Boolean> {
     public void setRounds(int rounds) {
         this.rounds = rounds;
     }
+
     /*
      Creates a single task for the thread to execute in the background
      and calls a Boolean value "on succeeded" when the task is completed
      */
-
     @Override
     protected Task createTask() {
         return new Task<Boolean>() {
@@ -75,7 +75,7 @@ public class VEADecryptionService extends Service<Boolean> {
                     ecb.setRounds(rounds);
 
                     return new VEABaseECBService(ecb)
-                            .decryptImageFile(imageFile, outputFile);
+                            .derenderImage(imageFile, outputFile);
                 } else {
                     updateMessage("Encryption Successful");
                     Thread.sleep(1500);
@@ -84,7 +84,7 @@ public class VEADecryptionService extends Service<Boolean> {
                     cbc.setRounds(rounds);
 
                     return new VEABaseCBCService(cbc)
-                            .decryptImageFile(imageFile, outputFile);
+                            .derenderImage(imageFile, outputFile);
                 }
             }
         };

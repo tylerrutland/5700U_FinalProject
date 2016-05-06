@@ -225,7 +225,7 @@
                                  <center>
                                               <SplitPane dividerPositions="0.5" maxHeight="1.7976931348623157E308" orientation="VERTICAL">
                                                   <items>
-                                                      <BorderPane maxHeight="1.7976931348623157E308">
+                                                      <BorderPane fx:id="aliceEncPane">
                                                           <top>
                                                               <ToolBar>
                                                                   <items>
@@ -244,18 +244,6 @@
                                                                   </items>
                                                               </ToolBar>
                                                           </top>
-                                                          <bottom>
-                                                              <ToolBar BorderPane.alignment="CENTER_LEFT">
-                                                                  <items>
-                                                                      <HBox spacing="15.0">
-                                                                          <children>
-                                                                              <Label text="Cipher Mode" />
-                                                                              <Label fx:id="encModeLabel" />
-                                                                          </children>
-                                                                      </HBox>
-                                                                  </items>
-                                                              </ToolBar>
-                                                          </bottom>
                                                           <center>
                                                               <Label fx:id="invalidLabel" text="Can't Open Encrypted File" textFill="#eb0c0c" visible="false" BorderPane.alignment="CENTER" />
                                                           </center>
@@ -272,18 +260,6 @@
                                                                   </content>
                                                               </ScrollPane>
                                                           </center>
-                                                          <bottom>
-                                                              <ToolBar BorderPane.alignment="CENTER_LEFT">
-                                                                  <items>
-                                                                      <HBox spacing="15.0">
-                                                                          <children>
-                                                                              <Label text="Cipher Mode" />
-                                                                              <Label fx:id="decModeLabel" />
-                                                                          </children>
-                                                                      </HBox>
-                                                                  </items>
-                                                              </ToolBar>
-                                                          </bottom>
                                              <top>
                                                               <ToolBar BorderPane.alignment="CENTER">
                                                                   <items>
@@ -308,9 +284,6 @@
                                  </center>
                               </BorderPane>
                                 </center>
-                                <bottom>
-                                    <HBox BorderPane.alignment="CENTER" />
-                                </bottom>
                            <top>
                               <VBox BorderPane.alignment="CENTER">
                                  <children>
@@ -319,7 +292,16 @@
                                           <Label text="Encryption/Decryption" />
                                        </items>
                                     </ToolBar>
-                                                    <Label fx:id="encDecMessageLabel" graphicTextGap="5.0" />
+                                    <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                       <children>
+                                                            <Label contentDisplay="RIGHT" graphicTextGap="10.0" text="Cipher Mode">
+                                             <graphic>
+                                                                  <Label fx:id="encDecModeLabel" />
+                                             </graphic>
+                                          </Label>
+                                                          <Label fx:id="encDecMessageLabel" graphicTextGap="5.0" visible="false" />
+                                       </children>
+                                    </HBox>
                                                       <ProgressBar fx:id="encDecProgressBar" maxWidth="1.7976931348623157E308" minHeight="0.0" prefHeight="8.0" progress="0.0" visible="false" />
                                  </children>
                               </VBox>

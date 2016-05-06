@@ -5,8 +5,8 @@
  */
 package com.computersecurity.hybridcryptography.model.moduleVEA;
 
-import static com.computersecurity.hybridcryptography.util.CryptoUtils.write;
-import static com.computersecurity.hybridcryptography.util.CryptoUtils.writeImage;
+import static com.computersecurity.hybridcryptography.util.CryptoUtils.renderToFile;
+import static com.computersecurity.hybridcryptography.util.CryptoUtils.writeToFile;
 import java.io.File;
 import java.io.IOException;
 import java.security.InvalidKeyException;
@@ -71,11 +71,11 @@ public class VEABaseECB extends VEABase {
         this.rounds = rounds;
     }
 
-    public boolean encryptImage(File imageFile, File outputFile, SecretKey key) {
+    public boolean renderImage(File imageFile, File outputFile, SecretKey key) {
         try {
 
             cipher.init(Cipher.ENCRYPT_MODE, key);
-            return writeImage(cipher, rounds, imageFile, outputFile);
+            return renderToFile(cipher, rounds, imageFile, outputFile);
 
         } catch (InvalidKeyException |
                 IOException |
@@ -87,11 +87,11 @@ public class VEABaseECB extends VEABase {
         }
     }
 
-    public boolean decryptImage(File imageFile, File outputFile, SecretKey key) {
+    public boolean derenderImage(File imageFile, File outputFile, SecretKey key) {
         try {
 
             cipher.init(Cipher.DECRYPT_MODE, key);
-            return writeImage(cipher, rounds, imageFile, outputFile);
+            return renderToFile(cipher, rounds, imageFile, outputFile);
 
         } catch (InvalidKeyException |
                 IOException |
@@ -107,7 +107,7 @@ public class VEABaseECB extends VEABase {
         try {
 
             cipher.init(Cipher.ENCRYPT_MODE, key);
-            write(cipher, imageFile, outputFile);
+            writeToFile(cipher, imageFile, outputFile);
             return true;
 
         } catch (InvalidKeyException |
@@ -125,7 +125,7 @@ public class VEABaseECB extends VEABase {
         try {
 
             cipher.init(Cipher.DECRYPT_MODE, key);
-            write(cipher, imageFile, outputFile);
+            writeToFile(cipher, imageFile, outputFile);
             return true;
 
         } catch (InvalidKeyException |

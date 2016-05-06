@@ -7,9 +7,7 @@ package com.computersecurity.hybridcyrptography.model.moduleVEA;
 
 import com.computersecurity.hybridcryptography.model.moduleVEA.VEABaseCBC;
 import java.io.File;
-import java.lang.reflect.Field;
 import static org.junit.Assert.assertEquals;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -45,8 +43,8 @@ public class VEABaseCBCTest {
         File recoveredFile = new File(path + "images/testoutput/visualRecovPalmTree_VEA_CBC.png");
 
         boolean expected = true;
-        boolean isEncrypted = cbc.encryptImage(origFile, encryptedFile, cbc.getVEAKey());
-        boolean isDecrypted = cbc.encryptImage(encryptedFile, recoveredFile, cbc.getVEAKey());
+        boolean isEncrypted = cbc.renderImage(origFile, encryptedFile, cbc.getVEAKey());
+        boolean isDecrypted = cbc.derenderImage(encryptedFile, recoveredFile, cbc.getVEAKey());
 
         boolean result = (isEncrypted && isDecrypted);
         assertEquals("Image encrypted and decrypted successfully! ", expected, result);

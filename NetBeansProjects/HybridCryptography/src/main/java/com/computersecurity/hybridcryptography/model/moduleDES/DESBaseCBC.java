@@ -5,7 +5,7 @@
  */
 package com.computersecurity.hybridcryptography.model.moduleDES;
 
-import static com.computersecurity.hybridcryptography.util.CryptoUtils.write;
+import static com.computersecurity.hybridcryptography.util.CryptoUtils.writeToFile;
 import java.io.File;
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -85,7 +85,7 @@ public class DESBaseCBC extends DESBase {
     public boolean encryptImageFile(File imageFile, File outputFile, SecretKey key) {
         try {
             cipher.init(Cipher.ENCRYPT_MODE, key, ivParamSpec);
-            write(cipher, imageFile, outputFile);
+            writeToFile(cipher, imageFile, outputFile);
             return true;
 
         } catch (InvalidKeyException |
@@ -104,7 +104,7 @@ public class DESBaseCBC extends DESBase {
         try {
 
             cipher.init(Cipher.DECRYPT_MODE, key, ivParamSpec);
-            write(cipher, imageFile, outputFile);
+            writeToFile(cipher, imageFile, outputFile);
             return true;
 
         } catch (InvalidKeyException |

@@ -87,6 +87,7 @@ public class HybridCryptoController implements Initializable {
     private final ToggleGroup bitLengthGroupRSA = new ToggleGroup();
     private final ToggleGroup modeGroupAlgo = new ToggleGroup();
     private final FileChooser fileChooser = new FileChooser();
+    private final ImageView encImageView = new ImageView();
 
     private final SimpleDoubleProperty widthProperty = new SimpleDoubleProperty();
     private final SimpleDoubleProperty heightProperty = new SimpleDoubleProperty();
@@ -98,7 +99,7 @@ public class HybridCryptoController implements Initializable {
     private final SimpleBooleanProperty isAllSubmittedProperty = new SimpleBooleanProperty();
 
     @FXML
-    private BorderPane imagePane, encDecPane;
+    private BorderPane imagePane, encDecPane, aliceEncPane;
 
     @FXML
     private ImageView origImageView;
@@ -155,7 +156,7 @@ public class HybridCryptoController implements Initializable {
     private Label encDecMessageLabel;
 
     @FXML
-    private Label encModeLabel, decModeLabel;
+    private Label encDecModeLabel;
 
     @FXML
     private Label invalidLabel;
@@ -260,8 +261,7 @@ public class HybridCryptoController implements Initializable {
         rbRSA2048.setUserData(2048);
         rbRSA2048.setToggleGroup(bitLengthGroupRSA);
 
-        encModeLabel.setText("ECB");
-        decModeLabel.setText("ECB");
+        encDecModeLabel.setText("ECB");
 
         dhGenBtnTooltip.setText(getText());
         modeGroupAlgo.selectedToggleProperty().addListener(modeToggleListener());
@@ -278,8 +278,6 @@ public class HybridCryptoController implements Initializable {
         encDecMessageLabel.textProperty().bind(encServiceDES.messageProperty());
         encDecProgressBar.visibleProperty().bind(encServiceDES.runningProperty());
         encDecProgressBar.progressProperty().bind(encServiceDES.progressProperty());
-
-        invalidLabel.visibleProperty().bind(encServiceDES.runningProperty().not());
 
         fileChooser.getExtensionFilters().addAll(
                 new ExtensionFilter("BMP files (*.bmp)", "*.bmp"),
@@ -633,9 +631,11 @@ public class HybridCryptoController implements Initializable {
      A method that is called after the task(s) is successfully completed
      */
     private void encDESSucceeded() {
-        /*
-         Currently no way to visualize an encrypted image file
-         */
+        //Currently no way to visualize an encrypted image file
+        if (aliceEncPane.getChildren().contains(encImageView)) {
+            aliceEncPane.getChildren().remove(encImageView);
+            aliceEncPane.setCenter(invalidLabel);
+        }
         invalidLabel.setVisible(true);
         encServiceDES.reset();
     }
@@ -652,10 +652,12 @@ public class HybridCryptoController implements Initializable {
      A method that is called after the task(s) is successfully completed
      */
     private void encVEASucceeded() {
-        /*
-         Currently no way to visualize an encrypted image file
-         */
-        invalidLabel.setVisible(true);
+        if (aliceEncPane.getChildren().contains(invalidLabel)) {
+            aliceEncPane.getChildren().remove(invalidLabel);
+            aliceEncPane.setCenter(encImageView);
+        }
+
+        encImageView.setImage(getImage(encServiceVEA.getOutputFile()));
         encServiceVEA.reset();
     }
 
@@ -667,12 +669,18 @@ public class HybridCryptoController implements Initializable {
         decServiceVEA.reset();
     }
 
+    /*
+    Unbinds property values
+     */
     private void unbindAll() {
         encDecMessageLabel.textProperty().unbind();
         encDecProgressBar.visibleProperty().unbind();
         encDecProgressBar.progressProperty().unbind();
     }
 
+    /*
+    Bind property values to a service
+     */
     private void bindAll(Service s) {
         encDecMessageLabel.textProperty().bind(s.messageProperty());
         encDecProgressBar.visibleProperty().bind(s.runningProperty());
@@ -692,22 +700,18 @@ public class HybridCryptoController implements Initializable {
 
                     DESBase desBase = (DESBase) newVal.getUserData();
                     if (desBase instanceof DESBaseECB) {
-                        encModeLabel.setText("DES_ECB");
-                        decModeLabel.setText("DES_ECB");
+                        encDecModeLabel.setText("DES_ECB");
                     } else {
-                        encModeLabel.setText("DES_CBC");
-                        decModeLabel.setText("DES_CBC");
+                        encDecModeLabel.setText("DES_CBC");
                     }
 
                 } else {
 
                     VEABase veaBase = (VEABase) newVal.getUserData();
                     if (veaBase instanceof VEABaseECB) {
-                        encModeLabel.setText("VEA_ECB");
-                        decModeLabel.setText("VEA_ECB");
+                        encDecModeLabel.setText("VEA_ECB");
                     } else {
-                        encModeLabel.setText("VEA_CBC");
-                        decModeLabel.setText("VEA_CBC");
+                        encDecModeLabel.setText("VEA_CBC");
                     }
                 }
             }

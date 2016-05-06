@@ -35,7 +35,7 @@ public class CryptoUtils {
         }
     }
 
-    public static void write(Cipher cipher, File imageFile, File outputFile)
+    public static void writeToFile(Cipher cipher, File imageFile, File outputFile)
             throws IOException, IllegalBlockSizeException, BadPaddingException {
 
         FileOutputStream fos;
@@ -45,7 +45,6 @@ public class CryptoUtils {
         int len;
         while ((len = fis.read(buffer)) > 0) {
             fos.write(cipher.update(buffer, 0, len));
-//            System.out.println(Arrays.toString(buffer));
             fos.flush();
         }
 
@@ -54,7 +53,7 @@ public class CryptoUtils {
 
     }
 
-    public static boolean writeImage(Cipher cipher, int rounds, File imageFile, File outputFile)
+    public static boolean renderToFile(Cipher cipher, int rounds, File imageFile, File outputFile)
             throws IOException, IllegalBlockSizeException, BadPaddingException {
 
         byte[] imageFileBytePath = Files.readAllBytes(imageFile.toPath());
@@ -82,7 +81,8 @@ public class CryptoUtils {
 
         }
         //Save to a bmp file
-        return ImageIO.write(bufImg, "jpg", new FileImageOutputStream(outputFile));
+        return ImageIO.write(bufImg, "png", new FileImageOutputStream(outputFile));
 
     }
+
 }

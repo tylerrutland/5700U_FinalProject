@@ -75,7 +75,7 @@ public class VEAEncryptionService extends Service<Boolean> {
                     ecb.setRounds(rounds);
 
                     return new VEABaseECBService(ecb)
-                            .encryptImageFile(imageFile, outputFile);
+                            .renderImage(imageFile, outputFile);
                 } else {
                     updateMessage("Encryption Successful");
                     Thread.sleep(1500);
@@ -84,7 +84,7 @@ public class VEAEncryptionService extends Service<Boolean> {
                     cbc.setRounds(rounds);
 
                     return new VEABaseCBCService(cbc)
-                            .encryptImageFile(imageFile, outputFile);
+                            .renderImage(imageFile, outputFile);
                 }
             }
         };

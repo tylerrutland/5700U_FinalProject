@@ -20,6 +20,14 @@ public class VEABaseECBService {
         this.ecb = ecb;
     }
 
+    public boolean renderImage(File imageFile, File outputFile) {
+        return ecb.encryptImageFile(imageFile, outputFile, ecb.getVEAKey());
+    }
+
+    public boolean derenderImage(File imageFile, File outputFile) {
+        return ecb.decryptImageFile(imageFile, outputFile, ecb.getVEAKey());
+    }
+
     public boolean encryptImageFile(File imageFile, File outputFile) {
         return ecb.encryptImageFile(imageFile, outputFile, ecb.getVEAKey());
     }
